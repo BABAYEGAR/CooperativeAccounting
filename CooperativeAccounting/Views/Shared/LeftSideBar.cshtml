@@ -1,0 +1,67 @@
+﻿@{
+    
+}
+<!-- Left navbar-header -->
+<div class="navbar-default sidebar" role="navigation">
+    <div class="sidebar-nav navbar-collapse slimscrollsidebar">
+        <ul class="nav" id="side-menu">
+            <li class="user-pro">
+                <a href="#" class="waves-effect">
+                    <img src="~/Dashboard/plugins/images/users/varun.jpg" alt="user-img" class="img-circle"> <span class="hide-menu"> Steve Gection<span class="fa arrow"></span></span>
+                </a>
+                <ul class="nav nav-second-level">
+                    <li><a href="@Url.Action("Profile", "Account")"><i class="ti-user"></i> My Profile & Settings</a></li>
+                    <li><a href="@Url.Action("LogOut", "Account")"><i class="fa fa-power-off"></i> Logout</a></li>
+                </ul>
+            </li>
+            <li class="nav-small-cap m-t-10">--Main Menu</li>
+            <li>
+                <a href="@Url.Action("Dashboard", "Home")" class="waves-effect active"><i class="linea-icon linea-basic fa-fw fa fa-dashboard"></i> <span class="hide-menu"> Dashboard</span></a>
+            </li>
+            <li><a class="waves-effect"><i class="linea-icon linea-basic fa-fw fa fa-users"></i> <span class="hide-menu">Users <span class="fa arrow"></span></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="@Url.Action("Index", "AppUser")">New User</a></li>
+                    <li><a href="@Url.Action("Index", "AppUser")">Users</a></li>
+                    <li><a href="@Url.Action("Index", "AppUser")">Access Logs</a></li>
+                </ul>
+            </li>
+            <li><a class="waves-effect"><i class="linea-icon linea-basic fa-fw fa fa-lock"></i> <span class="hide-menu">Role & Permissions <span class="fa arrow"></span></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="@Url.Action("Create", "Role")">Add Role</a></li>
+                    <li><a href="@Url.Action("Index", "Role")">Roles</a></li>
+                </ul>
+            </li>
+            <li><a class="waves-effect"><i class="linea-icon linea-basic fa-fw fa fa-briefcase"></i> <span class="hide-menu">Boxes <span class="fa arrow"></span></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="@Url.Action("Create", "Box")">Add Box</a></li>
+                    <li><a href="@Url.Action("Index", "Box")">Boxes</a></li>
+                </ul>
+            </li>
+            <li><a class="waves-effect"><i class="linea-icon linea-basic fa-fw fa fa-list"></i> <span class="hide-menu">Box Types <span class="fa arrow"></span></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="@Url.Action("Create", "Box")">Add Box Type</a></li>
+                    <li><a href="@Url.Action("Index", "Box")">Box Types</a></li>
+                </ul>
+            </li>
+            <li><a class="waves-effect"><i class="linea-icon linea-basic fa-fw fa fa-list"></i> <span class="hide-menu">Box Services <span class="fa arrow"></span></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="@Url.Action("Create", "Service")">Add Box Service</a></li>
+                    <li><a href="@Url.Action("Index", "Service")">Box Services</a></li>
+                </ul>
+            </li>
+            <li><a class="waves-effect"><i class="linea-icon linea-basic fa-fw fa fa-tags"></i> <span class="hide-menu">Box Tags <span class="fa arrow"></span></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="@Url.Action("Create", "Tag")">Add Box Tags</a></li>
+                    <li><a href="@Url.Action("Index", "Tag")">Box Tags</a></li>
+                </ul>
+            </li>
+            <li><a class="waves-effect"><i class="linea-icon linea-basic fa-fw fa fa-paint-brush"></i> <span class="hide-menu">Tag Colors <span class="fa arrow"></span></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="@Url.Action("Create", "TagColor")">Add Tag Color</a></li>
+                    <li><a href="@Url.Action("Index", "TagColor")">Tag Colors</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- Left navbar-header end -->
