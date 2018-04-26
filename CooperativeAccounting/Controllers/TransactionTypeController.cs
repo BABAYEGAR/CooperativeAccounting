@@ -32,6 +32,8 @@ namespace CooperativeAccounting.Controllers
         {
             return View();
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(TransactionType accountType)
         {
             var signedInUserId = HttpContext.Session.GetInt32("LoggedInUser");
@@ -49,6 +51,8 @@ namespace CooperativeAccounting.Controllers
         {
             return View();
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit(TransactionType accountType)
         {
             var signedInUserId = HttpContext.Session.GetInt32("LoggedInUser");
