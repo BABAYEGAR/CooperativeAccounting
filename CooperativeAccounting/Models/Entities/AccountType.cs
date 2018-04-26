@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 
 namespace CooperativeAccounting.Models.Entities
 {
-    public class AccountTitle : Transport
+    public class AccountType : Transport
     {
-        public long AccountTitleId { get; set; }
+        public long AccountTypeId { get; set; }
         public string Name { get; set; }
+        public bool IncreaseCredit { get; set; }
+        public bool IncreaseDebit { get; set; }
     }
 }

@@ -7,15 +7,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CooperativeAccounting.Controllers
 {
-    public class RoleController : Controller
+    public class AccountTypeController : Controller
     {
+
         private readonly CooperativeAccountingDataContext _databaseConnection;
 
         /// <summary>
         ///     Intitialize some connections from the class constructor
         /// </summary>
         /// <param name="databaseConnection"></param>
-        public RoleController(CooperativeAccountingDataContext databaseConnection)
+        public AccountTypeController(CooperativeAccountingDataContext databaseConnection)
         {
             _databaseConnection = databaseConnection;
         }

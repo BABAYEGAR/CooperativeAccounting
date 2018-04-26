@@ -5,11 +5,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CooperativeAccounting.Models;
+using CooperativeAccounting.Models.DataBaseConnections;
 
 namespace CooperativeAccounting.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly CooperativeAccountingDataContext _databaseConnection;
+
+        /// <summary>
+        ///     Intitialize some connections from the class constructor
+        /// </summary>
+        /// <param name="databaseConnection"></param>
+        public HomeController(CooperativeAccountingDataContext databaseConnection)
+        {
+            _databaseConnection = databaseConnection;
+        }
         public IActionResult Index()
         {
             return View();

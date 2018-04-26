@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CooperativeAccounting.Controllers
 {
-    public class TrialBalanceController : Controller
+    public class TransactionController : Controller
     {
         public IActionResult Index()
         {
