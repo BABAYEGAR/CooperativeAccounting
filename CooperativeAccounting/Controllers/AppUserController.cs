@@ -33,11 +33,20 @@ namespace CooperativeAccounting.Controllers
         }
         public IActionResult Create(AppUser appUser)
         {
+
             var signedInUserId = HttpContext.Session.GetInt32("LoggedInUser");
             appUser.CreatedBy = signedInUserId;
             appUser.LastModifiedBy = signedInUserId;
             appUser.DateCreated = DateTime.Now;
             appUser.DateLastModified = DateTime.Now;
+
+            //generate password
+            var generator = new Random();
+            var number = generator.Next(0, 1000000).ToString("D6");
+
+            appUser.Password = number;
+            appUser.ConfirmPassword = number;
+
             _databaseConnection.AppUsers.Add(appUser);
             _databaseConnection.SaveChanges();
             TempData["display"] = "You have successfully added a new member!";

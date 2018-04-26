@@ -48,6 +48,17 @@ namespace CooperativeAccounting.Controllers
             transaction.LastModifiedBy = signedInUserId;
             transaction.DateCreated = DateTime.Now;
             transaction.DateLastModified = DateTime.Now;
+
+            var accountType = _databaseConnection.AccountTypes.Find(transaction.AccountTypeId);
+            if (accountType.Cash)
+            {
+                //generate Voucher Number
+                var generator = new Random();
+                var number = generator.Next(0, 1000000).ToString("D8");
+
+                transaction.VoucherNumber = "CRP-" + number;
+            }
+
             _databaseConnection.Transactions.Add(transaction);
             _databaseConnection.SaveChanges();
             TempData["display"] = "You have successfully added a new transaction!";
