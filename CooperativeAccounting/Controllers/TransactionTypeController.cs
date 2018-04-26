@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CooperativeAccounting.Controllers
 {
-    public class AccountTypeController : Controller
+    public class TransactionTypeController : Controller
     {
 
         private readonly CooperativeAccountingDataContext _databaseConnection;
@@ -20,7 +20,7 @@ namespace CooperativeAccounting.Controllers
         ///     Intitialize some connections from the class constructor
         /// </summary>
         /// <param name="databaseConnection"></param>
-        public AccountTypeController(CooperativeAccountingDataContext databaseConnection)
+        public TransactionTypeController(CooperativeAccountingDataContext databaseConnection)
         {
             _databaseConnection = databaseConnection;
         }
@@ -32,7 +32,7 @@ namespace CooperativeAccounting.Controllers
         {
             return View();
         }
-        public IActionResult Create(AccountType accountType)
+        public IActionResult Create(TransactionType accountType)
         {
             var signedInUserId = HttpContext.Session.GetInt32("LoggedInUser");
             accountType.CreatedBy = signedInUserId;
@@ -49,7 +49,7 @@ namespace CooperativeAccounting.Controllers
         {
             return View();
         }
-        public IActionResult Edit(AccountType accountType)
+        public IActionResult Edit(TransactionType accountType)
         {
             var signedInUserId = HttpContext.Session.GetInt32("LoggedInUser");
             accountType.LastModifiedBy = signedInUserId;

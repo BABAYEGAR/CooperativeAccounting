@@ -1,14 +1,14 @@
-﻿@model Pif.Models.Entities.BoxType
+﻿@model CooperativeAccounting.Models.Entities.TransactionType
 @{
-    Layout = "_LayoutDashboard";
+    Layout = "_Layout";
 }
 <div class="row bg-title">
     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-        <h4 class="page-title">Manage Box Type(s)</h4> </div>
+        <h4 class="page-title">Manage Transaction Type(s)</h4> </div>
     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
         <ol class="breadcrumb">
-            <li><a href="#">Box Types</a></li>
-            <li><a href="#">Add Box Types</a></li>
+            <li><a href="#">Transaction Types</a></li>
+            <li><a href="#">Add Transaction Types</a></li>
         </ol>
     </div>
     <!-- /.col-lg-12 -->
@@ -16,22 +16,22 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="white-box">
-            <h3 class="box-title m-b-0">Add Box Type(s)</h3>
-            <p class="text-muted m-b-30 font-13">Create Box Types so that they can be attached to boxes</p>
-            @using (Html.BeginForm("Create", "BoxType", FormMethod.Post, new {enctype = "multipart/form-data", role = "form"}))
+            <h3 class="box-title m-b-0">Add Transaction Type(s)</h3>
+            <p class="text-muted m-b-30 font-13">Create Transaction Types</p>
+            @using (Html.BeginForm("Create", "TransactionType", FormMethod.Post, new {enctype = "multipart/form-data", role = "form"}))
             {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true, "", new {@class = "text-danger"})
                 <div class="form-group row">
                     @Html.LabelFor(model => model.Name, new {@class = "col-2 col-form-label"})
                     <div class="col-10">
-                        @Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control", placeholder = "Please enter the Box Type name" } })
+                        @Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control", placeholder = "Please enter the Box Transaction Type Name" } })
                         @Html.ValidationMessageFor(model => model.Name, "", new {@class = "text-danger"})
                     </div>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">Submit</button>
-                    <a href="@Url.Action("Index", "BoxType")" class="btn btn-default">Cancel</a>
+                    <a href="@Url.Action("Index", "TransactionType")" class="btn btn-default">Cancel</a>
                 </div>
             }
         </div>

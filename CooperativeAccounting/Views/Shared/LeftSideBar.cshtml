@@ -18,11 +18,10 @@
             <li>
                 <a href="@Url.Action("Dashboard", "Home")" class="waves-effect active"><i class="linea-icon linea-basic fa-fw fa fa-dashboard"></i> <span class="hide-menu"> Dashboard</span></a>
             </li>
-            <li><a class="waves-effect"><i class="linea-icon linea-basic fa-fw fa fa-users"></i> <span class="hide-menu">Users <span class="fa arrow"></span></span></a>
+            <li><a class="waves-effect"><i class="linea-icon linea-basic fa-fw fa fa-users"></i> <span class="hide-menu">Members <span class="fa arrow"></span></span></a>
                 <ul class="nav nav-second-level">
-                    <li><a href="@Url.Action("Index", "AppUser")">New User</a></li>
-                    <li><a href="@Url.Action("Index", "AppUser")">Users</a></li>
-                    <li><a href="@Url.Action("Index", "AppUser")">Access Logs</a></li>
+                    <li><a href="@Url.Action("Index", "AppUser")">New Member</a></li>
+                    <li><a href="@Url.Action("Index", "AppUser")">Members</a></li>
                 </ul>
             </li>
             <li><a class="waves-effect"><i class="linea-icon linea-basic fa-fw fa fa-lock"></i> <span class="hide-menu">Role & Permissions <span class="fa arrow"></span></span></a>
@@ -31,34 +30,19 @@
                     <li><a href="@Url.Action("Index", "Role")">Roles</a></li>
                 </ul>
             </li>
-            <li><a class="waves-effect"><i class="linea-icon linea-basic fa-fw fa fa-briefcase"></i> <span class="hide-menu">Boxes <span class="fa arrow"></span></span></a>
+            <li><a class="waves-effect"><i class="linea-icon linea-basic fa-fw fa fa-bank"></i> <span class="hide-menu">Transactions <span class="fa arrow"></span></span></a>
                 <ul class="nav nav-second-level">
-                    <li><a href="@Url.Action("Create", "Box")">Add Box</a></li>
-                    <li><a href="@Url.Action("Index", "Box")">Boxes</a></li>
+                    <li><a href="@Url.Action("Create", "Transaction")">Add Transaction</a></li>
+                    <li><a href="@Url.Action("Index", "Transaction")">All Transactions</a></li>
+                    <li><a href="@Url.Action("BalanceSheet", "Transaction")">Balance Sheet</a></li>
+                    <li><a href="@Url.Action("CashBook", "Transaction")">Cash Book</a></li>
+                    <li><a href="@Url.Action("TrialBalance", "Transaction")">All Transactions</a></li>
                 </ul>
             </li>
-            <li><a class="waves-effect"><i class="linea-icon linea-basic fa-fw fa fa-list"></i> <span class="hide-menu">Box Types <span class="fa arrow"></span></span></a>
+            <li><a class="waves-effect"><i class="linea-icon linea-basic fa-fw fa fa-list"></i> <span class="hide-menu">Transaction Types <span class="fa arrow"></span></span></a>
                 <ul class="nav nav-second-level">
-                    <li><a href="@Url.Action("Create", "Box")">Add Box Type</a></li>
-                    <li><a href="@Url.Action("Index", "Box")">Box Types</a></li>
-                </ul>
-            </li>
-            <li><a class="waves-effect"><i class="linea-icon linea-basic fa-fw fa fa-list"></i> <span class="hide-menu">Box Services <span class="fa arrow"></span></span></a>
-                <ul class="nav nav-second-level">
-                    <li><a href="@Url.Action("Create", "Service")">Add Box Service</a></li>
-                    <li><a href="@Url.Action("Index", "Service")">Box Services</a></li>
-                </ul>
-            </li>
-            <li><a class="waves-effect"><i class="linea-icon linea-basic fa-fw fa fa-tags"></i> <span class="hide-menu">Box Tags <span class="fa arrow"></span></span></a>
-                <ul class="nav nav-second-level">
-                    <li><a href="@Url.Action("Create", "Tag")">Add Box Tags</a></li>
-                    <li><a href="@Url.Action("Index", "Tag")">Box Tags</a></li>
-                </ul>
-            </li>
-            <li><a class="waves-effect"><i class="linea-icon linea-basic fa-fw fa fa-paint-brush"></i> <span class="hide-menu">Tag Colors <span class="fa arrow"></span></span></a>
-                <ul class="nav nav-second-level">
-                    <li><a href="@Url.Action("Create", "TagColor")">Add Tag Color</a></li>
-                    <li><a href="@Url.Action("Index", "TagColor")">Tag Colors</a></li>
+                    <li><a href="@Url.Action("Create", "TransactionType")">Add Transaction Type</a></li>
+                    <li><a href="@Url.Action("Index", "TransactionType")">Transaction Types</a></li>
                 </ul>
             </li>
         </ul>

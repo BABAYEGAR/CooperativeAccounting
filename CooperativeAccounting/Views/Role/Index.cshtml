@@ -1,4 +1,4 @@
-﻿@model List<CooperativeAccounting.Models.Entities.Transaction>
+﻿@model List<CooperativeAccounting.Models.Entities.Role>
 @{
     Layout = "_Layout";
 
@@ -18,15 +18,15 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="myModalLabel1">Delete Transaction</h4>
-            </div>@using (Html.BeginForm("Delete", "Transaction"))
+                <h4 class="modal-title" id="myModalLabel1">Delete Role</h4>
+            </div>@using (Html.BeginForm("Delete", "Role"))
             {
                 <input type="hidden" id="id" name="id" />
                 <div class="modal-body">
 
                     @Html.AntiForgeryToken()
                     <p>
-                        Are you sure you want to delete the Transaction?
+                        Are you sure you want to delete the Role?
                     </p>
 
                 </div>
@@ -42,12 +42,11 @@
 
 <div class="row bg-title">
     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-        <h4 class="page-title">Manage Transaction(s)</h4>
+        <h4 class="page-title">Manage Role(s)</h4>
     </div>
     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
         <ol class="breadcrumb">
-            <li><a href="#">Transactions</a></li>
-            <li><a href="#">Add Transaction</a></li>
+            <li><a href="#">Roles</a></li>
         </ol>
     </div>
     <!-- /.col-lg-12 -->
@@ -55,7 +54,7 @@
 <div class="row">
     <div class="col-md-6">
         <div class="btn-group">
-            <a href="@Url.Action("Create", "Transaction")" class="btn btn-primary" data-toggle="tooltip" title="Add New Transaction">
+            <a href="@Url.Action("Create", "Role")" class="btn btn-primary" data-toggle="tooltip" title="Add New Role">
                 Add New
                 <i class="fa fa-plus"></i>
             </a>
@@ -66,18 +65,14 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="white-box">
-            <h3 class="box-title m-b-0">List of all Transactions</h3>
+            <h3 class="box-title m-b-0">List of all Roles</h3>
             <p class="text-muted m-b-30">Export data to Copy, CSV, Excel, PDF & Print</p>
             <div class="table-responsive">
                 <table id="example23" class="display nowrap" cellspacing="0" width="100%">
                     <thead>
                     <tr>
                         <th>S/N</th>
-                        <th>Transaction Date</th>
-                        <th>Transaction Item/Name</th>
-                        <th>Member</th>
-                        <th>Account Type</th>
-                        <th>Amount</th>
+                        <th>Name</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -88,12 +83,7 @@
                          {
                              <tr>
                                  <td></td>
-                                 <td>@item.TransactionDate</td>
-                                 <td>@item.TransactionName</td>
-                                 <td>@item.AppUser.Name</td>
-                                 <td>@item.AccountType.Name</td>
-                                 <td>@item.Amount</td>
-                            
+                                 <td>@item.Name</td>
                                  <td class="text-center">
                                      <div class="btn-group">
                                          <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
@@ -102,13 +92,13 @@
                                          </button>
                                          <ul class="dropdown-menu pull-right" role="menu">
                                              <li>
-                                                 <a href="@Url.Action("Edit", "Transaction", new {id = item.TransactionId})" data-toggle="tooltip" title="View Deatils & Edit the Transaction">
-                                                     <i class="icon-docs"></i>View Details & Edit Transaction
+                                                 <a href="@Url.Action("Edit", "Role", new {id = item.RoleId})" data-toggle="tooltip" title="View Deatils & Edit the Transaction Type">
+                                                     <i class="icon-docs"></i>View Details & Edit Role
                                                  </a>
                                              </li>
                                              <li>
-                                                 <a href="#" data-toggle="tooltip" title="Delete the Transaction" data-id="@item.TransactionId" data-toggle="modal" class="loadModal3">
-                                                     <i class="icon-tag"></i>Delete Transaction
+                                                 <a href="#" data-toggle="tooltip" title="Delete the Role" data-id="@item.RoleId" data-toggle="modal" class="loadModal3">
+                                                     <i class="icon-tag"></i>Delete Role
                                                  </a>
                                              </li>
                                          </ul>

@@ -7,10 +7,10 @@ namespace CooperativeAccounting.Models.Entities
     public class Transaction : Transport
     {
         public long TransactionId { get; set; }
-        [DisplayName("Account Type")]
-        public long AccountTypeId { get; set; }
-        [ForeignKey("AccountTypeId")]
-        public AccountType AccountType { get; set; }
+        [DisplayName("Transaction Type")]
+        public long TransactionTypeId { get; set; }
+        [ForeignKey("TransactionTypeId")]
+        public TransactionType TransactionType { get; set; }
         [DisplayName("Transaction Name/Item")]
         public string TransactionName { get; set; }
         public double Amount { get; set; }

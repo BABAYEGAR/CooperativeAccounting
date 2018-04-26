@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Text;
+using BCrypt.Net;
 
 namespace CooperativeAccounting.Models.Encryption
 {

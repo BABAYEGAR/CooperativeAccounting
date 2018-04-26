@@ -29,13 +29,18 @@ namespace CooperativeAccounting.Controllers
         }
         public IActionResult CashBook()
         {
-            return View(_databaseConnection.Transactions.Include(n=>n.AccountType).Include(n => n.AccountType)
-                .ToList().Where(n=>n.AccountType.Cash));
+            return View(_databaseConnection.Transactions.Include(n=>n.TransactionType)
+                .ToList().Where(n=>n.TransactionType.Cash).ToList());
         }
         public IActionResult TrialBalance()
         {
-            return View(_databaseConnection.Transactions.Include(n => n.AccountType).Include(n => n.AccountType)
-                .ToList().Where(n => n.AccountType.Cash));
+            return View(_databaseConnection.Transactions.Include(n => n.TransactionType)
+                .ToList().Where(n => n.TransactionType.Cash).ToList());
+        }
+        public IActionResult BalanceSheet()
+        {
+            return View(_databaseConnection.Transactions.Include(n => n.TransactionType)
+                .ToList().Where(n => n.TransactionType.Asset || n.TransactionType.Equity || n.TransactionType.Liability).ToList());
         }
         public IActionResult Create()
         {
@@ -49,7 +54,7 @@ namespace CooperativeAccounting.Controllers
             transaction.DateCreated = DateTime.Now;
             transaction.DateLastModified = DateTime.Now;
 
-            var accountType = _databaseConnection.AccountTypes.Find(transaction.AccountTypeId);
+            var accountType = _databaseConnection.AccountTypes.Find(transaction.TransactionTypeId);
             if (accountType.Cash)
             {
                 //generate Voucher Number

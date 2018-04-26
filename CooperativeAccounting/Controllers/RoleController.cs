@@ -31,6 +31,7 @@ namespace CooperativeAccounting.Controllers
         {
             return View();
         }
+        [HttpPost]
         public IActionResult Create(Role role)
         {
             var signedInUserId = HttpContext.Session.GetInt32("LoggedInUser");

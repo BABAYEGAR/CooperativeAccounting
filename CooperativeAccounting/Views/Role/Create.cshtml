@@ -1,0 +1,81 @@
+﻿@model CooperativeAccounting.Models.Entities.Role
+@{
+    Layout = "_Layout";
+}
+<div class="row bg-title">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h4 class="page-title">Manage Role(s)</h4>
+    </div>
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li>
+                <a href="#">Roles</a>
+            </li>
+            <li>
+                <a href="#">Add Roles</a>
+            </li>
+        </ol>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            <h3 class="box-title m-b-0">Add Role(s)</h3>
+            <p class="text-muted m-b-30 font-13">Create Roles</p>
+            @using (Html.BeginForm("Create", "Role", FormMethod.Post, new {enctype = "multipart/form-data", role = "form"}))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Name, new {@class = "col-2 col-form-label"})
+                    <div class="col-10">
+                        @Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control", placeholder = "Please enter the Role Name"}})
+                        @Html.ValidationMessageFor(model => model.Name, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+                <div class="form-group row col-md-12">
+                    <div class="form-check">
+                        <label class="custom-control custom-checkbox">
+                            @Html.CheckBoxFor(model => model.ManageMembers, new {@class = "custom-control-input"})
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Manage Members</span>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <label class="custom-control custom-checkbox">
+                            @Html.CheckBoxFor(model => model.ManageMemberRoles,new {@class = "custom-control-input"})
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Manage Members Roles</span>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <label class="custom-control custom-checkbox">
+                            @Html.CheckBoxFor(model => model.ManageAllTransaction, new {@class = "custom-control-input"})
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Manage All Transactions</span>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <label class="custom-control custom-checkbox">
+                            @Html.CheckBoxFor(model => model.ManageMemberTransaction,  new {@class = "custom-control-input"})
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Manage Members Transactions</span>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <label class="custom-control custom-checkbox">
+                            @Html.CheckBoxFor(model => model.ManageTransactionType, new {@class = "custom-control-input"})
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Manage Transaction Type</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a href="@Url.Action("Index", "Role")" class="btn btn-default">Cancel</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
