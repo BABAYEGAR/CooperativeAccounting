@@ -46,9 +46,10 @@ namespace CooperativeAccounting.Controllers
             TempData["notificationtype"] = NotificationType.Success.ToString();
             return RedirectToAction("Index");
         }
-        public IActionResult Edit()
+        public IActionResult Edit(long id)
         {
-            return View();
+            var role = _databaseConnection.Roles.Find(id);
+            return View(role);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

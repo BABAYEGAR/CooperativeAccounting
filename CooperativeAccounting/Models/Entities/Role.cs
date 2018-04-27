@@ -1,8 +1,11 @@
-﻿namespace CooperativeAccounting.Models.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CooperativeAccounting.Models.Entities
 {
     public class Role : Transport
     {
         public long RoleId { get; set; }
+        [Required]
         public string Name { get; set; }
         public bool ManageMembers { get; set; }
         public bool ManageMemberTransaction { get; set; }

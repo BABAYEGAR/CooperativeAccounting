@@ -7,6 +7,7 @@ using CooperativeAccounting.Models.Entities;
 using CooperativeAccounting.Models.Enum;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace CooperativeAccounting.Controllers
@@ -44,6 +45,10 @@ namespace CooperativeAccounting.Controllers
         }
         public IActionResult Create()
         {
+            ViewBag.AppUserId = new SelectList(_databaseConnection.AppUsers.ToList(), "AppUserId",
+                "Name");
+            ViewBag.TransactionTypeId = new SelectList(_databaseConnection.TransactionTypes.ToList(), "TransactionTypeId",
+                "Name");
             return View();
         }
         [HttpPost]
@@ -56,7 +61,7 @@ namespace CooperativeAccounting.Controllers
             transaction.DateCreated = DateTime.Now;
             transaction.DateLastModified = DateTime.Now;
 
-            var accountType = _databaseConnection.AccountTypes.Find(transaction.TransactionTypeId);
+            var accountType = _databaseConnection.TransactionTypes.Find(transaction.TransactionTypeId);
             if (accountType.Cash)
             {
                 //generate Voucher Number
@@ -66,15 +71,28 @@ namespace CooperativeAccounting.Controllers
                 transaction.VoucherNumber = "CRP-" + number;
             }
 
+            if (accountType.Debit)
+            {
+                transaction.Action = TransactionAction.Debit.ToString();
+            }
+            if (accountType.Credit)
+            {
+                transaction.Action = TransactionAction.Credit.ToString();
+            }
             _databaseConnection.Transactions.Add(transaction);
             _databaseConnection.SaveChanges();
             TempData["display"] = "You have successfully added a new transaction!";
             TempData["notificationtype"] = NotificationType.Success.ToString();
             return RedirectToAction("Index");
         }
-        public IActionResult Edit()
+        public IActionResult Edit(long id)
         {
-            return View();
+            var transaction = _databaseConnection.Transactions.Find(id);
+            ViewBag.AppUserId = new SelectList(_databaseConnection.AppUsers.ToList(), "AppUserId",
+                "Name",transaction.AppUserId);
+            ViewBag.TransactionTypeId = new SelectList(_databaseConnection.TransactionTypes.ToList(), "TransactionTypeId",
+                "Name",transaction.TransactionTypeId);
+            return View(transaction);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -83,6 +101,16 @@ namespace CooperativeAccounting.Controllers
             var signedInUserId = HttpContext.Session.GetInt32("LoggedInUser");
             transaction.LastModifiedBy = signedInUserId;
             transaction.DateLastModified = DateTime.Now;
+
+            var accountType = _databaseConnection.TransactionTypes.Find(transaction.TransactionTypeId);
+            if (accountType.Debit)
+            {
+                transaction.Action = TransactionAction.Debit.ToString();
+            }
+            if (accountType.Credit)
+            {
+                transaction.Action = TransactionAction.Credit.ToString();
+            }
             _databaseConnection.Entry(transaction).State = EntityState.Modified;
             _databaseConnection.SaveChanges();
             TempData["display"] = "You have successfully modified the transaction!";

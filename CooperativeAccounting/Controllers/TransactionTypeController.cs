@@ -26,7 +26,7 @@ namespace CooperativeAccounting.Controllers
         }
         public IActionResult Index()
         {
-            return View(_databaseConnection.AccountTypes.ToList());
+            return View(_databaseConnection.TransactionTypes.ToList());
         }
         public IActionResult Create()
         {
@@ -34,31 +34,32 @@ namespace CooperativeAccounting.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(TransactionType accountType)
+        public IActionResult Create(TransactionType transactionType)
         {
             var signedInUserId = HttpContext.Session.GetInt32("LoggedInUser");
-            accountType.CreatedBy = signedInUserId;
-            accountType.LastModifiedBy = signedInUserId;
-            accountType.DateCreated = DateTime.Now;
-            accountType.DateLastModified = DateTime.Now;
-            _databaseConnection.AccountTypes.Add(accountType);
+            transactionType.CreatedBy = signedInUserId;
+            transactionType.LastModifiedBy = signedInUserId;
+            transactionType.DateCreated = DateTime.Now;
+            transactionType.DateLastModified = DateTime.Now;
+            _databaseConnection.TransactionTypes.Add(transactionType);
             _databaseConnection.SaveChanges();
-            TempData["display"] = "You have successfully added a new Account Type!";
+            TempData["display"] = "You have successfully added a new Transaction Type!";
             TempData["notificationtype"] = NotificationType.Success.ToString();
             return RedirectToAction("Index");
         }
-        public IActionResult Edit()
+        public IActionResult Edit(long id)
         {
-            return View();
+            var transactionType = _databaseConnection.TransactionTypes.Find(id);
+            return View(transactionType);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(TransactionType accountType)
+        public IActionResult Edit(TransactionType transactionType)
         {
             var signedInUserId = HttpContext.Session.GetInt32("LoggedInUser");
-            accountType.LastModifiedBy = signedInUserId;
-            accountType.DateLastModified = DateTime.Now;
-            _databaseConnection.Entry(accountType).State = EntityState.Modified;
+            transactionType.LastModifiedBy = signedInUserId;
+            transactionType.DateLastModified = DateTime.Now;
+            _databaseConnection.Entry(transactionType).State = EntityState.Modified;
             _databaseConnection.SaveChanges();
             TempData["display"] = "You have successfully modified the Account Type!";
             TempData["notificationtype"] = NotificationType.Success.ToString();
@@ -68,8 +69,8 @@ namespace CooperativeAccounting.Controllers
         {
             try
             {
-                var boxType = _databaseConnection.AccountTypes.Find(id);
-                _databaseConnection.AccountTypes.Remove(boxType);
+                var transactionType = _databaseConnection.TransactionTypes.Find(id);
+                _databaseConnection.TransactionTypes.Remove(transactionType);
                 _databaseConnection.SaveChanges();
                 TempData["display"] = "You have successfully deleted the Account Type!";
                 TempData["notificationtype"] = NotificationType.Success.ToString();

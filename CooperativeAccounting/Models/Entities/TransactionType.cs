@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace CooperativeAccounting.Models.Entities
 {
     public class TransactionType : Transport
     {
         public long TransactionTypeId { get; set; }
+        [Required]
         public string Name { get; set; }
         [DisplayName("Credit Transaction?")]
         public bool Credit { get; set; }

@@ -10,29 +10,6 @@ namespace CooperativeAccounting.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AccountTypes",
-                columns: table => new
-                {
-                    TransactionTypeId = table.Column<long>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Asset = table.Column<bool>(nullable: false),
-                    Cash = table.Column<bool>(nullable: false),
-                    CreatedBy = table.Column<long>(nullable: true),
-                    Credit = table.Column<bool>(nullable: false),
-                    DateCreated = table.Column<DateTime>(nullable: false),
-                    DateLastModified = table.Column<DateTime>(nullable: false),
-                    Debit = table.Column<bool>(nullable: false),
-                    Equity = table.Column<bool>(nullable: false),
-                    LastModifiedBy = table.Column<long>(nullable: true),
-                    Liability = table.Column<bool>(nullable: false),
-                    Name = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AccountTypes", x => x.TransactionTypeId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Roles",
                 columns: table => new
                 {
@@ -47,11 +24,34 @@ namespace CooperativeAccounting.Migrations
                     ManageMemberTransaction = table.Column<bool>(nullable: false),
                     ManageMembers = table.Column<bool>(nullable: false),
                     ManageTransactionType = table.Column<bool>(nullable: false),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Roles", x => x.RoleId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TransactionTypes",
+                columns: table => new
+                {
+                    TransactionTypeId = table.Column<long>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Asset = table.Column<bool>(nullable: false),
+                    Cash = table.Column<bool>(nullable: false),
+                    CreatedBy = table.Column<long>(nullable: true),
+                    Credit = table.Column<bool>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    DateLastModified = table.Column<DateTime>(nullable: false),
+                    Debit = table.Column<bool>(nullable: false),
+                    Equity = table.Column<bool>(nullable: false),
+                    LastModifiedBy = table.Column<long>(nullable: true),
+                    Liability = table.Column<bool>(nullable: false),
+                    Name = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TransactionTypes", x => x.TransactionTypeId);
                 });
 
             migrationBuilder.CreateTable(
@@ -102,8 +102,8 @@ namespace CooperativeAccounting.Migrations
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateLastModified = table.Column<DateTime>(nullable: false),
                     LastModifiedBy = table.Column<long>(nullable: true),
-                    TransactionDate = table.Column<DateTime>(nullable: true),
-                    TransactionName = table.Column<string>(nullable: true),
+                    TransactionDate = table.Column<DateTime>(nullable: false),
+                    TransactionName = table.Column<string>(nullable: false),
                     TransactionTypeId = table.Column<long>(nullable: false),
                     VoucherNumber = table.Column<string>(nullable: true)
                 },
@@ -117,9 +117,9 @@ namespace CooperativeAccounting.Migrations
                         principalColumn: "AppUserId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Transactions_AccountTypes_TransactionTypeId",
+                        name: "FK_Transactions_TransactionTypes_TransactionTypeId",
                         column: x => x.TransactionTypeId,
-                        principalTable: "AccountTypes",
+                        principalTable: "TransactionTypes",
                         principalColumn: "TransactionTypeId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -149,7 +149,7 @@ namespace CooperativeAccounting.Migrations
                 name: "AppUsers");
 
             migrationBuilder.DropTable(
-                name: "AccountTypes");
+                name: "TransactionTypes");
 
             migrationBuilder.DropTable(
                 name: "Roles");

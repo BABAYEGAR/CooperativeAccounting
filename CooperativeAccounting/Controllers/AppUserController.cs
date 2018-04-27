@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CooperativeAccounting.Models.DataBaseConnections;
+using CooperativeAccounting.Models.Encryption;
 using CooperativeAccounting.Models.Entities;
 using CooperativeAccounting.Models.Enum;
 using Microsoft.AspNetCore.Http;
@@ -41,23 +42,31 @@ namespace CooperativeAccounting.Controllers
             appUser.LastModifiedBy = signedInUserId;
             appUser.DateCreated = DateTime.Now;
             appUser.DateLastModified = DateTime.Now;
+            appUser.RoleId = 2;
 
             //generate password
             var generator = new Random();
             var number = generator.Next(0, 1000000).ToString("D6");
 
-            appUser.Password = number;
-            appUser.ConfirmPassword = number;
+            appUser.Password = new Hashing().HashPassword(number);
+            appUser.ConfirmPassword = appUser.Password;
 
+            if (_databaseConnection.AppUsers.Where(n => n.Email == appUser.Email).ToList().Count > 0)
+            {
+                TempData["display"] = "A member with the same email already exist!";
+                TempData["notificationtype"] = NotificationType.Error.ToString();
+                return View(appUser);
+            }
             _databaseConnection.AppUsers.Add(appUser);
             _databaseConnection.SaveChanges();
             TempData["display"] = "You have successfully added a new member!";
             TempData["notificationtype"] = NotificationType.Success.ToString();
             return RedirectToAction("Index");
         }
-        public IActionResult Edit()
+        public IActionResult Edit(long id)
         {
-            return View();
+            var appUser = _databaseConnection.AppUsers.Find(id);
+            return View(appUser);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

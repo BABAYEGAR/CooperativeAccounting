@@ -1,4 +1,4 @@
-﻿@model List<CooperativeAccounting.Models.Entities.AccountType>
+﻿@model List<CooperativeAccounting.Models.Entities.TransactionType>
 @{
     Layout = "_Layout";
 
@@ -18,15 +18,15 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="myModalLabel1">Delete Account Type</h4>
-            </div>@using (Html.BeginForm("Delete", "BoxType"))
+                <h4 class="modal-title" id="myModalLabel1">Delete Transaction Type</h4>
+            </div>@using (Html.BeginForm("Delete", "TransactionType"))
             {
                 <input type="hidden" id="id" name="id" />
                 <div class="modal-body">
 
                     @Html.AntiForgeryToken()
                     <p>
-                        Are you sure you want to delete the Account Type?
+                        Are you sure you want to delete the Transaction Type?
                     </p>
 
                 </div>
@@ -42,11 +42,11 @@
 
 <div class="row bg-title">
     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-        <h4 class="page-title">Manage Account Type(s)</h4>
+        <h4 class="page-title">Manage Transaction Type(s)</h4>
     </div>
     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
         <ol class="breadcrumb">
-            <li><a href="#">Account Types</a></li>
+            <li><a href="#">Transaction Types</a></li>
         </ol>
     </div>
     <!-- /.col-lg-12 -->
@@ -54,7 +54,7 @@
 <div class="row">
     <div class="col-md-6">
         <div class="btn-group">
-            <a href="@Url.Action("Create", "Tag")" class="btn btn-primary" data-toggle="tooltip" title="Add New Tag">
+            <a href="@Url.Action("Create", "TransactionType")" class="btn btn-primary" data-toggle="tooltip" title="Add New Transaction Type">
                 Add New
                 <i class="fa fa-plus"></i>
             </a>
@@ -65,7 +65,7 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="white-box">
-            <h3 class="box-title m-b-0">List of all Box Types</h3>
+            <h3 class="box-title m-b-0">List of all Transaction Types</h3>
             <p class="text-muted m-b-30">Export data to Copy, CSV, Excel, PDF & Print</p>
             <div class="table-responsive">
                 <table id="example23" class="display nowrap" cellspacing="0" width="100%">
@@ -92,13 +92,13 @@
                                          </button>
                                          <ul class="dropdown-menu pull-right" role="menu">
                                              <li>
-                                                 <a href="@Url.Action("Edit", "BoxType", new {id = item.AccountTypeId})" data-toggle="tooltip" title="View Deatils & Edit the Account Type">
+                                                 <a href="@Url.Action("Edit", "TransactionType", new {id = item.TransactionTypeId})" data-toggle="tooltip" title="View Deatils & Edit the Transaction Type">
                                                      <i class="icon-docs"></i>View Details & Edit Account Type
                                                  </a>
                                              </li>
                                              <li>
-                                                 <a href="#" data-toggle="tooltip" title="Delete the Account Type" data-id="@item.AccountTypeId" data-toggle="modal" class="loadModal3">
-                                                     <i class="icon-tag"></i>Delete Account Type
+                                                 <a href="#" data-toggle="tooltip" title="Delete the Transaction Type" data-id="@item.TransactionTypeId" data-toggle="modal" class="loadModal3">
+                                                     <i class="icon-tag"></i>Delete Transaction Type
                                                  </a>
                                              </li>
                                          </ul>

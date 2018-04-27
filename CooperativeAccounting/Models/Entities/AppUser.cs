@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CooperativeAccounting.Models.Entities
 {
@@ -32,7 +33,9 @@ namespace CooperativeAccounting.Models.Entities
         [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; }
 
-        [Required] public long? RoleId { get; set; }
+        [Required]
+        public long? RoleId { get; set; }
+        [ForeignKey("RoleId")]
 
         public Role Role { get; set; }
         public string Status { get; set; }
@@ -42,6 +45,6 @@ namespace CooperativeAccounting.Models.Entities
         public string BackgroundPicture { get; set; }
         public string Website { get; set; }
 
-        [Display(Name = "Date Of Birth")] public DateTime? DateOfBirth { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)] public DateTime? DateOfBirth { get; set; }
     }
 }

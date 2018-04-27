@@ -1,0 +1,79 @@
+﻿@model CooperativeAccounting.Models.Entities.AppUser
+@{
+    Layout = "_Layout";
+}
+<div class="row bg-title">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h4 class="page-title">Manage Member(s)</h4>
+    </div>
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="#">Members</a></li>
+            <li><a href="#">Add Members</a></li>
+        </ol>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            <h3 class="box-title m-b-0">Edit Member(s)</h3>
+            <p class="text-muted m-b-30 font-13">Edit Members</p>
+            @using (Html.BeginForm("Edit", "AppUser", FormMethod.Post, new { enctype = "multipart/form-data", role = "form" }))
+            {
+                @Html.HiddenFor(m => m.AppUserId)
+                @Html.HiddenFor(m => m.DateCreated)
+                @Html.HiddenFor(m => m.CreatedBy)
+                @Html.HiddenFor(m => m.MobileExtension)
+                @Html.HiddenFor(m => m.ProfilePicture)
+                @Html.HiddenFor(m => m.BackgroundPicture)
+                @Html.HiddenFor(m => m.Password)
+                @Html.HiddenFor(m => m.ConfirmPassword)
+                @Html.HiddenFor(m => m.RoleId)
+                @Html.HiddenFor(m => m.Status)
+                @Html.HiddenFor(m => m.Website)
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Name, new { @class = "col-2 col-form-label" })
+                    <div class="col-10">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Please enter the Member Name" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Email, new { @class = "col-2 col-form-label" })
+                    <div class="col-10">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Please enter the Member Email Address" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Mobile, new { @class = "col-2 col-form-label" })
+                    <div class="col-10">
+                        @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "form-control", placeholder = "Please enter the Member Name" } })
+                        @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Address, new { @class = "col-2 col-form-label" })
+                    <div class="col-10">
+                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", placeholder = "Please enter the Member Address" } })
+                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.DateOfBirth, new { @class = "col-2 col-form-label" })
+                    <div class="col-10">
+                        @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "form-control mydatepicker", placeholder = "Please enter the Member Date Of Birth" } })
+                        @Html.ValidationMessageFor(model => model.DateOfBirth, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a href="@Url.Action("Index", "TransactionType")" class="btn btn-default">Cancel</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

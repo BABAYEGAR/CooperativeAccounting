@@ -97,7 +97,8 @@ namespace CooperativeAccounting.Migrations
 
                     b.Property<bool>("ManageTransactionType");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("RoleId");
 
@@ -123,9 +124,11 @@ namespace CooperativeAccounting.Migrations
 
                     b.Property<long?>("LastModifiedBy");
 
-                    b.Property<DateTime?>("TransactionDate");
+                    b.Property<DateTime?>("TransactionDate")
+                        .IsRequired();
 
-                    b.Property<string>("TransactionName");
+                    b.Property<string>("TransactionName")
+                        .IsRequired();
 
                     b.Property<long>("TransactionTypeId");
 
@@ -165,11 +168,12 @@ namespace CooperativeAccounting.Migrations
 
                     b.Property<bool>("Liability");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("TransactionTypeId");
 
-                    b.ToTable("AccountTypes");
+                    b.ToTable("TransactionTypes");
                 });
 
             modelBuilder.Entity("CooperativeAccounting.Models.Entities.AppUser", b =>

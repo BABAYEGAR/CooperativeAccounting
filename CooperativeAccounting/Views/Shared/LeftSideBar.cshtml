@@ -1,5 +1,12 @@
-﻿@{
-    
+﻿@using CooperativeAccounting.Models.Entities
+@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json
+@{
+    AppUser user = null;
+    if (Context.Session.GetString("User") != null)
+    {
+        user = JsonConvert.DeserializeObject<AppUser>(Context.Session.GetString("User"));
+    }
 }
 <!-- Left navbar-header -->
 <div class="navbar-default sidebar" role="navigation">
@@ -9,42 +16,95 @@
                 <a href="#" class="waves-effect">
                     <img src="~/Dashboard/plugins/images/users/varun.jpg" alt="user-img" class="img-circle"> <span class="hide-menu"> Steve Gection<span class="fa arrow"></span></span>
                 </a>
-                <ul class="nav nav-second-level">
-                    <li><a href="@Url.Action("Profile", "Account")"><i class="ti-user"></i> My Profile & Settings</a></li>
-                    <li><a href="@Url.Action("LogOut", "Account")"><i class="fa fa-power-off"></i> Logout</a></li>
-                </ul>
+                @if (user != null)
+                {
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="@Url.Action("Profile", "Account")"><i class="ti-user"></i> My Profile & Settings</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("LogOut", "Account")"><i class="fa fa-power-off"></i> Logout</a>
+                        </li>
+                    </ul>
+                }
+
             </li>
             <li class="nav-small-cap m-t-10">--Main Menu</li>
             <li>
-                <a href="@Url.Action("Dashboard", "Home")" class="waves-effect active"><i class="linea-icon linea-basic fa-fw fa fa-dashboard"></i> <span class="hide-menu"> Dashboard</span></a>
+                <a href="@Url.Action("Dashboard", "Home")" class="waves-effect active">
+                    <i class="linea-icon linea-basic fa-fw fa fa-dashboard"></i> <span class="hide-menu"> Dashboard</span>
+                </a>
             </li>
-            <li><a class="waves-effect"><i class="linea-icon linea-basic fa-fw fa fa-users"></i> <span class="hide-menu">Members <span class="fa arrow"></span></span></a>
-                <ul class="nav nav-second-level">
-                    <li><a href="@Url.Action("Index", "AppUser")">New Member</a></li>
-                    <li><a href="@Url.Action("Index", "AppUser")">Members</a></li>
-                </ul>
-            </li>
-            <li><a class="waves-effect"><i class="linea-icon linea-basic fa-fw fa fa-lock"></i> <span class="hide-menu">Role & Permissions <span class="fa arrow"></span></span></a>
-                <ul class="nav nav-second-level">
-                    <li><a href="@Url.Action("Create", "Role")">Add Role</a></li>
-                    <li><a href="@Url.Action("Index", "Role")">Roles</a></li>
-                </ul>
-            </li>
-            <li><a class="waves-effect"><i class="linea-icon linea-basic fa-fw fa fa-bank"></i> <span class="hide-menu">Transactions <span class="fa arrow"></span></span></a>
-                <ul class="nav nav-second-level">
-                    <li><a href="@Url.Action("Create", "Transaction")">Add Transaction</a></li>
-                    <li><a href="@Url.Action("Index", "Transaction")">All Transactions</a></li>
-                    <li><a href="@Url.Action("BalanceSheet", "Transaction")">Balance Sheet</a></li>
-                    <li><a href="@Url.Action("CashBook", "Transaction")">Cash Book</a></li>
-                    <li><a href="@Url.Action("TrialBalance", "Transaction")">All Transactions</a></li>
-                </ul>
-            </li>
-            <li><a class="waves-effect"><i class="linea-icon linea-basic fa-fw fa fa-list"></i> <span class="hide-menu">Transaction Types <span class="fa arrow"></span></span></a>
-                <ul class="nav nav-second-level">
-                    <li><a href="@Url.Action("Create", "TransactionType")">Add Transaction Type</a></li>
-                    <li><a href="@Url.Action("Index", "TransactionType")">Transaction Types</a></li>
-                </ul>
-            </li>
+            @if (user != null && user.Role.ManageMembers)
+            {
+                <li>
+                    <a class="waves-effect">
+                        <i class="linea-icon linea-basic fa-fw fa fa-users"></i> <span class="hide-menu">Members <span class="fa arrow"></span></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="@Url.Action("Index", "AppUser")">New Member</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "AppUser")">Members</a>
+                        </li>
+                    </ul>
+                </li>
+            }
+            @if (user != null && user.Role.ManageMemberRoles)
+            {
+                <li>
+                    <a class="waves-effect">
+                        <i class="linea-icon linea-basic fa-fw fa fa-lock"></i> <span class="hide-menu">Role & Permissions <span class="fa arrow"></span></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="@Url.Action("Create", "Role")">Add Role</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "Role")">Roles</a>
+                        </li>
+                    </ul>
+                </li>
+            }
+            @if (user != null && user.Role.ManageAllTransaction)
+            {
+                <li>
+                    <a class="waves-effect">
+                        <i class="linea-icon linea-basic fa-fw fa fa-bank"></i> <span class="hide-menu">Transactions <span class="fa arrow"></span></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="@Url.Action("Create", "Transaction")">Add Transaction</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "Transaction")">All Transactions</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("BalanceSheet", "Transaction")">Balance Sheet</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("CashBook", "Transaction")">Cash Book</a>
+                        </li>
+                    </ul>
+                </li>
+            }
+            @if (user != null && user.Role.ManageTransactionType)
+            {
+                <li>
+                    <a class="waves-effect">
+                        <i class="linea-icon linea-basic fa-fw fa fa-list"></i> <span class="hide-menu">Transaction Types <span class="fa arrow"></span></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="@Url.Action("Create", "TransactionType")">Add Transaction Type</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "TransactionType")">Transaction Types</a>
+                        </li>
+                    </ul>
+                </li>
+            }
         </ul>
     </div>
 </div>
