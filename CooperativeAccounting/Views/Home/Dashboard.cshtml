@@ -1,4 +1,4 @@
-﻿
+﻿@model CooperativeAccounting.Models.Entities.AppTransport
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Dashboard";
@@ -13,14 +13,14 @@
     <div class="col-md-12 col-lg-12 col-sm-12">
         <div class="white-box">
             <div class="row row-in">
-                <a href="@Url.Action("Index", "Payment")" class="col-lg-3 col-sm-6 row-in-br">
+                <a href="@Url.Action("Index", "Transaction")" class="col-lg-4 col-sm-6 row-in-br">
                     <div class="col-in row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <i class="linea-icon linea-basic fa fa-money"></i>
                             <h5 class="text-muted vb">Current Balance</h5>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
-                            <h3 class="counter text-right m-t-15 text-success">431</h3>
+                            <h3 class="counter text-right m-t-15 text-success">@Model?.CurrentBalance</h3>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             @*<div class="progress">
@@ -29,14 +29,16 @@
                         </div>
                     </div>
                 </a>
-                <a href="@Url.Action("Index", "AppUser")" class="col-lg-3 col-sm-6 row-in-br">
+                <a href="@Url.Action("Index", "AppUser")" class="col-lg-4 col-sm-6 row-in-br">
                     <div class="col-in row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <i class="linea-icon linea-basic fa fa-users"></i>
                             <h5 class="text-muted vb">Members</h5>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
-                            <h3 class="counter text-right m-t-15 text-danger">23</h3>
+                            <h3 class="counter text-right m-t-15 text-danger">
+                                    @Model?.AppUsers.Count
+                            </h3>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             @*<div class="progress">
@@ -45,14 +47,16 @@
                         </div>
                     </div>
                 </a>
-                <a href="@Url.Action("Index", "Transaction")" class="col-lg-3 col-sm-6 row-in-br  b-r-none">
+                <a href="@Url.Action("Index", "Transaction")" class="col-lg-4 col-sm-6 row-in-br  b-r-none">
                     <div class="col-in row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <i class="linea-icon linea-basic fa fa-briefcase"></i>
                             <h5 class="text-muted vb">Transactions</h5>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
-                            <h3 class="counter text-right m-t-15 text-megna">169</h3>
+                            <h3 class="counter text-right m-t-15 text-megna">
+                                @Model?.Transactions.Count
+                            </h3>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             @*<div class="progress">
@@ -61,14 +65,14 @@
                         </div>
                     </div>
                 </a>
-                <a href="@Url.Action("CashBook", "Transaction")" class="col-lg-3 col-sm-6 row-in-br">
+                <a href="@Url.Action("CashBook", "Transaction")" class="col-lg-4 col-sm-6 row-in-br">
                     <div class="col-in row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <i class="linea-icon linea-basic fa fa-tags"></i>
-                            <h5 class="text-muted vb">Cash Book</h5>
+                            <h5 class="text-muted vb">Cash Contributions</h5>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
-                            <h3 class="counter text-right m-t-15 text-primary">157</h3>
+                            <h3 class="counter text-right m-t-15 text-primary">@Model?.Transactions.Where(n=>n.TransactionType.Cash && n.TransactionType.Credit).ToList().Sum(n=>n.Amount)</h3>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             @*<div class="progress">
@@ -77,14 +81,14 @@
                         </div>
                     </div>
                 </a>
-                <a href="@Url.Action("BalanceSheet", "Transaction")" class="col-lg-3 col-sm-6 row-in-br">
+                <a href="@Url.Action("CashBook", "Transaction")" class="col-lg-4 col-sm-6 row-in-br">
                     <div class="col-in row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <i class="linea-icon linea-basic fa fa-paint-brush"></i>
-                            <h5 class="text-muted vb">Balance Sheet</h5>
+                            <h5 class="text-muted vb">Cash Deductions</h5>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
-                            <h3 class="counter text-right m-t-15 text-primary">157</h3>
+                            <h3 class="counter text-right m-t-15 text-primary">@Model?.Transactions.Where(n => n.TransactionType.Cash && n.TransactionType.Debit).ToList().Sum(n => n.Amount)</h3>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             @*<div class="progress">

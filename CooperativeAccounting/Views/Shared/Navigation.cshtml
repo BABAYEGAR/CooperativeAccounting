@@ -1,4 +1,14 @@
-﻿<nav class="navbar navbar-default navbar-static-top m-b-0">
+﻿@using CooperativeAccounting.Models.Entities
+@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json
+@{
+    AppUser user = null;
+    if (Context.Session.GetString("User") != null)
+    {
+        user = JsonConvert.DeserializeObject<AppUser>(Context.Session.GetString("User"));
+    }
+}
+<nav class="navbar navbar-default navbar-static-top m-b-0">
     <div class="navbar-header">
         <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="ti-menu"></i></a>
         <div class="top-left-part"><a class="logo" href="@Url.Action("Index", "Home")"><b><img src="~/Dashboard/plugins/images/eliteadmin-logo.png" alt="home" /></b><span class="hidden-xs"><img src="~/Dashboard/plugins/images/eliteadmin-text.png" alt="home" /></span></a></div>
@@ -33,7 +43,7 @@
                 <!-- /.dropdown-messages -->
             </li>
             <li class="dropdown">
-                <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="~/Dashboard/plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">Steave</b> </a>
+                <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#"> <img src="~/Dashboard/plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">@user?.Name</b> </a>
                 <ul class="dropdown-menu dropdown-user animated flipInY">
                     <li><a href="@Url.Action("Profile", "Account")"><i class="ti-user"></i> My Profile</a></li>
                     <li role="separator" class="divider"></li>

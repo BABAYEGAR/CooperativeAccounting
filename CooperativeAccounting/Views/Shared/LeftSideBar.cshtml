@@ -14,7 +14,7 @@
         <ul class="nav" id="side-menu">
             <li class="user-pro">
                 <a href="#" class="waves-effect">
-                    <img src="~/Dashboard/plugins/images/users/varun.jpg" alt="user-img" class="img-circle"> <span class="hide-menu"> Steve Gection<span class="fa arrow"></span></span>
+                    <img src="~/Dashboard/plugins/images/users/varun.jpg" alt="user-img" class="img-circle"> <span class="hide-menu">@user?.Name<span class="fa arrow"></span></span>
                 </a>
                 @if (user != null)
                 {
@@ -78,13 +78,16 @@
                             <a href="@Url.Action("Create", "Transaction")">Add Transaction</a>
                         </li>
                         <li>
-                            <a href="@Url.Action("Index", "Transaction")">All Transactions</a>
+                            <a href="@Url.Action("Index", "Transaction")">All Transactions(General Ledger)</a>
                         </li>
                         <li>
                             <a href="@Url.Action("BalanceSheet", "Transaction")">Balance Sheet</a>
                         </li>
                         <li>
                             <a href="@Url.Action("CashBook", "Transaction")">Cash Book</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("TrialBalance", "Transaction")">Trian Balance</a>
                         </li>
                     </ul>
                 </li>

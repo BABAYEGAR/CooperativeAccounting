@@ -1,15 +1,155 @@
-﻿
+﻿@model List<CooperativeAccounting.Models.Entities.Transaction>
 @{
-    Layout = null;
+    Layout = "_Layout";
+
+}
+@section Css{
+    <link href="~/Dashboard/plugins/bower_components/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+    <!-- Custom CSS -->
+    <link href="~/Dashboard/css/style.css" rel="stylesheet">
+    <!-- color CSS -->
+    <link href="~/Dashboard/css/colors/blue.css" id="theme" rel="stylesheet">
+}
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel1">Delete Transaction</h4>
+            </div>@using (Html.BeginForm("Delete", "Transaction"))
+            {
+                <input type="hidden" id="id" name="id" />
+                <div class="modal-body">
+
+                    @Html.AntiForgeryToken()
+                    <p>
+                        Are you sure you want to delete the Transaction?
+                    </p>
+
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" value="Delete" class="btn btn-danger pull-right fa fa-trash" />
+                    <input type="button" data-dismiss="modal" value="Cancel" class="btn btn-default pull-left" />
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+<div class="row bg-title">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h4 class="page-title">Manage Transaction(s)</h4>
+    </div>
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="#">Transactions</a></li>
+            <li><a href="#">Add Transaction</a></li>
+        </ol>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="btn-group">
+            <a href="@Url.Action("Create", "Transaction")" class="btn btn-primary" data-toggle="tooltip" title="Add New Transaction">
+                Add New
+                <i class="fa fa-plus"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            <h3 class="box-title m-b-0">List of all Transactions</h3>
+            <p class="text-muted m-b-30">Export data to Copy, CSV, Excel, PDF & Print</p>
+            <div class="table-responsive">
+                <table id="example23" class="display nowrap" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>S/N</th>
+                            <th>Transaction Date</th>
+                            <th>Transaction Item/Name</th>
+                            <th>Member</th>
+                            <th>Transaction Type</th>
+                            <th>Amount</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td></td>
+                                    <td>@item.TransactionDate</td>
+                                    <td>@item.TransactionName</td>
+                                    <td>@item.AppUser.Name</td>
+                                    <td>@item.TransactionType.Name</td>
+                                    <td>@item.Amount</td>
+
+                                    <td class="text-center">
+                                        <div class="btn-group">
+                                            <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                                Actions
+                                                <i class="fa fa-angle-down"></i>
+                                            </button>
+                                            <ul class="dropdown-menu pull-right" role="menu">
+                                                <li>
+                                                    <a href="@Url.Action("Edit", "Transaction", new {id = item.TransactionId})" data-toggle="tooltip" title="View Deatils & Edit the Transaction">
+                                                        <i class="icon-docs"></i>View Details & Edit Transaction
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" data-toggle="tooltip" title="Delete the Transaction" data-id="@item.TransactionId" data-toggle="modal" class="loadModal3">
+                                                        <i class="icon-tag"></i>Delete Transaction
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/Dashboard/plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
+    <!-- start - This is for export functionality only -->
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>PersonalLedger</title>
-</head>
-<body>
-</body>
-</html>
+@section Functions {
+    <script>
+        $(document).ready(function () {
+            $(".loadModal3").click(function () { // Click to only happen on announce links
+                $("#id").val($(this).data('id'));
+                $('#myModal1').modal('show');
+            });
+        });
+    </script>
+    <script>
+        $('#example23').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+    </script>
+}

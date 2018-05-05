@@ -13,7 +13,7 @@
 }
 <div class="row bg-title">
     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-        <h4 class="page-title">Manage Transaction(s)</h4>
+        <h4 class="page-title">Manage Balance Sheet(s)</h4>
     </div>
     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
         <ol class="breadcrumb">
@@ -24,30 +24,136 @@
     <!-- /.col-lg-12 -->
 </div>
 <div class="row">
-    <div class="col-md-6">
-        <div class="btn-group">
-            <a href="@Url.Action("Create", "Transaction")" class="btn btn-primary" data-toggle="tooltip" title="Add New Transaction">
-                Add New
-                <i class="fa fa-plus"></i>
-            </a>
-        </div>
-    </div>
-</div>
-<br />
-<div class="row">
     <div class="col-sm-12">
         <div class="white-box">
-            <h3 class="box-title m-b-0">List of all Transactions</h3>
+            <h3 class="box-title m-b-0">Asset Transactions</h3>
             <p class="text-muted m-b-30">Export data to Copy, CSV, Excel, PDF & Print</p>
             <div class="table-responsive">
                 <table id="example23" class="display nowrap" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>S/N</th>
+                        <th>Transaction Date</th>
+                        <th>Transaction Item/Name</th>
+                        <th>Transaction Type</th>
+                        <th>Amount</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td></td>
+                                <td>@item.TransactionDate</td>
+                                <td>@item.TransactionName</td>
+                                <td>@item.AppUser.Name</td>
+                                <td>@item.TransactionType.Name</td>
+                                <td>@item.Amount</td>
+
+                                <td class="text-center">
+                                    <div class="btn-group">
+                                        <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                            Actions
+                                            <i class="fa fa-angle-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right" role="menu">
+                                            <li>
+                                                <a href="@Url.Action("Edit", "Transaction", new {id = item.TransactionId})" data-toggle="tooltip" title="View Deatils & Edit the Transaction">
+                                                    <i class="icon-docs"></i>View Details & Edit Transaction
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" data-toggle="tooltip" title="Delete the Transaction" data-id="@item.TransactionId" data-toggle="modal" class="loadModal3">
+                                                    <i class="icon-tag"></i>Delete Transaction
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            <h3 class="box-title m-b-0">Liability Transactions</h3>
+            <p class="text-muted m-b-30">Export data to Copy, CSV, Excel, PDF & Print</p>
+            <div class="table-responsive">
+                <table id="example24" class="display nowrap" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>S/N</th>
+                        <th>Transaction Date</th>
+                        <th>Transaction Item/Name</th>
+                        <th>Transaction Type</th>
+                        <th>Amount</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td></td>
+                                <td>@item.TransactionDate</td>
+                                <td>@item.TransactionName</td>
+                                <td>@item.AppUser.Name</td>
+                                <td>@item.TransactionType.Name</td>
+                                <td>@item.Amount</td>
+
+                                <td class="text-center">
+                                    <div class="btn-group">
+                                        <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                            Actions
+                                            <i class="fa fa-angle-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right" role="menu">
+                                            <li>
+                                                <a href="@Url.Action("Edit", "Transaction", new {id = item.TransactionId})" data-toggle="tooltip" title="View Deatils & Edit the Transaction">
+                                                    <i class="icon-docs"></i>View Details & Edit Transaction
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" data-toggle="tooltip" title="Delete the Transaction" data-id="@item.TransactionId" data-toggle="modal" class="loadModal3">
+                                                    <i class="icon-tag"></i>Delete Transaction
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            <h3 class="box-title m-b-0">Equity Transactions</h3>
+            <p class="text-muted m-b-30">Export data to Copy, CSV, Excel, PDF & Print</p>
+            <div class="table-responsive">
+                <table id="example25" class="display nowrap" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th>S/N</th>
                             <th>Transaction Date</th>
                             <th>Transaction Item/Name</th>
-                            <th>Member</th>
-                            <th>Account Type</th>
+                            <th>Transaction Type</th>
                             <th>Amount</th>
                             <th>Action</th>
                         </tr>
@@ -117,6 +223,18 @@
     </script>
     <script>
         $('#example23').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+        $('#example24').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+        $('#example25').DataTable({
             dom: 'Bfrtip',
             buttons: [
                 'copy', 'csv', 'excel', 'pdf', 'print'
