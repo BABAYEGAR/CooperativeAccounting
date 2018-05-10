@@ -1,6 +1,8 @@
-﻿@model List<CooperativeAccounting.Models.Entities.AppUser>
+﻿@using CooperativeAccounting.Models.Entities
+@model List<CooperativeAccounting.Models.Entities.AppUser>
 @{
     Layout = "_Layout";
+    List<Transaction> transactions = ViewBag.Transactions;
 
 }
 @section Css{ 
@@ -72,7 +74,11 @@
                     <thead>
                     <tr>
                         <th>S/N</th>
+                        <th>Date Joined</th>
                         <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                        @*<th>Available Balance</th>*@
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -83,9 +89,16 @@
                          {
                              <tr>
                                  <td></td>
+                                 <td>@item.DateCreated.ToString("D")</td>
                                  <td>@item.Name</td>
                                  <td>@item.Email</td>
                                  <td>@item.Mobile</td>
+                                 @*<td>
+                                     @if (transactions != null)
+                                     {
+                                         @(transactions.Where(n => n.AppUserId == item.AppUserId && n.TransactionType.Credit).Sum(n => n.Amount) - transactions.Where(n => n.AppUserId == item.AppUserId && n.TransactionType.Debit).Sum(n => n.Amount))
+                                     }
+                                 </td>*@
                                  <td class="text-center">
                                      <div class="btn-group">
                                          <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
@@ -94,8 +107,13 @@
                                          </button>
                                          <ul class="dropdown-menu pull-right" role="menu">
                                              <li>
-                                                 <a href="@Url.Action("Edit", "BoxType", new {id = item.AppUserId})" data-toggle="tooltip" title="View Deatils & Edit the Account Type">
+                                                 <a href="@Url.Action("Edit", "AppUser", new {id = item.AppUserId})" data-toggle="tooltip" title="View Deatils & Edit the Account Type">
                                                      <i class="icon-docs"></i>View Details & Edit Member
+                                                 </a>
+                                             </li>
+                                             <li>
+                                                 <a href="@Url.Action("PersonalLedger", "Transaction", new {id = item.AppUserId})" data-toggle="tooltip" title="View Personal Ledger">
+                                                     <i class="icon-docs"></i>View Personal Ledger
                                                  </a>
                                              </li>
                                              <li>

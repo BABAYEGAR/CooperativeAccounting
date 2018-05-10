@@ -13,6 +13,10 @@ namespace CooperativeAccounting.Models.Entities
         [MaxLength(100, ErrorMessage = "This field is does not support more than 100 characters")]
         [RegularExpression("[a-zA-Z ]*$")]
         public string Name { get; set; }
+        [Required]
+        [MaxLength(100, ErrorMessage = "This field is does not support more than 100 characters")]
+        [RegularExpression("[a-zA-Z ]*$")]
+        public string Surname { get; set; }
 
         [Required]
         [MaxLength(100, ErrorMessage = "This field is does not support more than 100 characters")]
@@ -43,8 +47,37 @@ namespace CooperativeAccounting.Models.Entities
         [DisplayName("Profile Picture")] public string ProfilePicture { get; set; }
 
         public string BackgroundPicture { get; set; }
-        public string Website { get; set; }
+        [Required]
+        public string Gender { get; set; }
+        [Required]
+        public string Nationality { get; set; }
+        [DisplayName("Marital Status")]
+        [Required]
+        public string MaritalStatus { get; set; }
+        [DisplayName("Name of Spouce")]
+        public string Spouce { get; set; }
+        [DisplayName("Next Of Kin")]
+        [Required]
+        public string NextOfKin { get; set; }
+        [DisplayName("Next Of Kin Address")]
+        [Required]
+        public string NextOfKinAddress { get; set; }
+        [DisplayName("Monthly Contribution")]
+        [Required]
+        public double MonthlyContribution { get; set; }
+        [DisplayName("State")]
+        [Required]
+        public int StateId { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)] public DateTime? DateOfBirth { get; set; }
+        [ForeignKey("StateId")]
+        [Required]
+        public State State { get; set; }
+        [DisplayName("LGA")]
+        [Required]
+        public int LgaId { get; set; }
+
+        [ForeignKey("LgaId")]
+        public Lga Lga { get; set; }
+
     }
 }

@@ -41,7 +41,7 @@ namespace CooperativeAccounting
 
             // Add framework services.
             services.AddDbContext<CooperativeAccountingDataContext>(options =>
-                options.UseMySql(Configuration.GetConnectionString("CooperativeAccounting")));
+                options.UseSqlServer(Configuration.GetConnectionString("CooperativeAccounting")));
             // Adds a default in-memory implementation of IDistributedCache.
             services.AddDistributedMemoryCache();
             services.AddSession(options =>

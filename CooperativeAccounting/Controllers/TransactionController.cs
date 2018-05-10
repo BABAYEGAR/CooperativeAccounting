@@ -26,26 +26,44 @@ namespace CooperativeAccounting.Controllers
         }
         public IActionResult Index()
         {
-            return View(_databaseConnection.Transactions.ToList());
+            return View(_databaseConnection.Transactions.Include(n => n.AppUser).Include(n => n.TransactionType).ToList());
+        }
+        public IActionResult Years()
+        {
+            return View();
+        }
+        public IActionResult Months(int? id)
+        {
+            ViewBag.Year = id;
+            return View();
+        }
+        public IActionResult CashContribution(int year,int month)
+        {
+            return View(_databaseConnection.Transactions.Include(n => n.AppUser).Include(n => n.TransactionType)
+                .ToList().Where(n => n.TransactionType.Cash).ToList().Where(n=>n.DateCreated.Year == year && n.DateCreated.Month == month).ToList());
+        }
+        public IActionResult PersonalLedger(long id)
+        {
+            return View(_databaseConnection.Transactions.Include(n => n.AppUser).Include(n => n.TransactionType).Where(n=>n.AppUserId == id).ToList());
         }
         public IActionResult CashBook()
         {
-            return View(_databaseConnection.Transactions.Include(n=>n.TransactionType)
+            return View(_databaseConnection.Transactions.Include(n => n.AppUser).Include(n=>n.TransactionType)
                 .ToList().Where(n=>n.TransactionType.Cash).ToList());
         }
         public IActionResult TrialBalance()
         {
-            return View(_databaseConnection.Transactions.Include(n => n.TransactionType)
+            return View(_databaseConnection.Transactions.Include(n => n.AppUser).Include(n => n.TransactionType)
                 .ToList().Where(n => n.TransactionType.Cash).ToList());
         }
         public IActionResult BalanceSheet()
         {
-            return View(_databaseConnection.Transactions.Include(n => n.TransactionType)
+            return View(_databaseConnection.Transactions.Include(n => n.AppUser).Include(n => n.TransactionType)
                 .ToList().Where(n => n.TransactionType.Asset || n.TransactionType.Equity || n.TransactionType.Liability).ToList());
         }
         public IActionResult Create()
         {
-            ViewBag.AppUserId = new SelectList(_databaseConnection.AppUsers.ToList(), "AppUserId",
+            ViewBag.AppUserId = new SelectList(_databaseConnection.AppUsers.Where(n=>n.RoleId > 1).ToList(), "AppUserId",
                 "Name");
             ViewBag.TransactionTypeId = new SelectList(_databaseConnection.TransactionTypes.ToList(), "TransactionTypeId",
                 "Name");
@@ -88,7 +106,7 @@ namespace CooperativeAccounting.Controllers
         public IActionResult Edit(long id)
         {
             var transaction = _databaseConnection.Transactions.Find(id);
-            ViewBag.AppUserId = new SelectList(_databaseConnection.AppUsers.ToList(), "AppUserId",
+            ViewBag.AppUserId = new SelectList(_databaseConnection.AppUsers.Where(n => n.RoleId > 1).ToList(), "AppUserId",
                 "Name",transaction.AppUserId);
             ViewBag.TransactionTypeId = new SelectList(_databaseConnection.TransactionTypes.ToList(), "TransactionTypeId",
                 "Name",transaction.TransactionTypeId);

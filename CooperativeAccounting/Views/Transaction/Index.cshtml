@@ -66,57 +66,68 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="white-box">
-            <h3 class="box-title m-b-0">List of all Transactions</h3>
+            <h3 class="box-title m-b-0">General Ledger</h3>
             <p class="text-muted m-b-30">Export data to Copy, CSV, Excel, PDF & Print</p>
             <div class="table-responsive">
                 <table id="example23" class="display nowrap" cellspacing="0" width="100%">
                     <thead>
-                    <tr>
-                        <th>S/N</th>
-                        <th>Transaction Date</th>
-                        <th>Transaction Item/Name</th>
-                        <th>Member</th>
-                        <th>Transaction Type</th>
-                        <th>Amount</th>
-                        <th>Action</th>
-                    </tr>
+                        <tr>
+                            <th style="color: red">DR</th>
+                            <th style="color: red">Date</th>
+                            <th style="color: red">Item/Name</th>
+                            <th style="color: red">Member</th>
+                            <th style="color: red">Amount</th>
+                            <th style="color: red">V.No</th>
+                            <th></th>
+                            <th style="color: green">CR</th>
+                            <th style="color: green">Date</th>
+                            <th style="color: green">Item/Name</th>
+                            <th style="color: green">Member</th>
+                            <th style="color: green">Amount</th>
+                            <th style="color: green">V.No</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    @if (Model != null)
-                    {
-                        foreach (var item in Model)
-                         {
-                             <tr>
-                                 <td></td>
-                                 <td>@item.TransactionDate</td>
-                                 <td>@item.TransactionName</td>
-                                 <td>@item.AppUser.Name</td>
-                                 <td>@item.TransactionType.Name</td>
-                                 <td>@item.Amount</td>
-                            
-                                 <td class="text-center">
-                                     <div class="btn-group">
-                                         <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                                             Actions
-                                             <i class="fa fa-angle-down"></i>
-                                         </button>
-                                         <ul class="dropdown-menu pull-right" role="menu">
-                                             <li>
-                                                 <a href="@Url.Action("Edit", "Transaction", new {id = item.TransactionId})" data-toggle="tooltip" title="View Deatils & Edit the Transaction">
-                                                     <i class="icon-docs"></i>View Details & Edit Transaction
-                                                 </a>
-                                             </li>
-                                             <li>
-                                                 <a href="#" data-toggle="tooltip" title="Delete the Transaction" data-id="@item.TransactionId" data-toggle="modal" class="loadModal3">
-                                                     <i class="icon-tag"></i>Delete Transaction
-                                                 </a>
-                                             </li>
-                                         </ul>
-                                     </div>
-                                 </td>
-                             </tr>
-                         }
-                    }
+                        @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        @if (item.TransactionType.Debit)
+            {
+                <th style="color: red">Debit</th>
+                <td style="color: red">@item.TransactionDate</td>
+                <td style="color: red">@item.TransactionName</td>
+                <td style="color: red">@item.AppUser.Name</td>
+                <td style="color: red">@item.Amount</td>
+                <td style="color: red">@item.VoucherNumber</td>
+                <td></td>
+                <td style="color: green">NIL</td>
+                <td style="color: green">NIL</td>
+                <td style="color: green">NIL</td>
+                <td style="color: green">NIL</td>
+                <td style="color: green">NIL</td>
+                <td style="color: green">NIL</td>
+}
+                        @if (item.TransactionType.Credit)
+            {
+                <th style="color: red">NIL</th>
+                <td style="color: red">NIL</td>
+                <td style="color: red">NIL</td>
+                <td style="color: red">NIL</td>
+                <td style="color: red">NIL</td>
+                <td style="color: red">NIL</td>
+                <td></td>
+                <td style="color: green">Credit</td>
+                <td style="color: green">@item.TransactionDate</td>
+                <td style="color: green">@item.TransactionName</td>
+                <td style="color: green">@item.AppUser.Name</td>
+                <td style="color: green">@item.Amount</td>
+                <td style="color: green">@item.VoucherNumber</td>
+}
+                    </tr>
+    }
+}
                     </tbody>
                 </table>
             </div>

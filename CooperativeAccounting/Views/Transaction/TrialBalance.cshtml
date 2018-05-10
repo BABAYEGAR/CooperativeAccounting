@@ -1,24 +1,29 @@
 ﻿@model List<CooperativeAccounting.Models.Entities.Transaction>
 @{
     Layout = "_Layout";
-
 }
+
 @section Css{
-    <link href="~/Dashboard/plugins/bower_components/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
-    <link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Dashboard/plugins/bower_components/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css"/>
     <!-- Custom CSS -->
     <link href="~/Dashboard/css/style.css" rel="stylesheet">
     <!-- color CSS -->
     <link href="~/Dashboard/css/colors/blue.css" id="theme" rel="stylesheet">
 }
+
 <div class="row bg-title">
     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
         <h4 class="page-title">Manage Trial Balance(s)</h4>
     </div>
     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
         <ol class="breadcrumb">
-            <li><a href="#">Transactions</a></li>
-            <li><a href="#">Add Transaction</a></li>
+            <li>
+                <a href="#">Transactions</a>
+            </li>
+            <li>
+                <a href="#">Add Transaction</a>
+            </li>
         </ol>
     </div>
     <!-- /.col-lg-12 -->
@@ -33,7 +38,7 @@
         </div>
     </div>
 </div>
-<br />
+<br/>
 <div class="row">
     <div class="col-sm-12">
         <div class="white-box">
@@ -42,61 +47,48 @@
             <div class="table-responsive">
                 <table id="example23" class="display nowrap" cellspacing="0" width="100%">
                     <thead>
-                        <tr>
+                    <tr>
 
-                            <th>S/N</th>
-                            <th>Transaction Item</th>
-                            <th style="color: red">DR</th>
-                            <th></th>
-                            <th style="color: green">CR</th>
-                        </tr>
+                        <th>S/N</th>
+                        <th>Transaction Item</th>
+                        <th style="color: red">DR</th>
+                        <th></th>
+                        <th style="color: green">CR</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        @if (Model != null)
-                        {
-                            foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td></td>
-                                    @if (item.TransactionType.Debit)
-                                    {
-                                        <td style="color: red">@item.Amount</td>
-                                    }
-                               
-                                    <td></td>
-                    @if (item.TransactionType.Credit)
+                    @if (Model != null)
                     {
-                        <td style="color: green">@item.Amount</td>
-                    }
-                                    <td class="text-center">
-                                        <div class="btn-group">
-                                            <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                                                Actions
-                                                <i class="fa fa-angle-down"></i>
-                                            </button>
-                                            <ul class="dropdown-menu pull-right" role="menu">
-                                                <li>
-                                                    <a href="@Url.Action("Edit", "Transaction", new {id = item.TransactionId})" data-toggle="tooltip" title="View Deatils & Edit the Transaction">
-                                                        <i class="icon-docs"></i>View Details & Edit Transaction
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" data-toggle="tooltip" title="Delete the Transaction" data-id="@item.TransactionId" data-toggle="modal" class="loadModal3">
-                                                        <i class="icon-tag"></i>Delete Transaction
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
-                            }
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td></td>
+                                <td>@item.TransactionName</td>
+                                @if (item.TransactionType.Debit)
+                                {
+                                   
+                                    <td style="color: red">@item.Amount</td>
+                                    <td></td>
+                                    <td style="color: green">NIL</td>
+                                }
+
+                         
+                                @if (item.TransactionType.Credit)
+                                {
+                                    <td style="color: red">NIL</td>
+                                    <td></td>
+                                    <td style="color: green">@item.Amount</td>
+                                }
+                            </tr>
                         }
+                    }
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
+
 @section Scripts {
     <script src="~/Dashboard/plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
     <!-- start - This is for export functionality only -->
@@ -111,8 +103,8 @@
 
 @section Functions {
     <script>
-        $(document).ready(function () {
-            $(".loadModal3").click(function () { // Click to only happen on announce links
+        $(document).ready(function() {
+            $(".loadModal3").click(function() { // Click to only happen on announce links
                 $("#id").val($(this).data('id'));
                 $('#myModal1').modal('show');
             });

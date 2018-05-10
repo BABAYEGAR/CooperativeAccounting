@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CooperativeAccounting.Models;
 using CooperativeAccounting.Models.DataBaseConnections;
+using CooperativeAccounting.Models.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace CooperativeAccounting.Controllers
 {
@@ -27,7 +29,13 @@ namespace CooperativeAccounting.Controllers
         }
         public IActionResult Dashboard()
         {
-            return View();
+            var appTransport = new AppTransport();
+            appTransport.AppUsers = _databaseConnection.AppUsers.Where(n=>n.RoleId != 1).ToList();
+            appTransport.CurrentBalance =
+                (decimal) (_databaseConnection.Transactions.Include(n => n.TransactionType).Where(n => n.TransactionType.Credit).Sum(n => n.Amount) -
+                           _databaseConnection.Transactions.Include(n => n.TransactionType).Where(n => n.TransactionType.Debit).Sum(n => n.Amount));
+            appTransport.Transactions = _databaseConnection.Transactions.Include(n=>n.TransactionType).ToList();
+            return View(appTransport);
         }
 
         public IActionResult About()

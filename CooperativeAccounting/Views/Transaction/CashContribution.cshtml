@@ -13,50 +13,26 @@
 }
 <div class="row bg-title">
     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-        <h4 class="page-title">Manage Cash Book(s)</h4>
-    </div>
-    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-        <ol class="breadcrumb">
-            <li><a href="#">Transactions</a></li>
-            <li><a href="#">Add Transaction</a></li>
-        </ol>
-    </div>
-    <!-- /.col-lg-12 -->
-</div>
-<div class="row">
-    <div class="col-md-6">
-        <div class="btn-group">
-            <a href="@Url.Action("Create", "Transaction")" class="btn btn-primary" data-toggle="tooltip" title="Add New Transaction">
-                Add New
-                <i class="fa fa-plus"></i>
-            </a>
-        </div>
+        <h4 class="page-title">Manage Cash Contribution(s)</h4>
     </div>
 </div>
 <br />
 <div class="row">
     <div class="col-sm-12">
         <div class="white-box">
-            <h3 class="box-title m-b-0">Cash Book Transactions</h3>
+            <h3 class="box-title m-b-0">Cash Contribution Transactions</h3>
             <p class="text-muted m-b-30">Export data to Copy, CSV, Excel, PDF & Print</p>
             <div class="table-responsive">
                 <table id="example23" class="display nowrap" cellspacing="0" width="100%">
                     <thead>
-                    <tr>
-                        <th style="color: red">DR</th>
-                        <th style="color: red">Date</th>
-                        <th style="color: red">Item/Name</th>
-                        <th style="color: red">Member</th>
-                        <th style="color: red">Amount</th>
-                        <th style="color: red">V.No</th>
-                        <th></th>
-                        <th style="color: green">CR</th>
-                        <th style="color: green">Date</th>
-                        <th style="color: green">Item/Name</th>
-                        <th style="color: green">Member</th>
-                        <th style="color: green">Amount</th>
-                        <th style="color: green">V.No</th>
-                    </tr>
+                        <tr>
+                            <th style="color: green">CR</th>
+                            <th style="color: green">Date</th>
+                            <th style="color: green">Item/Name</th>
+                            <th style="color: green">Member</th>
+                            <th style="color: green">Amount</th>
+                            <th style="color: green">V.No</th>
+                        </tr>
                     </thead>
                     <tbody>
                         @if (Model != null)
@@ -64,30 +40,8 @@
                             foreach (var item in Model)
                             {
                                 <tr>
-                                    @if (item.TransactionType.Debit)
-                                    {
-                                        <th style="color: red">Debit</th>
-                                        <td style="color: red">@item.TransactionDate</td>
-                                        <td style="color: red">@item.TransactionName</td>
-                                        <td style="color: red">@item.AppUser.Name</td>
-                                        <td style="color: red">@item.Amount</td>
-                                        <td style="color: red">@item.VoucherNumber</td>
-                                        <td></td>
-                                        <td style="color: green">NIL</td>
-                                        <td style="color: green">NIL</td>
-                                        <td style="color: green">NIL</td>
-                                        <td style="color: green">NIL</td>
-                                        <td style="color: green">NIL</td>
-                                        <td style="color: green">NIL</td>
-                                    }
                                     @if (item.TransactionType.Credit)
                                     {
-                                        <th style="color: red">NIL</th>
-                                        <td style="color: red">NIL</td>
-                                        <td style="color: red">NIL</td>
-                                        <td style="color: red">NIL</td>
-                                        <td style="color: red">NIL</td>
-                                        <td style="color: red">NIL</td>
                                         <td></td>
                                         <td style="color: green">Credit</td>
                                         <td style="color: green">@item.TransactionDate</td>
@@ -135,3 +89,4 @@
         });
     </script>
 }
+

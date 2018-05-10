@@ -21,9 +21,11 @@ namespace CooperativeAccounting.Models.DataBaseConnections
         public virtual DbSet<TransactionType> TransactionTypes { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Transaction> Transactions { get; set; }
+        public virtual DbSet<State> States { get; set; }
+        public virtual DbSet<Lga> Lgas { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseSqlServer(@"Server=.;Database=CamerackMarket;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Server=.;Database=CooperativeAccounting;Trusted_Connection=True;");
         }
     }
 }

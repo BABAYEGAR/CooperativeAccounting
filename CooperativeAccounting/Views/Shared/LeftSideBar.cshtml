@@ -14,7 +14,7 @@
         <ul class="nav" id="side-menu">
             <li class="user-pro">
                 <a href="#" class="waves-effect">
-                    <img src="~/Dashboard/plugins/images/users/varun.jpg" alt="user-img" class="img-circle"> <span class="hide-menu">@user?.Name<span class="fa arrow"></span></span>
+                    <img src="~/images/avatar.png" alt="user-img" class="img-circle"> <span class="hide-menu">@user?.Name<span class="fa arrow"></span></span>
                 </a>
                 @if (user != null)
                 {
@@ -43,7 +43,7 @@
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="@Url.Action("Index", "AppUser")">New Member</a>
+                            <a href="@Url.Action("Create", "AppUser")">New Member</a>
                         </li>
                         <li>
                             <a href="@Url.Action("Index", "AppUser")">Members</a>

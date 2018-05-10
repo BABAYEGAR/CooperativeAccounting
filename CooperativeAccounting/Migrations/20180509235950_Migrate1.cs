@@ -10,11 +10,25 @@ namespace CooperativeAccounting.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Lgas",
+                columns: table => new
+                {
+                    LgaId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    StateId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Lgas", x => x.LgaId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Roles",
                 columns: table => new
                 {
                     RoleId = table.Column<long>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreatedBy = table.Column<long>(nullable: true),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateLastModified = table.Column<DateTime>(nullable: false),
@@ -32,11 +46,24 @@ namespace CooperativeAccounting.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "States",
+                columns: table => new
+                {
+                    StateId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_States", x => x.StateId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TransactionTypes",
                 columns: table => new
                 {
                     TransactionTypeId = table.Column<long>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Asset = table.Column<bool>(nullable: false),
                     Cash = table.Column<bool>(nullable: false),
                     CreatedBy = table.Column<long>(nullable: true),
@@ -59,33 +86,53 @@ namespace CooperativeAccounting.Migrations
                 columns: table => new
                 {
                     AppUserId = table.Column<long>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Address = table.Column<string>(nullable: true),
                     BackgroundPicture = table.Column<string>(nullable: true),
                     ConfirmPassword = table.Column<string>(nullable: false),
                     CreatedBy = table.Column<long>(nullable: true),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateLastModified = table.Column<DateTime>(nullable: false),
-                    DateOfBirth = table.Column<DateTime>(nullable: true),
                     Email = table.Column<string>(maxLength: 100, nullable: false),
+                    Gender = table.Column<string>(nullable: false),
                     LastModifiedBy = table.Column<long>(nullable: true),
+                    LgaId = table.Column<int>(nullable: false),
+                    MaritalStatus = table.Column<string>(nullable: false),
                     Mobile = table.Column<string>(maxLength: 100, nullable: true),
                     MobileExtension = table.Column<string>(nullable: true),
+                    MonthlyContribution = table.Column<double>(nullable: false),
                     Name = table.Column<string>(maxLength: 100, nullable: false),
+                    Nationality = table.Column<string>(nullable: false),
+                    NextOfKin = table.Column<string>(nullable: false),
+                    NextOfKinAddress = table.Column<string>(nullable: false),
                     Password = table.Column<string>(nullable: false),
                     ProfilePicture = table.Column<string>(nullable: true),
                     RoleId = table.Column<long>(nullable: false),
+                    Spouce = table.Column<string>(nullable: true),
+                    StateId = table.Column<int>(nullable: false),
                     Status = table.Column<string>(nullable: true),
-                    Website = table.Column<string>(nullable: true)
+                    Surname = table.Column<string>(maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AppUsers", x => x.AppUserId);
                     table.ForeignKey(
+                        name: "FK_AppUsers_Lgas_LgaId",
+                        column: x => x.LgaId,
+                        principalTable: "Lgas",
+                        principalColumn: "LgaId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_AppUsers_Roles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "Roles",
                         principalColumn: "RoleId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AppUsers_States_StateId",
+                        column: x => x.StateId,
+                        principalTable: "States",
+                        principalColumn: "StateId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -94,7 +141,7 @@ namespace CooperativeAccounting.Migrations
                 columns: table => new
                 {
                     TransactionId = table.Column<long>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Action = table.Column<string>(nullable: true),
                     Amount = table.Column<double>(nullable: false),
                     AppUserId = table.Column<long>(nullable: false),
@@ -125,9 +172,19 @@ namespace CooperativeAccounting.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_AppUsers_LgaId",
+                table: "AppUsers",
+                column: "LgaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AppUsers_RoleId",
                 table: "AppUsers",
                 column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppUsers_StateId",
+                table: "AppUsers",
+                column: "StateId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Transactions_AppUserId",
@@ -152,7 +209,13 @@ namespace CooperativeAccounting.Migrations
                 name: "TransactionTypes");
 
             migrationBuilder.DropTable(
+                name: "Lgas");
+
+            migrationBuilder.DropTable(
                 name: "Roles");
+
+            migrationBuilder.DropTable(
+                name: "States");
         }
     }
 }

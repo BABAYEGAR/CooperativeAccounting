@@ -46,6 +46,13 @@
             </div>
             <div class="form-check">
                 <label class="custom-control custom-checkbox">
+                    @Html.CheckBoxFor(model => model.Cash, new { @class = "custom-control-input" })
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description">Cash Transaction Type?</span>
+                </label>
+            </div>
+            <div class="form-check">
+                <label class="custom-control custom-checkbox">
                     @Html.CheckBoxFor(model => model.Asset, new { @class = "custom-control-input" })
                     <span class="custom-control-indicator"></span>
                     <span class="custom-control-description">Asset Transaction Type?</span>

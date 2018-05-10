@@ -8,6 +8,7 @@ using CooperativeAccounting.Models.Entities;
 using CooperativeAccounting.Models.Enum;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace CooperativeAccounting.Controllers
@@ -26,10 +27,23 @@ namespace CooperativeAccounting.Controllers
         }
         public IActionResult Index()
         {
+            ViewBag.Transactions = _databaseConnection.Transactions.Include(n=>n.TransactionType).ToList();
             return View(_databaseConnection.AppUsers.ToList());
+        }
+        /// <summary>
+        ///     Sends Json responds object to view with lga of the state requested via an Ajax call
+        /// </summary>
+        /// <param name="id"> state id</param>
+        /// <returns>lgas</returns>
+        /// Microsoft.CodeDom.Providers.DotNetCompilerPlatform
+        public JsonResult GetLgaForState(int id)
+        {
+            var lgas = _databaseConnection.Lgas.Where(n => n.StateId == id);
+            return Json(lgas);
         }
         public IActionResult Create()
         {
+            ViewBag.State = new SelectList(_databaseConnection.States, "StateId", "Name");
             return View();
         }
         [HttpPost]
@@ -54,6 +68,7 @@ namespace CooperativeAccounting.Controllers
             if (_databaseConnection.AppUsers.Where(n => n.Email == appUser.Email).ToList().Count > 0)
             {
                 TempData["display"] = "A member with the same email already exist!";
+
                 TempData["notificationtype"] = NotificationType.Error.ToString();
                 return View(appUser);
             }
@@ -66,6 +81,7 @@ namespace CooperativeAccounting.Controllers
         public IActionResult Edit(long id)
         {
             var appUser = _databaseConnection.AppUsers.Find(id);
+            ViewBag.State = new SelectList(_databaseConnection.States, "StateId", "Name",appUser.StateId);
             return View(appUser);
         }
         [HttpPost]

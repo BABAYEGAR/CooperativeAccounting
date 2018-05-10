@@ -43,7 +43,7 @@
                     <tbody>
                     @if (Model != null)
                     {
-                        foreach (var item in Model)
+                        foreach (var item in Model.Where(n=>n.TransactionType.Asset))
                         {
                             <tr>
                                 <td></td>
@@ -102,7 +102,7 @@
                     <tbody>
                     @if (Model != null)
                     {
-                        foreach (var item in Model)
+                        foreach (var item in Model.Where(n => n.TransactionType.Liability))
                         {
                             <tr>
                                 <td></td>
@@ -161,7 +161,7 @@
                     <tbody>
                         @if (Model != null)
                         {
-                            foreach (var item in Model)
+                            foreach (var item in Model.Where(n=>n.TransactionType.Equity))
                             {
                                 <tr>
                                     <td></td>
