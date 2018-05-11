@@ -1,0 +1,149 @@
+﻿@model CooperativeAccounting.Models.Entities.Loan
+@{
+    Layout = "_Layout";
+}
+<div class="row bg-title">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h4 class="page-title">Manage Loan(s)</h4>
+    </div>
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li>
+                <a href="#">Loans</a>
+            </li>
+            <li>
+                <a href="#">Add Loans</a>
+            </li>
+        </ol>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            <h3 class="box-title m-b-0">Edit Loan(s)</h3>
+            <p class="text-muted m-b-30 font-13">Edit Loan</p>
+            @using (Html.BeginForm("Edit", "Transaction", FormMethod.Post, new {enctype = "multipart/form-data", role = "form"}))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.LoanId)
+                @Html.HiddenFor(m => m.Emergency)
+                @Html.HiddenFor(m => m.AppUserId)
+                @Html.HiddenFor(m => m.DateCreated)
+                @Html.HiddenFor(m => m.CreatedBy)
+                @Html.HiddenFor(m => m.FirstGuarantorName)
+                @Html.HiddenFor(m => m.FirstGuarantorMobile)
+                @Html.HiddenFor(m => m.SecondGuarantorName)
+                @Html.HiddenFor(m => m.SecondGuarantorMobile)
+                @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.AppUserId, new {@class = "col-2 col-form-label"})
+                    <div class="col-10">
+                        @Html.DropDownListFor(model => model.AppUserId, null, "Select Member", new {@class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.AppUserId, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Purpose, new {@class = "col-2 col-form-label"})
+                    <div class="col-10">
+                        @Html.TextAreaFor(model => model.Purpose, new {@class = "form-control", placeholder = "Please enter the loan purpose"})
+                        @Html.ValidationMessageFor(model => model.Purpose, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.TransactionDate, new {@class = "col-2 col-form-label"})
+                    <div class="col-10">
+                        @Html.TextBoxFor(model => model.TransactionDate, new {@class = "form-control mydatepicker", placeholder = "Please select the loan Date"})
+                        @Html.ValidationMessageFor(model => model.TransactionDate, "", new {@class = "text-danger"})
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.TerminalDate, new {@class = "col-2 col-form-label"})
+                    <div class="col-10">
+                        @Html.TextBoxFor(model => model.TerminalDate, new {@class = "form-control mydatepicker", placeholder = "Please select the loan terminal Date"})
+                        @Html.ValidationMessageFor(model => model.TerminalDate, "", new {@class = "text-danger"})
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Amount, new {@class = "col-2 col-form-label"})
+                    <div class="col-10">
+                        @Html.EditorFor(model => model.Amount, new {htmlAttributes = new {@class = "form-control", placeholder = "Please enter the loan amount"}})
+                        @Html.ValidationMessageFor(model => model.Amount, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.InterestRate, new {@class = "col-2 col-form-label"})
+                    <div class="col-10">
+                        @Html.EditorFor(model => model.InterestRate, new {htmlAttributes = new {@class = "form-control", placeholder = "Please enter the loan interest rate"}})
+                        @Html.ValidationMessageFor(model => model.InterestRate, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Duration, new {@class = "col-2 col-form-label"})
+                    <div class="col-10">
+                        @Html.EditorFor(model => model.Duration, new {htmlAttributes = new {@class = "form-control", placeholder = "Please enter the loan duration"}})
+                        @Html.ValidationMessageFor(model => model.Duration, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.BankId, new {@class = "col-2 col-form-label"})
+                    <div class="col-10">
+                        @Html.DropDownListFor(model => model.BankId, null, "Select Bank", new {@class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.BankId, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.AccountName, new {@class = "col-2 col-form-label"})
+                    <div class="col-10">
+                        @Html.EditorFor(model => model.AccountName, new {htmlAttributes = new {@class = "form-control", placeholder = "Please enter the account name"}})
+                        @Html.ValidationMessageFor(model => model.AccountName, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.AccountNumber, new {@class = "col-2 col-form-label"})
+                    <div class="col-10">
+                        @Html.EditorFor(model => model.AccountNumber, new {htmlAttributes = new {@class = "form-control", placeholder = "Please enter the account number"}})
+                        @Html.ValidationMessageFor(model => model.AccountNumber, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+                if (Model.Emergency)
+                {
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.FirstGuarantorName, new {@class = "col-2 col-form-label"})
+                        <div class="col-10">
+                            @Html.EditorFor(model => model.FirstGuarantorName, new {htmlAttributes = new {@class = "form-control", placeholder = "Please enter the first guarantor name"}})
+                            @Html.ValidationMessageFor(model => model.FirstGuarantorName, "", new {@class = "text-danger"})
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.FirstGuarantorMobile, new {@class = "col-2 col-form-label"})
+                        <div class="col-10">
+                            @Html.EditorFor(model => model.FirstGuarantorMobile, new {htmlAttributes = new {@class = "form-control", placeholder = "Please enter the first guarantor mobile"}})
+                            @Html.ValidationMessageFor(model => model.FirstGuarantorMobile, "", new {@class = "text-danger"})
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.SecondGuarantorName, new {@class = "col-2 col-form-label"})
+                        <div class="col-10">
+                            @Html.EditorFor(model => model.SecondGuarantorName, new {htmlAttributes = new {@class = "form-control", placeholder = "Please enter the second guarantor name"}})
+                            @Html.ValidationMessageFor(model => model.SecondGuarantorName, "", new {@class = "text-danger"})
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.SecondGuarantorMobile, new {@class = "col-2 col-form-label"})
+                        <div class="col-10">
+                            @Html.EditorFor(model => model.SecondGuarantorMobile, new {htmlAttributes = new {@class = "form-control", placeholder = "Please enter the second guarantor mobile"}})
+                            @Html.ValidationMessageFor(model => model.SecondGuarantorMobile, "", new {@class = "text-danger"})
+                        </div>
+                    </div>
+                }
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a href="@Url.Action("Index", "Transaction")" class="btn btn-default">Cancel</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

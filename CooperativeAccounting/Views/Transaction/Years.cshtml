@@ -15,14 +15,14 @@
             <div class="row row-in">
                 @for(int i = 2000; i <= DateTime.Now.Year; i++)
                 {
-                    <a href="@Url.Action("Months", "Transaction",new{year = 2000})" class="col-lg-4 col-sm-6 row-in-br">
+                    <a href="@Url.Action("Months", "Transaction",new{id = i})" class="col-lg-4 col-sm-6 row-in-br">
                         <div class="col-in row">
                             <div class="col-md-6 col-sm-6 col-xs-6">
                                 <i class="linea-icon linea-basic fa fa-calendar"></i>
                                 @*<h5 class="text-muted vb">@i</h5>*@
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-6">
-                                <h3 class="counter text-right m-t-15 text-success">@i</h3>
+                                <h3 style="font-weight: bolder" class="counter text-right m-t-15 text-success">@i</h3>
                             </div>
                             <div class="col-md-12 col-sm-12 col-xs-12">
                             </div>

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CooperativeAccounting.Controllers
 {
-    public class TransactionTypeController : Controller
+    public class MinuteController : Controller
     {
 
         private readonly CooperativeAccountingDataContext _databaseConnection;
@@ -20,13 +20,13 @@ namespace CooperativeAccounting.Controllers
         ///     Intitialize some connections from the class constructor
         /// </summary>
         /// <param name="databaseConnection"></param>
-        public TransactionTypeController(CooperativeAccountingDataContext databaseConnection)
+        public MinuteController(CooperativeAccountingDataContext databaseConnection)
         {
             _databaseConnection = databaseConnection;
         }
         public IActionResult Index()
         {
-            return View(_databaseConnection.TransactionTypes.ToList());
+            return View(_databaseConnection.Minutes.ToList());
         }
         public IActionResult Create()
         {
@@ -34,34 +34,34 @@ namespace CooperativeAccounting.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(TransactionType transactionType)
+        public IActionResult Create(Minute minute)
         {
             var signedInUserId = HttpContext.Session.GetInt32("LoggedInUser");
-            transactionType.CreatedBy = signedInUserId;
-            transactionType.LastModifiedBy = signedInUserId;
-            transactionType.DateCreated = DateTime.Now;
-            transactionType.DateLastModified = DateTime.Now;
-            _databaseConnection.TransactionTypes.Add(transactionType);
+            minute.CreatedBy = signedInUserId;
+            minute.LastModifiedBy = signedInUserId;
+            minute.DateCreated = DateTime.Now;
+            minute.DateLastModified = DateTime.Now;
+            _databaseConnection.Minutes.Add(minute);
             _databaseConnection.SaveChanges();
-            TempData["display"] = "You have successfully added a new Transaction Type!";
+            TempData["display"] = "You have successfully added a new Minute!";
             TempData["notificationtype"] = NotificationType.Success.ToString();
             return RedirectToAction("Index");
         }
         public IActionResult Edit(long id)
         {
-            var transactionType = _databaseConnection.TransactionTypes.Find(id);
-            return View(transactionType);
+            var minute = _databaseConnection.Minutes.Find(id);
+            return View(minute);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(TransactionType transactionType)
+        public IActionResult Edit(Minute minute)
         {
             var signedInUserId = HttpContext.Session.GetInt32("LoggedInUser");
-            transactionType.LastModifiedBy = signedInUserId;
-            transactionType.DateLastModified = DateTime.Now;
-            _databaseConnection.Entry(transactionType).State = EntityState.Modified;
+            minute.LastModifiedBy = signedInUserId;
+            minute.DateLastModified = DateTime.Now;
+            _databaseConnection.Entry(minute).State = EntityState.Modified;
             _databaseConnection.SaveChanges();
-            TempData["display"] = "You have successfully modified the Transaction Type!";
+            TempData["display"] = "You have successfully modified the Minute!";
             TempData["notificationtype"] = NotificationType.Success.ToString();
             return RedirectToAction("Index");
         }
@@ -69,10 +69,10 @@ namespace CooperativeAccounting.Controllers
         {
             try
             {
-                var transactionType = _databaseConnection.TransactionTypes.Find(id);
-                _databaseConnection.TransactionTypes.Remove(transactionType);
+                var minute = _databaseConnection.Minutes.Find(id);
+                _databaseConnection.Minutes.Remove(minute);
                 _databaseConnection.SaveChanges();
-                TempData["display"] = "You have successfully deleted the Account Type!";
+                TempData["display"] = "You have successfully deleted the Minute!";
                 TempData["notificationtype"] = NotificationType.Success.ToString();
                 return RedirectToAction("Index");
             }

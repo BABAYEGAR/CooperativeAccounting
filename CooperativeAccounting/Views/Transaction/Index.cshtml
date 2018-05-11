@@ -1,16 +1,17 @@
 ﻿@model List<CooperativeAccounting.Models.Entities.Transaction>
 @{
     Layout = "_Layout";
-
 }
-@section Css{ 
-    <link href="~/Dashboard/plugins/bower_components/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
-    <link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+
+@section Css{
+    <link href="~/Dashboard/plugins/bower_components/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css"/>
     <!-- Custom CSS -->
     <link href="~/Dashboard/css/style.css" rel="stylesheet">
     <!-- color CSS -->
     <link href="~/Dashboard/css/colors/blue.css" id="theme" rel="stylesheet">
 }
+
 <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -19,9 +20,10 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" id="myModalLabel1">Delete Transaction</h4>
-            </div>@using (Html.BeginForm("Delete", "Transaction"))
+            </div>
+            @using (Html.BeginForm("Delete", "Transaction"))
             {
-                <input type="hidden" id="id" name="id" />
+                <input type="hidden" id="id" name="id"/>
                 <div class="modal-body">
 
                     @Html.AntiForgeryToken()
@@ -31,8 +33,8 @@
 
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" value="Delete" class="btn btn-danger pull-right fa fa-trash" />
-                    <input type="button" data-dismiss="modal" value="Cancel" class="btn btn-default pull-left" />
+                    <input type="submit" value="Delete" class="btn btn-danger pull-right fa fa-trash"/>
+                    <input type="button" data-dismiss="modal" value="Cancel" class="btn btn-default pull-left"/>
                 </div>
             }
         </div>
@@ -46,8 +48,12 @@
     </div>
     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
         <ol class="breadcrumb">
-            <li><a href="#">Transactions</a></li>
-            <li><a href="#">Add Transaction</a></li>
+            <li>
+                <a href="#">Transactions</a>
+            </li>
+            <li>
+                <a href="#">Add Transaction</a>
+            </li>
         </ol>
     </div>
     <!-- /.col-lg-12 -->
@@ -62,7 +68,7 @@
         </div>
     </div>
 </div>
-<br />
+<br/>
 <div class="row">
     <div class="col-sm-12">
         <div class="white-box">
@@ -71,69 +77,70 @@
             <div class="table-responsive">
                 <table id="example23" class="display nowrap" cellspacing="0" width="100%">
                     <thead>
-                        <tr>
-                            <th style="color: red">DR</th>
-                            <th style="color: red">Date</th>
-                            <th style="color: red">Item/Name</th>
-                            <th style="color: red">Member</th>
-                            <th style="color: red">Amount</th>
-                            <th style="color: red">V.No</th>
-                            <th></th>
-                            <th style="color: green">CR</th>
-                            <th style="color: green">Date</th>
-                            <th style="color: green">Item/Name</th>
-                            <th style="color: green">Member</th>
-                            <th style="color: green">Amount</th>
-                            <th style="color: green">V.No</th>
-                        </tr>
+                    <tr>
+                        <th style="color: red">DR</th>
+                        <th style="color: red">Date</th>
+                        <th style="color: red">Item/Name</th>
+                        <th style="color: red">Member</th>
+                        <th style="color: red">Amount</th>
+                        <th style="color: red">V.No</th>
+                        <th></th>
+                        <th style="color: green">CR</th>
+                        <th style="color: green">Date</th>
+                        <th style="color: green">Item/Name</th>
+                        <th style="color: green">Member</th>
+                        <th style="color: green">Amount</th>
+                        <th style="color: green">V.No</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        @if (Model != null)
-            {
-                foreach (var item in Model)
-                {
-                    <tr>
-                        @if (item.TransactionType.Debit)
-            {
-                <th style="color: red">Debit</th>
-                <td style="color: red">@item.TransactionDate</td>
-                <td style="color: red">@item.TransactionName</td>
-                <td style="color: red">@item.AppUser.Name</td>
-                <td style="color: red">@item.Amount</td>
-                <td style="color: red">@item.VoucherNumber</td>
-                <td></td>
-                <td style="color: green">NIL</td>
-                <td style="color: green">NIL</td>
-                <td style="color: green">NIL</td>
-                <td style="color: green">NIL</td>
-                <td style="color: green">NIL</td>
-                <td style="color: green">NIL</td>
-}
-                        @if (item.TransactionType.Credit)
-            {
-                <th style="color: red">NIL</th>
-                <td style="color: red">NIL</td>
-                <td style="color: red">NIL</td>
-                <td style="color: red">NIL</td>
-                <td style="color: red">NIL</td>
-                <td style="color: red">NIL</td>
-                <td></td>
-                <td style="color: green">Credit</td>
-                <td style="color: green">@item.TransactionDate</td>
-                <td style="color: green">@item.TransactionName</td>
-                <td style="color: green">@item.AppUser.Name</td>
-                <td style="color: green">@item.Amount</td>
-                <td style="color: green">@item.VoucherNumber</td>
-}
-                    </tr>
-    }
-}
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                @if (item.TransactionType.Debit || item.TransactionType.Loan)
+                                {
+                                    <th style="color: red">Debit</th>
+                                    <td style="color: red">@item.TransactionDate</td>
+                                    <td style="color: red">@item.TransactionName</td>
+                                    <td style="color: red">@item.AppUser.Name</td>
+                                    <td style="color: red">@item.Amount</td>
+                                    <td style="color: red">@item.VoucherNumber</td>
+                                    <td></td>
+                                    <td style="color: green">NIL</td>
+                                    <td style="color: green">NIL</td>
+                                    <td style="color: green">NIL</td>
+                                    <td style="color: green">NIL</td>
+                                    <td style="color: green">NIL</td>
+                                    <td style="color: green">NIL</td>
+                                }
+                                @if (item.TransactionType.Credit)
+                                {
+                                    <th style="color: red">NIL</th>
+                                    <td style="color: red">NIL</td>
+                                    <td style="color: red">NIL</td>
+                                    <td style="color: red">NIL</td>
+                                    <td style="color: red">NIL</td>
+                                    <td style="color: red">NIL</td>
+                                    <td></td>
+                                    <td style="color: green">Credit</td>
+                                    <td style="color: green">@item.TransactionDate</td>
+                                    <td style="color: green">@item.TransactionName</td>
+                                    <td style="color: green">@item.AppUser.Name</td>
+                                    <td style="color: green">@item.Amount</td>
+                                    <td style="color: green">@item.VoucherNumber</td>
+                                }
+                            </tr>
+                        }
+                    }
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
+
 @section Scripts {
     <script src="~/Dashboard/plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
     <!-- start - This is for export functionality only -->
@@ -148,8 +155,8 @@
 
 @section Functions {
     <script>
-        $(document).ready(function () {
-            $(".loadModal3").click(function () { // Click to only happen on announce links
+        $(document).ready(function() {
+            $(".loadModal3").click(function() { // Click to only happen on announce links
                 $("#id").val($(this).data('id'));
                 $('#myModal1').modal('show');
             });

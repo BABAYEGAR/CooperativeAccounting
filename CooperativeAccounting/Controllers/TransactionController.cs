@@ -39,6 +39,8 @@ namespace CooperativeAccounting.Controllers
         }
         public IActionResult CashContribution(int year,int month)
         {
+            ViewBag.Year = year;
+            ViewBag.Month = month;
             return View(_databaseConnection.Transactions.Include(n => n.AppUser).Include(n => n.TransactionType)
                 .ToList().Where(n => n.TransactionType.Cash).ToList().Where(n=>n.DateCreated.Year == year && n.DateCreated.Month == month).ToList());
         }

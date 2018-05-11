@@ -11,9 +11,10 @@ using System;
 namespace CooperativeAccounting.Migrations
 {
     [DbContext(typeof(CooperativeAccountingDataContext))]
-    partial class CooperativeAccountingDataContextModelSnapshot : ModelSnapshot
+    [Migration("20180511011705_Migrate4")]
+    partial class Migrate4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

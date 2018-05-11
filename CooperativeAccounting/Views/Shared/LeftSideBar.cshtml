@@ -71,7 +71,7 @@
             {
                 <li>
                     <a class="waves-effect">
-                        <i class="linea-icon linea-basic fa-fw fa fa-bank"></i> <span class="hide-menu">Transactions <span class="fa arrow"></span></span>
+                        <i class="linea-icon linea-basic fa-fw fa fa-bank"></i> <span class="hide-menu"> General Transactions <span class="fa arrow"></span></span>
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
@@ -84,10 +84,42 @@
                             <a href="@Url.Action("BalanceSheet", "Transaction")">Balance Sheet</a>
                         </li>
                         <li>
+                            <a href="@Url.Action("TrialBalance", "Transaction")">Trian Balance</a>
+                        </li>
+                    </ul>
+                </li>
+            }
+            @if (user != null && user.Role.ManageAllTransaction)
+            {
+                <li>
+                    <a class="waves-effect">
+                        <i class="linea-icon linea-basic fa-fw fa fa-bank"></i> <span class="hide-menu"> Cash Transactions <span class="fa arrow"></span></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
                             <a href="@Url.Action("CashBook", "Transaction")">Cash Book</a>
                         </li>
                         <li>
-                            <a href="@Url.Action("TrialBalance", "Transaction")">Trian Balance</a>
+                            <a href="@Url.Action("Years", "Transaction")">Cash Contributions</a>
+                        </li>
+                    </ul>
+                </li>
+            }
+            @if (user != null && user.Role.ManageAllTransaction)
+            {
+                <li>
+                    <a class="waves-effect">
+                        <i class="linea-icon linea-basic fa-fw fa fa-bank"></i> <span class="hide-menu"> Loan Transactions <span class="fa arrow"></span></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="@Url.Action("Create", "Loan")">Apply Loan</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Create", "Loan",new{id = "yes"})">Apply Emergency Loan</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "Loan")">Loan Register</a>
                         </li>
                     </ul>
                 </li>

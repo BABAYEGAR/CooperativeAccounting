@@ -1,8 +1,6 @@
 ﻿@using System.Globalization
-@model List<CooperativeAccounting.Models.Entities.Transaction>
+@model List<CooperativeAccounting.Models.Entities.Loan>
 @{
-    int year = ViewBag.Year;
-    int month = ViewBag.Month;
     Layout = "_Layout";
 
 }
@@ -16,27 +14,27 @@
 }
 <div class="row bg-title">
     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-        <h4 class="page-title">Manage Cash Contribution(s) from @CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month), @year</h4>
+        <h4 class="page-title">Manage Loans</h4>
     </div>
 </div>
 <br />
 <div class="row">
     <div class="col-sm-12">
         <div class="white-box">
-            <h3 class="box-title m-b-0">Cash Contribution Transactions from @CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month), @year</h3>
+            <h3 class="box-title m-b-0">Loans</h3>
             <p class="text-muted m-b-30">Export data to Copy, CSV, Excel, PDF & Print</p>
             <div class="table-responsive">
                 <table id="example23" class="display nowrap" cellspacing="0" width="100%">
                     <thead>
-                    <tr>
-                        <th style="color: green">S/N</th>
-                        <th style="color: green">CR</th>
-                        <th style="color: green">Date</th>
-                        <th style="color: green">Item/Name</th>
-                        <th style="color: green">Member</th>
-                        <th style="color: green">Amount</th>
-                        <th style="color: green">V.No</th>
-                    </tr>
+                        <tr>
+                            <th>S/N</th>
+                            <th>Date Collected</th>
+                            <th>Terminal Date</th>
+                            <th>Member</th>
+                            <th>Amount</th>
+                            <th>Tenure</th>
+                            <th>Interest Rate(%)</th>
+                        </tr>
                     </thead>
                     <tbody>
                         @if (Model != null)
@@ -44,16 +42,14 @@
                             foreach (var item in Model)
                             {
                                 <tr>
-                                    @if (item.TransactionType.Credit)
-                                    {
                                         <td></td>
-                                        <td style="color: green">Credit</td>
-                                        <td style="color: green">@item.TransactionDate</td>
-                                        <td style="color: green">@item.TransactionName</td>
-                                        <td style="color: green">@item.AppUser.Name</td>
-                                        <td style="color: green">@item.Amount</td>
-                                        <td style="color: green">@item.VoucherNumber</td>
-                                    }
+                                    <td>@item.TransactionDate.Value.ToString("D")</td>
+                                    <td>@item.TerminalDate.Value.ToString("D")</td>
+                                        <td>@item.AppUser.Name</td>
+                                        <td>@item.Amount</td>
+                                    <td>@item.Duration</td>
+                                    <td>@item.InterestRate</td>
+                                    
                                 </tr>
                             }
                         }

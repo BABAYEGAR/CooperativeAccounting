@@ -30,5 +30,6 @@ namespace CooperativeAccounting.Models.Entities
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? TransactionDate { get; set; }
         public string VoucherNumber { get; set; }
+      
     }
 }

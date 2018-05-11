@@ -20,5 +20,9 @@ namespace CooperativeAccounting.Models.Entities
         public bool Equity { get; set; }
         [DisplayName("Liability Transaction?")]
         public bool Liability { get; set; }
+        [DisplayName("Loan Transaction?")]
+        public bool Loan { get; set; }
+        [DisplayName("Urgent Transaction?")]
+        public bool Urgent { get; set; }
     }
 }

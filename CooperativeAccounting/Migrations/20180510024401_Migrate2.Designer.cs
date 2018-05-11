@@ -11,9 +11,10 @@ using System;
 namespace CooperativeAccounting.Migrations
 {
     [DbContext(typeof(CooperativeAccountingDataContext))]
-    partial class CooperativeAccountingDataContextModelSnapshot : ModelSnapshot
+    [Migration("20180510024401_Migrate2")]
+    partial class Migrate2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -101,18 +102,6 @@ namespace CooperativeAccounting.Migrations
                     b.ToTable("AppUsers");
                 });
 
-            modelBuilder.Entity("CooperativeAccounting.Models.Entities.Bank", b =>
-                {
-                    b.Property<long>("BankId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("BankId");
-
-                    b.ToTable("Banks");
-                });
-
             modelBuilder.Entity("CooperativeAccounting.Models.Entities.Lga", b =>
                 {
                     b.Property<int>("LgaId")
@@ -125,79 +114,6 @@ namespace CooperativeAccounting.Migrations
                     b.HasKey("LgaId");
 
                     b.ToTable("Lgas");
-                });
-
-            modelBuilder.Entity("CooperativeAccounting.Models.Entities.Loan", b =>
-                {
-                    b.Property<long>("LoanId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AccountName")
-                        .IsRequired();
-
-                    b.Property<string>("AccountNumber")
-                        .IsRequired();
-
-                    b.Property<double>("Amount");
-
-                    b.Property<long>("AppUserId");
-
-                    b.Property<long?>("BankId")
-                        .IsRequired();
-
-                    b.Property<long?>("CreatedBy");
-
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<DateTime>("DateLastModified");
-
-                    b.Property<int>("Duration");
-
-                    b.Property<bool>("Emergency");
-
-                    b.Property<string>("FirstGuarantorMobile")
-                        .IsRequired()
-                        .HasMaxLength(100);
-
-                    b.Property<string>("FirstGuarantorName")
-                        .IsRequired()
-                        .HasMaxLength(100);
-
-                    b.Property<double>("InterestRate");
-
-                    b.Property<long?>("LastModifiedBy");
-
-                    b.Property<string>("Purpose");
-
-                    b.Property<string>("SecondGuarantorMobile")
-                        .IsRequired()
-                        .HasMaxLength(100);
-
-                    b.Property<string>("SecondGuarantorName")
-                        .IsRequired()
-                        .HasMaxLength(100);
-
-                    b.Property<DateTime?>("TerminalDate")
-                        .IsRequired();
-
-                    b.Property<DateTime?>("TransactionDate")
-                        .IsRequired();
-
-                    b.Property<long?>("TransactionId");
-
-                    b.Property<long?>("TransactionTypeId");
-
-                    b.HasKey("LoanId");
-
-                    b.HasIndex("AppUserId");
-
-                    b.HasIndex("BankId");
-
-                    b.HasIndex("TransactionId");
-
-                    b.HasIndex("TransactionTypeId");
-
-                    b.ToTable("Loans");
                 });
 
             modelBuilder.Entity("CooperativeAccounting.Models.Entities.Minute", b =>
@@ -337,8 +253,6 @@ namespace CooperativeAccounting.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<bool>("Urgent");
-
                     b.HasKey("TransactionTypeId");
 
                     b.ToTable("TransactionTypes");
@@ -360,27 +274,6 @@ namespace CooperativeAccounting.Migrations
                         .WithMany()
                         .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("CooperativeAccounting.Models.Entities.Loan", b =>
-                {
-                    b.HasOne("CooperativeAccounting.Models.Entities.AppUser", "AppUser")
-                        .WithMany()
-                        .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CooperativeAccounting.Models.Entities.Bank", "Bank")
-                        .WithMany()
-                        .HasForeignKey("BankId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CooperativeAccounting.Models.Entities.Transaction", "Transaction")
-                        .WithMany()
-                        .HasForeignKey("TransactionId");
-
-                    b.HasOne("CooperativeAccounting.Models.Entities.TransactionType", "TransactionType")
-                        .WithMany()
-                        .HasForeignKey("TransactionTypeId");
                 });
 
             modelBuilder.Entity("CooperativeAccounting.Models.Entities.Transaction", b =>

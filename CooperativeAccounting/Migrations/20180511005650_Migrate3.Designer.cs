@@ -11,9 +11,10 @@ using System;
 namespace CooperativeAccounting.Migrations
 {
     [DbContext(typeof(CooperativeAccountingDataContext))]
-    partial class CooperativeAccountingDataContextModelSnapshot : ModelSnapshot
+    [Migration("20180511005650_Migrate3")]
+    partial class Migrate3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -163,8 +164,6 @@ namespace CooperativeAccounting.Migrations
                         .IsRequired()
                         .HasMaxLength(100);
 
-                    b.Property<double>("InterestRate");
-
                     b.Property<long?>("LastModifiedBy");
 
                     b.Property<string>("Purpose");
@@ -176,9 +175,6 @@ namespace CooperativeAccounting.Migrations
                     b.Property<string>("SecondGuarantorName")
                         .IsRequired()
                         .HasMaxLength(100);
-
-                    b.Property<DateTime?>("TerminalDate")
-                        .IsRequired();
 
                     b.Property<DateTime?>("TransactionDate")
                         .IsRequired();

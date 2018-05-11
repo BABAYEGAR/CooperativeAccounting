@@ -37,7 +37,7 @@
                 <div class="form-group row">
                     @Html.LabelFor(model => model.TransactionDate, new {@class = "col-2 col-form-label"})
                     <div class="col-10">
-                        <input type="text" name="TransactionDate" class="form-control mydatepicker" placeholder="mm/dd/yyyy">
+                        @Html.TextBoxFor(model => model.TransactionDate, new { @class = "form-control mydatepicker", placeholder = "Please select the Transaction Date" })
                         @Html.ValidationMessageFor(model => model.TransactionDate, "", new { @class = "text-danger" })
                         </div>
             

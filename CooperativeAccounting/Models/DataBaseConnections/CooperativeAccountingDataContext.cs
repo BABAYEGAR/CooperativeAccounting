@@ -1,4 +1,5 @@
 ﻿using CooperativeAccounting.Models.Entities;
+using CooperativeAccounting.Models.Enum;
 using Microsoft.EntityFrameworkCore;
 
 namespace CooperativeAccounting.Models.DataBaseConnections
@@ -23,6 +24,9 @@ namespace CooperativeAccounting.Models.DataBaseConnections
         public virtual DbSet<Transaction> Transactions { get; set; }
         public virtual DbSet<State> States { get; set; }
         public virtual DbSet<Lga> Lgas { get; set; }
+        public virtual DbSet<Minute> Minutes { get; set; }
+        public virtual DbSet<Bank> Banks { get; set; }
+        public virtual DbSet<Loan> Loans { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=.;Database=CooperativeAccounting;Trusted_Connection=True;");
