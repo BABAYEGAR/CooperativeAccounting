@@ -12,22 +12,22 @@
     <link href="~/Dashboard/css/colors/blue.css" id="theme" rel="stylesheet">
 }
 
-<div class="row bg-title">
-    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-        <h4 class="page-title">Manage Trial Balance(s)</h4>
+    <div class="row bg-title">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h4 class="page-title">Manage Trial Balance(s)</h4>
+        </div>
+        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="@Url.Action("Index","Transaction")">Transactions</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Create","Transaction")">Add Transaction</a>
+                </li>
+            </ol>
+        </div>
+        <!-- /.col-lg-12 -->
     </div>
-    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-        <ol class="breadcrumb">
-            <li>
-                <a href="#">Transactions</a>
-            </li>
-            <li>
-                <a href="#">Add Transaction</a>
-            </li>
-        </ol>
-    </div>
-    <!-- /.col-lg-12 -->
-</div>
 <div class="row">
     <div class="col-md-6">
         <div class="btn-group">
@@ -64,7 +64,7 @@
                             <tr>
                                 <td></td>
                                 <td>@item.TransactionName</td>
-                                @if (item.TransactionType.Debit)
+                                @if (item.TransactionType.Debit || item.TransactionType.Loan)
                                 {
                                    
                                     <td style="color: red">@item.Amount</td>

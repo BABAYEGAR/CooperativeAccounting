@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using CooperativeAccounting.Models.DataBaseConnections;
+using CooperativeAccounting.Models.Encryption;
 using CooperativeAccounting.Models.Entities;
 using CooperativeAccounting.Models.Enum;
 using Microsoft.AspNetCore.Http;
@@ -22,12 +23,12 @@ namespace CooperativeAccounting.Controllers
         {
             _databaseConnection = databaseConnection;
         }
-
+        [SessionExpireFilter]
         public IActionResult Index()
         {
             return View(_databaseConnection.Loans.Include(n => n.AppUser).Include(n => n.TransactionType).ToList());
         }
-
+        [SessionExpireFilter]
         public IActionResult Create(string id)
         {
             ViewBag.AppUserId = new SelectList(_databaseConnection.AppUsers.Where(n => n.RoleId > 1).ToList(),
@@ -44,6 +45,7 @@ namespace CooperativeAccounting.Controllers
         }
 
         [HttpPost]
+        [SessionExpireFilter]
         [ValidateAntiForgeryToken]
         public IActionResult Create(Loan loan)
         {
@@ -104,7 +106,7 @@ namespace CooperativeAccounting.Controllers
             TempData["notificationtype"] = NotificationType.Success.ToString();
             return RedirectToAction("Index");
         }
-
+        [SessionExpireFilter]
         public IActionResult Edit(long id)
         {
             var loan = _databaseConnection.Loans.Find(id);
@@ -117,6 +119,7 @@ namespace CooperativeAccounting.Controllers
         }
 
         [HttpPost]
+        [SessionExpireFilter]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Loan loan)
         {
@@ -146,7 +149,7 @@ namespace CooperativeAccounting.Controllers
             TempData["notificationtype"] = NotificationType.Success.ToString();
             return RedirectToAction("Index");
         }
-
+        [SessionExpireFilter]
         public ActionResult Delete(long id)
         {
             try

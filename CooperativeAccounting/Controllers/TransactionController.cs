@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CooperativeAccounting.Models.DataBaseConnections;
+using CooperativeAccounting.Models.Encryption;
 using CooperativeAccounting.Models.Entities;
 using CooperativeAccounting.Models.Enum;
 using Microsoft.AspNetCore.Http;
@@ -24,19 +25,23 @@ namespace CooperativeAccounting.Controllers
         {
             _databaseConnection = databaseConnection;
         }
+        [SessionExpireFilter]
         public IActionResult Index()
         {
             return View(_databaseConnection.Transactions.Include(n => n.AppUser).Include(n => n.TransactionType).ToList());
         }
+        [SessionExpireFilter]
         public IActionResult Years()
         {
             return View();
         }
+        [SessionExpireFilter]
         public IActionResult Months(int? id)
         {
             ViewBag.Year = id;
             return View();
         }
+        [SessionExpireFilter]
         public IActionResult CashContribution(int year,int month)
         {
             ViewBag.Year = year;
@@ -44,25 +49,30 @@ namespace CooperativeAccounting.Controllers
             return View(_databaseConnection.Transactions.Include(n => n.AppUser).Include(n => n.TransactionType)
                 .ToList().Where(n => n.TransactionType.Cash).ToList().Where(n=>n.DateCreated.Year == year && n.DateCreated.Month == month).ToList());
         }
+        [SessionExpireFilter]
         public IActionResult PersonalLedger(long id)
         {
             return View(_databaseConnection.Transactions.Include(n => n.AppUser).Include(n => n.TransactionType).Where(n=>n.AppUserId == id).ToList());
         }
+        [SessionExpireFilter]
         public IActionResult CashBook()
         {
             return View(_databaseConnection.Transactions.Include(n => n.AppUser).Include(n=>n.TransactionType)
                 .ToList().Where(n=>n.TransactionType.Cash).ToList());
         }
+        [SessionExpireFilter]
         public IActionResult TrialBalance()
         {
             return View(_databaseConnection.Transactions.Include(n => n.AppUser).Include(n => n.TransactionType)
                 .ToList().Where(n => n.TransactionType.Cash).ToList());
         }
+        [SessionExpireFilter]
         public IActionResult BalanceSheet()
         {
             return View(_databaseConnection.Transactions.Include(n => n.AppUser).Include(n => n.TransactionType)
                 .ToList().Where(n => n.TransactionType.Asset || n.TransactionType.Equity || n.TransactionType.Liability).ToList());
         }
+        [SessionExpireFilter]
         public IActionResult Create()
         {
             ViewBag.AppUserId = new SelectList(_databaseConnection.AppUsers.Where(n=>n.RoleId > 1).ToList(), "AppUserId",
@@ -73,6 +83,7 @@ namespace CooperativeAccounting.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [SessionExpireFilter]
         public IActionResult Create(Transaction transaction)
         {
             var signedInUserId = HttpContext.Session.GetInt32("LoggedInUser");
@@ -105,6 +116,7 @@ namespace CooperativeAccounting.Controllers
             TempData["notificationtype"] = NotificationType.Success.ToString();
             return RedirectToAction("Index");
         }
+        [SessionExpireFilter]
         public IActionResult Edit(long id)
         {
             var transaction = _databaseConnection.Transactions.Find(id);
@@ -116,6 +128,7 @@ namespace CooperativeAccounting.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [SessionExpireFilter]
         public IActionResult Edit(Transaction transaction)
         {
             var signedInUserId = HttpContext.Session.GetInt32("LoggedInUser");
@@ -137,6 +150,7 @@ namespace CooperativeAccounting.Controllers
             TempData["notificationtype"] = NotificationType.Success.ToString();
             return RedirectToAction("Index");
         }
+        [SessionExpireFilter]
         public ActionResult Delete(long id)
         {
             try

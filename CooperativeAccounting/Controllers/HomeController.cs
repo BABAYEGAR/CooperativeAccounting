@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CooperativeAccounting.Models;
 using CooperativeAccounting.Models.DataBaseConnections;
+using CooperativeAccounting.Models.Encryption;
 using CooperativeAccounting.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,6 +28,7 @@ namespace CooperativeAccounting.Controllers
         {
             return View();
         }
+        [SessionExpireFilter]
         public IActionResult Dashboard()
         {
             var appTransport = new AppTransport();

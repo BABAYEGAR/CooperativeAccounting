@@ -25,8 +25,19 @@ namespace CooperativeAccounting.Controllers
         {
             _databaseConnection = databaseConnection;
         }
-        public IActionResult Login()
+        public IActionResult Login(string returnUrl)
         {
+            if (returnUrl != null && returnUrl == "sessionExpired")
+            {
+                _databaseConnection.Dispose();
+                HttpContext.Session.Clear();
+
+                //display notification
+                TempData["display"] = "Your session has expired, Login to continue!";
+                TempData["notificationtype"] = NotificationType.Success.ToString();
+                return View();
+            }
+            _databaseConnection.Dispose();
             HttpContext.Session.Clear();
             return View();
         }
@@ -42,7 +53,7 @@ namespace CooperativeAccounting.Controllers
                 {
                     var userString = JsonConvert.SerializeObject(user);
                     HttpContext.Session.SetString("User", userString);
-                    HttpContext.Session.SetString("LoggedInUser", user.AppUserId.ToString());
+                    HttpContext.Session.SetInt32("LoggedInUser", (int) user.AppUserId);
                     TempData["display"] = "Welcome Back "+user.Name + "!";
                     TempData["notificationtype"] = NotificationType.Success.ToString();
                     return RedirectToAction("Dashboard", "Home");

@@ -128,6 +128,22 @@
             {
                 <li>
                     <a class="waves-effect">
+                        <i class="linea-icon linea-basic fa-fw fa fa-book"></i> <span class="hide-menu">Meetings Minutes<span class="fa arrow"></span></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="@Url.Action("Create", "Minute")">Add Minute</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Index", "Minute")">Minutes</a>
+                        </li>
+                    </ul>
+                </li>
+            }
+            @if (user != null && user.Role.ManageTransactionType)
+            {
+                <li>
+                    <a class="waves-effect">
                         <i class="linea-icon linea-basic fa-fw fa fa-list"></i> <span class="hide-menu">Transaction Types <span class="fa arrow"></span></span>
                     </a>
                     <ul class="nav nav-second-level">

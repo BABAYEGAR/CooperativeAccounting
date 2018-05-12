@@ -25,6 +25,7 @@ namespace CooperativeAccounting.Controllers
         {
             _databaseConnection = databaseConnection;
         }
+        [SessionExpireFilter]
         public IActionResult Index()
         {
             ViewBag.Transactions = _databaseConnection.Transactions.Include(n=>n.TransactionType).ToList();
@@ -41,6 +42,7 @@ namespace CooperativeAccounting.Controllers
             var lgas = _databaseConnection.Lgas.Where(n => n.StateId == id);
             return Json(lgas);
         }
+        [SessionExpireFilter]
         public IActionResult Create()
         {
             ViewBag.State = new SelectList(_databaseConnection.States, "StateId", "Name");
@@ -48,6 +50,7 @@ namespace CooperativeAccounting.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [SessionExpireFilter]
         public IActionResult Create(AppUser appUser)
         {
 
@@ -78,6 +81,7 @@ namespace CooperativeAccounting.Controllers
             TempData["notificationtype"] = NotificationType.Success.ToString();
             return RedirectToAction("Index");
         }
+        [SessionExpireFilter]
         public IActionResult Edit(long id)
         {
             var appUser = _databaseConnection.AppUsers.Find(id);
@@ -86,6 +90,7 @@ namespace CooperativeAccounting.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [SessionExpireFilter]
         public IActionResult Edit(AppUser appUser)
         {
             var signedInUserId = HttpContext.Session.GetInt32("LoggedInUser");
@@ -97,6 +102,7 @@ namespace CooperativeAccounting.Controllers
             TempData["notificationtype"] = NotificationType.Success.ToString();
             return RedirectToAction("Index");
         }
+        [SessionExpireFilter]
         public ActionResult Delete(long id)
         {
             try

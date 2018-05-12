@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CooperativeAccounting.Models.DataBaseConnections;
+using CooperativeAccounting.Models.Encryption;
 using CooperativeAccounting.Models.Entities;
 using CooperativeAccounting.Models.Enum;
 using Microsoft.AspNetCore.Http;
@@ -23,16 +24,19 @@ namespace CooperativeAccounting.Controllers
         {
             _databaseConnection = databaseConnection;
         }
+        [SessionExpireFilter]
         public IActionResult Index()
         {
             return View(_databaseConnection.Roles.ToList());
         }
+        [SessionExpireFilter]
         public IActionResult Create()
         {
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [SessionExpireFilter]
         public IActionResult Create(Role role)
         {
             var signedInUserId = HttpContext.Session.GetInt32("LoggedInUser");
@@ -46,6 +50,7 @@ namespace CooperativeAccounting.Controllers
             TempData["notificationtype"] = NotificationType.Success.ToString();
             return RedirectToAction("Index");
         }
+        [SessionExpireFilter]
         public IActionResult Edit(long id)
         {
             var role = _databaseConnection.Roles.Find(id);
@@ -53,6 +58,7 @@ namespace CooperativeAccounting.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [SessionExpireFilter]
         public IActionResult Edit(Role role)
         {
             var signedInUserId = HttpContext.Session.GetInt32("LoggedInUser");
@@ -64,6 +70,7 @@ namespace CooperativeAccounting.Controllers
             TempData["notificationtype"] = NotificationType.Success.ToString();
             return RedirectToAction("Index");
         }
+        [SessionExpireFilter]
         public ActionResult Delete(long id)
         {
             try
