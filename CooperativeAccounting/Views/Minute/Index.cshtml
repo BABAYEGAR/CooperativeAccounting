@@ -84,7 +84,7 @@
                          {
                              <tr>
                                  <td></td>
-                                 <td>@item.Text</td>
+                                 <td>@item.Title</td>
                                  <td>@item.Date</td>
                                  <td class="text-center">
                                      <div class="btn-group">
@@ -94,12 +94,12 @@
                                          </button>
                                          <ul class="dropdown-menu pull-right" role="menu">
                                              <li>
-                                                 <a href="@Url.Action("Edit", "Minute", new {id = item.MinuteId})" data-toggle="tooltip" title="View Deatils & Edit the Transaction Type">
+                                                 <a href="@Url.Action("Edit", "Minute", new {id = item.MinuteId})" data-toggle="tooltip" title="View Deatils & Edit the Minute">
                                                      <i class="icon-docs"></i>View Details & Edit Minute
                                                  </a>
                                              </li>
                                              <li>
-                                                 <a href="#" data-toggle="tooltip" title="Delete the Transaction Type" data-id="@item.MinuteId" data-toggle="modal" class="loadModal3">
+                                                 <a href="#" data-toggle="tooltip" title="Delete the Minute" data-id="@item.MinuteId" data-toggle="modal" class="loadModal3">
                                                      <i class="icon-tag"></i>Delete Minute
                                                  </a>
                                              </li>

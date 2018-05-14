@@ -42,6 +42,13 @@ namespace CooperativeAccounting.Controllers
             return View();
         }
         [SessionExpireFilter]
+        public IActionResult SalaryDeduction()
+        {
+            ViewBag.Transactions = _databaseConnection.Transactions.Include(n => n.AppUser).Include(n => n.TransactionType).ToList();
+            ViewBag.Loans= _databaseConnection.Loans.Include(n => n.AppUser).Include(n => n.TransactionType).ToList();
+            return View(_databaseConnection.AppUsers.ToList());
+        }
+        [SessionExpireFilter]
         public IActionResult CashContribution(int year,int month)
         {
             ViewBag.Year = year;

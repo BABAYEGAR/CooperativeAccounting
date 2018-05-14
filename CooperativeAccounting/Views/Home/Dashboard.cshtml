@@ -20,12 +20,10 @@
                             <h5 class="text-muted vb">Current Balance</h5>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
-                            <h3 class="counter text-right m-t-15 text-success">@Model?.CurrentBalance</h3>
+                            <h4 class="counter text-right m-t-15 text-success">&#8358
+                            @(string.Format("{0:n0}",Model?.CurrentBalance))</h4>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            @*<div class="progress">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span class="sr-only">40% Complete (success)</span> </div>
-                                </div>*@
                         </div>
                     </div>
                 </a>
@@ -33,17 +31,14 @@
                     <div class="col-in row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <i class="linea-icon linea-basic fa fa-users"></i>
-                            <h5 class="text-muted vb">Members</h5>
+                            <h5 class="text-muted vb">Cooperative Members</h5>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
-                            <h3 class="counter text-right m-t-15 text-danger">
-                                    @Model?.AppUsers.Count
-                            </h3>
+                            <h4 class="counter text-right m-t-15 text-danger">
+                                @Model?.AppUsers.Count
+                            </h4>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            @*<div class="progress">
-                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span class="sr-only">40% Complete (success)</span> </div>
-                                </div>*@
                         </div>
                     </div>
                 </a>
@@ -51,17 +46,14 @@
                     <div class="col-in row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <i class="linea-icon linea-basic fa fa-briefcase"></i>
-                            <h5 class="text-muted vb">Transactions</h5>
+                            <h5 class="text-muted vb">Volume of Transactions</h5>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
-                            <h3 class="counter text-right m-t-15 text-megna">
+                            <h4 class="counter text-right m-t-15 text-megna">
                                 @Model?.Transactions.Count
-                            </h3>
+                            </h4>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            @*<div class="progress">
-                                    <div class="progress-bar progress-bar-megna" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span class="sr-only">40% Complete (success)</span> </div>
-                                </div>*@
                         </div>
                     </div>
                 </a>
@@ -69,15 +61,18 @@
                     <div class="col-in row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <i class="linea-icon linea-basic fa fa-money"></i>
-                            <h5 class="text-muted vb">Cash Contributions</h5>
+                            <h5 class="text-muted vb">Total Cash Contributions</h5>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
-                            <h3 class="counter text-right m-t-15 text-primary">@Model?.Transactions.Where(n=>n.TransactionType.Cash && n.TransactionType.Credit).ToList().Sum(n=>n.Amount)</h3>
+                            <h4 class="counter text-right m-t-15 text-primary">
+                                &#8358
+                                @(string.Format("{0:n0}", Model?.Transactions.Where(n => n.TransactionType.Cash && n.TransactionType.Credit).ToList().Sum(n => n.Amount)))
+                            </h4>
+
                         </div>
+
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            @*<div class="progress">
-                                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span class="sr-only">40% Complete (success)</span> </div>
-                                </div>*@
+
                         </div>
                     </div>
                 </a>
@@ -85,15 +80,15 @@
                     <div class="col-in row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <i class="linea-icon linea-basic fa fa-money"></i>
-                            <h5 class="text-muted vb">Cash Deductions</h5>
+                            <h5 class="text-muted vb">Total Cash Deductions</h5>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
-                            <h3 class="counter text-right m-t-15 text-primary">@Model?.Transactions.Where(n => n.TransactionType.Cash && n.TransactionType.Debit).ToList().Sum(n => n.Amount)</h3>
+                            <h4 class="counter text-right m-t-15 text-primary">
+                                &#8358
+                                @(string.Format("{0:n0}", @Model?.Transactions.Where(n => n.TransactionType.Cash && n.TransactionType.Debit).ToList().Sum(n => n.Amount)))
+                            </h4>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            @*<div class="progress">
-                                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span class="sr-only">40% Complete (success)</span> </div>
-                                </div>*@
                         </div>
                     </div>
                 </a>
