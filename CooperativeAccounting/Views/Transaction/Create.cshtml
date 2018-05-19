@@ -9,10 +9,10 @@
     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
         <ol class="breadcrumb">
             <li>
-                <a href="@Url.Action("Index","Transaction")">Transactions</a>
+                <a href="@Url.Action("Index", "Transaction")">Transactions</a>
             </li>
             <li>
-                <a href="@Url.Action("Create","Transaction")">Add Transaction</a>
+                <a href="@Url.Action("Create", "Transaction")">Add Transaction</a>
             </li>
         </ol>
     </div>
@@ -37,10 +37,10 @@
                 <div class="form-group row">
                     @Html.LabelFor(model => model.TransactionDate, new {@class = "col-2 col-form-label"})
                     <div class="col-10">
-                        @Html.TextBoxFor(model => model.TransactionDate, new { @class = "form-control mydatepicker", placeholder = "Please select the Transaction Date" })
-                        @Html.ValidationMessageFor(model => model.TransactionDate, "", new { @class = "text-danger" })
-                        </div>
-            
+                        @Html.TextBoxFor(model => model.TransactionDate, new {@class = "form-control mydatepicker", placeholder = "Please select the Transaction Date"})
+                        @Html.ValidationMessageFor(model => model.TransactionDate, "", new {@class = "text-danger"})
+                    </div>
+
                 </div>
                 <div class="form-group row">
                     @Html.LabelFor(model => model.AppUserId, new {@class = "col-2 col-form-label"})
@@ -61,6 +61,13 @@
                     <div class="col-10">
                         @Html.EditorFor(model => model.Amount, new {htmlAttributes = new {@class = "form-control", placeholder = "Please enter the transaction amount"}})
                         @Html.ValidationMessageFor(model => model.Amount, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.BankId, new {@class = "col-2 col-form-label"})
+                    <div class="col-10">
+                        @Html.DropDownListFor(model => model.BankId, null, "Select Bank", new {@class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.BankId, "", new {@class = "text-danger"})
                     </div>
                 </div>
                 <div class="form-group">

@@ -82,9 +82,11 @@ namespace CooperativeAccounting.Controllers
         [SessionExpireFilter]
         public IActionResult Create()
         {
+            ViewBag.BankId = new SelectList(_databaseConnection.AppUsers.ToList(), "BankId",
+                "Name");
             ViewBag.AppUserId = new SelectList(_databaseConnection.AppUsers.Where(n=>n.RoleId > 1).ToList(), "AppUserId",
                 "Name");
-            ViewBag.TransactionTypeId = new SelectList(_databaseConnection.TransactionTypes.ToList(), "TransactionTypeId",
+            ViewBag.TransactionTypeId = new SelectList(_databaseConnection.TransactionTypes.Where(n=>n.TransactionTypeId != 2).ToList(), "TransactionTypeId",
                 "Name");
             return View();
         }
@@ -129,8 +131,10 @@ namespace CooperativeAccounting.Controllers
             var transaction = _databaseConnection.Transactions.Find(id);
             ViewBag.AppUserId = new SelectList(_databaseConnection.AppUsers.Where(n => n.RoleId > 1).ToList(), "AppUserId",
                 "Name",transaction.AppUserId);
-            ViewBag.TransactionTypeId = new SelectList(_databaseConnection.TransactionTypes.ToList(), "TransactionTypeId",
+            ViewBag.TransactionTypeId = new SelectList(_databaseConnection.TransactionTypes.Where(n => n.TransactionTypeId != 2).ToList(), "TransactionTypeId",
                 "Name",transaction.TransactionTypeId);
+            ViewBag.BankId = new SelectList(_databaseConnection.AppUsers.ToList(), "BankId",
+                "Name",transaction.BankId);
             return View(transaction);
         }
         [HttpPost]

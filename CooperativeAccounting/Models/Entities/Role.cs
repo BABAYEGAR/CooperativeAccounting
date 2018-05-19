@@ -12,6 +12,10 @@ namespace CooperativeAccounting.Models.Entities
         public bool ManageAllTransaction { get; set; }
         public bool ManageMemberRoles { get; set; }
         public bool ManageTransactionType { get; set; }
+        public bool ManageLoan { get; set; }
+        public bool ManageWelfare { get; set; }
+        public bool ManageMinute { get; set; }
+        public bool ManageCashTransaction { get; set; }
 
     }
 }

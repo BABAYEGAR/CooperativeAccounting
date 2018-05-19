@@ -2,18 +2,24 @@
 @{
     Layout = "_Layout";
 }
+
 @section Css
-    {
-    <link rel="stylesheet" href="~/Dashboard/plugins/bower_components/html5-editor/bootstrap-wysihtml5.css" />
+{
+    <link rel="stylesheet" href="~/Dashboard/plugins/bower_components/html5-editor/bootstrap-wysihtml5.css"/>
 }
+
 <div class="row bg-title">
     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
         <h4 class="page-title">Manage Minute(s)</h4>
     </div>
     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
         <ol class="breadcrumb">
-            <li><a href="#">Transaction Types</a></li>
-            <li><a href="#">Edit Minutes</a></li>
+            <li>
+                <a href="#">Transaction Types</a>
+            </li>
+            <li>
+                <a href="#">Edit Minutes</a>
+            </li>
         </ol>
     </div>
     <!-- /.col-lg-12 -->
@@ -23,33 +29,33 @@
         <div class="white-box">
             <h3 class="box-title m-b-0">Edit Minute(s)</h3>
             <p class="text-muted m-b-30 font-13">Edit Minutes</p>
-            @using (Html.BeginForm("Create", "Minute", FormMethod.Post, new { enctype = "multipart/form-data", role = "form" }))
+            @using (Html.BeginForm("Create", "Minute", FormMethod.Post, new {enctype = "multipart/form-data", role = "form"}))
             {
                 @Html.AntiForgeryToken()
                 @Html.HiddenFor(m => m.MinuteId)
                 @Html.HiddenFor(m => m.DateCreated)
                 @Html.HiddenFor(m => m.CreatedBy)
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.ValidationSummary(true, "", new {@class = "text-danger"})
                 <div class="form-group row">
-                    @Html.LabelFor(model => model.Title, new { @class = "col-2 col-form-label" })
+                    @Html.LabelFor(model => model.Title, new {@class = "col-2 col-form-label"})
                     <div class="col-10">
-                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", placeholder = "Please enter the Minute Title" } })
-                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.Title, new {htmlAttributes = new {@class = "form-control", placeholder = "Please enter the Minute Title"}})
+                        @Html.ValidationMessageFor(model => model.Title, "", new {@class = "text-danger"})
                     </div>
                 </div>
                 <div class="form-group row">
-                    @Html.LabelFor(model => model.Date, new { @class = "col-2 col-form-label" })
+                    @Html.LabelFor(model => model.Date, new {@class = "col-2 col-form-label"})
                     <div class="col-10">
-                        @Html.TextBoxFor(model => model.Date, new { @class = "form-control mydatepicker", placeholder = "Please select the Minute Date" })
-                        @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                        @Html.TextBoxFor(model => model.Date, new {@class = "form-control mydatepicker", placeholder = "Please select the Minute Date"})
+                        @Html.ValidationMessageFor(model => model.Date, "", new {@class = "text-danger"})
                     </div>
 
                 </div>
                 <div class="form-group row">
-                    @Html.LabelFor(model => model.Text, new { @class = "col-2 col-form-label" })
+                    @Html.LabelFor(model => model.Text, new {@class = "col-2 col-form-label"})
                     <div class="col-10">
-                        @Html.TextAreaFor(model => model.Text, new { @class = "form-control", placeholder = "Please enter the Minute", id = "mymce" })
-                        @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+                        @Html.TextAreaFor(model => model.Text, new {@class = "form-control", placeholder = "Please enter the Minute", id = "mymce"})
+                        @Html.ValidationMessageFor(model => model.Text, "", new {@class = "text-danger"})
                     </div>
                 </div>
                 <div class="form-group">
@@ -60,8 +66,9 @@
         </div>
     </div>
 </div>
+
 @section Functions
-    {
+{
     <script src="~/Dashboard/plugins/bower_components/tinymce/tinymce.min.js"></script>
     <script>
         $(document).ready(function() {
@@ -71,9 +78,12 @@
                     theme: "modern",
                     height: 300,
                     plugins: [
-                        "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker", "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking", "save table contextmenu directionality emoticons template paste textcolor"
+                        "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+                        "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                        "save table contextmenu directionality emoticons template paste textcolor"
                     ],
-                    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons",
+                    toolbar:
+                        "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons",
                 });
             }
         });

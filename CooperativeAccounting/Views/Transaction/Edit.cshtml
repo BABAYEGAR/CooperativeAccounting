@@ -9,10 +9,10 @@
     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
         <ol class="breadcrumb">
             <li>
-                <a href="@Url.Action("Index","Transaction")">Transactions</a>
+                <a href="@Url.Action("Index", "Transaction")">Transactions</a>
             </li>
             <li>
-                <a href="@Url.Action("Create","Transaction")">Add Transaction</a>
+                <a href="@Url.Action("Create", "Transaction")">Add Transaction</a>
             </li>
         </ol>
     </div>
@@ -23,54 +23,61 @@
         <div class="white-box">
             <h3 class="box-title m-b-0">Add Transaction(s)</h3>
             <p class="text-muted m-b-30 font-13">Create Transaction</p>
-            @using (Html.BeginForm("Edit", "Transaction", FormMethod.Post, new { enctype = "multipart/form-data", role = "form" }))
-    {
-        @Html.HiddenFor(m => m.TransactionId)
-        @Html.HiddenFor(m => m.DateCreated)
-        @Html.HiddenFor(m => m.CreatedBy)
-        @Html.HiddenFor(m => m.VoucherNumber)
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group row">
-            @Html.LabelFor(model => model.TransactionName, new { @class = "col-2 col-form-label" })
-            <div class="col-10">
-                @Html.EditorFor(model => model.TransactionName, new { htmlAttributes = new { @class = "form-control", placeholder = "Please enter the transaction name" } })
-                @Html.ValidationMessageFor(model => model.TransactionName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group row">
-            @Html.LabelFor(model => model.TransactionDate, new { @class = "col-2 col-form-label" })
-            <div class="col-10">
-                @Html.TextBoxFor(model => model.TransactionDate, new { @class = "form-control mydatepicker", placeholder = "Please select the Transaction Date" })
-                @Html.ValidationMessageFor(model => model.TransactionDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group row">
-            @Html.LabelFor(model => model.AppUserId, new { @class = "col-2 col-form-label" })
-            <div class="col-10">
-                @Html.DropDownListFor(model => model.AppUserId, null, "Select Member", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.AppUserId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group row">
-            @Html.LabelFor(model => model.TransactionTypeId, new { @class = "col-2 col-form-label" })
-            <div class="col-10">
-                @Html.DropDownListFor(model => model.TransactionTypeId, null, "Select Transaction Type/Category", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.TransactionTypeId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group row">
-            @Html.LabelFor(model => model.Amount, new { @class = "col-2 col-form-label" })
-            <div class="col-10">
-                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control", placeholder = "Please enter the transaction amount" } })
-                @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <a href="@Url.Action("Index", "Transaction")" class="btn btn-default">Cancel</a>
-        </div>
-}
+            @using (Html.BeginForm("Edit", "Transaction", FormMethod.Post, new {enctype = "multipart/form-data", role = "form"}))
+            {
+                @Html.HiddenFor(m => m.TransactionId)
+                @Html.HiddenFor(m => m.DateCreated)
+                @Html.HiddenFor(m => m.CreatedBy)
+                @Html.HiddenFor(m => m.VoucherNumber)
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.TransactionName, new {@class = "col-2 col-form-label"})
+                    <div class="col-10">
+                        @Html.EditorFor(model => model.TransactionName, new {htmlAttributes = new {@class = "form-control", placeholder = "Please enter the transaction name"}})
+                        @Html.ValidationMessageFor(model => model.TransactionName, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.TransactionDate, new {@class = "col-2 col-form-label"})
+                    <div class="col-10">
+                        @Html.TextBoxFor(model => model.TransactionDate, new {@class = "form-control mydatepicker", placeholder = "Please select the Transaction Date"})
+                        @Html.ValidationMessageFor(model => model.TransactionDate, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.AppUserId, new {@class = "col-2 col-form-label"})
+                    <div class="col-10">
+                        @Html.DropDownListFor(model => model.AppUserId, null, "Select Member", new {@class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.AppUserId, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.TransactionTypeId, new {@class = "col-2 col-form-label"})
+                    <div class="col-10">
+                        @Html.DropDownListFor(model => model.TransactionTypeId, null, "Select Transaction Type/Category", new {@class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.TransactionTypeId, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Amount, new {@class = "col-2 col-form-label"})
+                    <div class="col-10">
+                        @Html.EditorFor(model => model.Amount, new {htmlAttributes = new {@class = "form-control", placeholder = "Please enter the transaction amount"}})
+                        @Html.ValidationMessageFor(model => model.Amount, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.BankId, new {@class = "col-2 col-form-label"})
+                    <div class="col-10">
+                        @Html.DropDownListFor(model => model.BankId, null, "Select Bank", new {@class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.BankId, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a href="@Url.Action("Index", "Transaction")" class="btn btn-default">Cancel</a>
+                </div>
+            }
         </div>
     </div>
 </div>

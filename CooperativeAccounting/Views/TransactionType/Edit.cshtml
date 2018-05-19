@@ -8,8 +8,12 @@
     </div>
     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
         <ol class="breadcrumb">
-            <li><a href="#">Transaction Types</a></li>
-            <li><a href="#">Add Transaction Types</a></li>
+            <li>
+                <a href="#">Transaction Types</a>
+            </li>
+            <li>
+                <a href="#">Add Transaction Types</a>
+            </li>
         </ol>
     </div>
     <!-- /.col-lg-12 -->
@@ -19,76 +23,76 @@
         <div class="white-box">
             <h3 class="box-title m-b-0">Add Transaction Type(s)</h3>
             <p class="text-muted m-b-30 font-13">Create Transaction Types</p>
-            @using (Html.BeginForm("Edit", "TransactionType", FormMethod.Post, new { enctype = "multipart/form-data", role = "form" }))
-    {
-        @Html.AntiForgeryToken()
-        @Html.HiddenFor(m => m.TransactionTypeId)
-        @Html.HiddenFor(m => m.DateCreated)
-        @Html.HiddenFor(m => m.CreatedBy)
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group row">
-            @Html.LabelFor(model => model.Name, new { @class = "col-2 col-form-label" })
-            <div class="col-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Please enter the Transaction Type Name" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group row col-md-12">
-            <div class="form-check">
-                <label class="custom-control custom-checkbox">
-                    @Html.CheckBoxFor(model => model.Debit, new { @class = "custom-control-input" })
-                    <span class="custom-control-indicator"></span>
-                    <span class="custom-control-description">Debit Transaction?</span>
-                </label>
-            </div>
-            <div class="form-check">
-                <label class="custom-control custom-checkbox">
-                    @Html.CheckBoxFor(model => model.Credit, new { @class = "custom-control-input" })
-                    <span class="custom-control-indicator"></span>
-                    <span class="custom-control-description">Credit Transaction Type?</span>
-                </label>
-            </div>
-            <div class="form-check">
-                <label class="custom-control custom-checkbox">
-                    @Html.CheckBoxFor(model => model.Cash, new { @class = "custom-control-input" })
-                    <span class="custom-control-indicator"></span>
-                    <span class="custom-control-description">Cash Transaction Type?</span>
-                </label>
-            </div>
-            <div class="form-check">
-                <label class="custom-control custom-checkbox">
-                    @Html.CheckBoxFor(model => model.Loan, new { @class = "custom-control-input" })
-                    <span class="custom-control-indicator"></span>
-                    <span class="custom-control-description">Loan Transaction Type?</span>
-                </label>
-            </div>
-            <div class="form-check">
-                <label class="custom-control custom-checkbox">
-                    @Html.CheckBoxFor(model => model.Asset, new { @class = "custom-control-input" })
-                    <span class="custom-control-indicator"></span>
-                    <span class="custom-control-description">Asset Transaction Type?</span>
-                </label>
-            </div>
-            <div class="form-check">
-                <label class="custom-control custom-checkbox">
-                    @Html.CheckBoxFor(model => model.Liability, new { @class = "custom-control-input" })
-                    <span class="custom-control-indicator"></span>
-                    <span class="custom-control-description">Liability Transaction Type?</span>
-                </label>
-            </div>
-            <div class="form-check">
-                <label class="custom-control custom-checkbox">
-                    @Html.CheckBoxFor(model => model.Equity, new { @class = "custom-control-input" })
-                    <span class="custom-control-indicator"></span>
-                    <span class="custom-control-description">Equity Transaction Type?</span>
-                </label>
-            </div>
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <a href="@Url.Action("Index", "TransactionType")" class="btn btn-default">Cancel</a>
-        </div>
-}
+            @using (Html.BeginForm("Edit", "TransactionType", FormMethod.Post, new {enctype = "multipart/form-data", role = "form"}))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.TransactionTypeId)
+                @Html.HiddenFor(m => m.DateCreated)
+                @Html.HiddenFor(m => m.CreatedBy)
+                @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Name, new {@class = "col-2 col-form-label"})
+                    <div class="col-10">
+                        @Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control", placeholder = "Please enter the Transaction Type Name"}})
+                        @Html.ValidationMessageFor(model => model.Name, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+                <div class="form-group row col-md-12">
+                    <div class="form-check">
+                        <label class="custom-control custom-checkbox">
+                            @Html.CheckBoxFor(model => model.Debit, new {@class = "custom-control-input"})
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Debit Transaction?</span>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <label class="custom-control custom-checkbox">
+                            @Html.CheckBoxFor(model => model.Credit, new {@class = "custom-control-input"})
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Credit Transaction Type?</span>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <label class="custom-control custom-checkbox">
+                            @Html.CheckBoxFor(model => model.Cash, new {@class = "custom-control-input"})
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Cash Transaction Type?</span>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <label class="custom-control custom-checkbox">
+                            @Html.CheckBoxFor(model => model.Loan, new {@class = "custom-control-input"})
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Loan Transaction Type?</span>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <label class="custom-control custom-checkbox">
+                            @Html.CheckBoxFor(model => model.Asset, new {@class = "custom-control-input"})
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Asset Transaction Type?</span>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <label class="custom-control custom-checkbox">
+                            @Html.CheckBoxFor(model => model.Liability, new {@class = "custom-control-input"})
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Liability Transaction Type?</span>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <label class="custom-control custom-checkbox">
+                            @Html.CheckBoxFor(model => model.Equity, new {@class = "custom-control-input"})
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Equity Transaction Type?</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a href="@Url.Action("Index", "TransactionType")" class="btn btn-default">Cancel</a>
+                </div>
+            }
         </div>
     </div>
 </div>

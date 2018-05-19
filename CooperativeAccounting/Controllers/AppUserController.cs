@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CooperativeAccounting.Models.DataBaseConnections;
 using CooperativeAccounting.Models.Encryption;
 using CooperativeAccounting.Models.Entities;
 using CooperativeAccounting.Models.Enum;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -16,14 +18,16 @@ namespace CooperativeAccounting.Controllers
     public class AppUserController : Controller
     {
         private readonly CooperativeAccountingDataContext _databaseConnection;
+        private readonly IHostingEnvironment _hostingEnv;
 
         /// <summary>
         ///     Intitialize some connections from the class constructor
         /// </summary>
         /// <param name="databaseConnection"></param>
-        public AppUserController(CooperativeAccountingDataContext databaseConnection)
+        public AppUserController(IHostingEnvironment env, CooperativeAccountingDataContext databaseConnection)
         {
             _databaseConnection = databaseConnection;
+            _hostingEnv = env;
         }
         [SessionExpireFilter]
         public IActionResult Index()
@@ -51,7 +55,7 @@ namespace CooperativeAccounting.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [SessionExpireFilter]
-        public IActionResult Create(AppUser appUser)
+        public IActionResult Create(AppUser appUser,IFormFile Logo)
         {
 
             var signedInUserId = HttpContext.Session.GetInt32("LoggedInUser");
@@ -75,6 +79,25 @@ namespace CooperativeAccounting.Controllers
                 TempData["notificationtype"] = NotificationType.Error.ToString();
                 return View(appUser);
             }
+            //upload user logo if any file is uploaded
+            if (Logo != null && !String.IsNullOrEmpty(Logo.FileName))
+            {
+                var fileInfo = new FileInfo(Logo.FileName);
+                var ext = fileInfo.Extension.ToLower();
+                var name = DateTime.Now.ToFileTime().ToString();
+                var fileName = name + ext;
+                var uploadedImage = _hostingEnv.WebRootPath + $@"\UploadedFiles\ProfilePicture\{fileName}";
+
+                using (var fs = System.IO.File.Create(uploadedImage))
+                {
+                    if (fs != null)
+                    {
+                        Logo.CopyTo(fs);
+                        fs.Flush();
+                        appUser.ProfilePicture = fileName;
+                    }
+                }
+            }
             _databaseConnection.AppUsers.Add(appUser);
             _databaseConnection.SaveChanges();
             TempData["display"] = "You have successfully added a new member!";
@@ -91,11 +114,31 @@ namespace CooperativeAccounting.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [SessionExpireFilter]
-        public IActionResult Edit(AppUser appUser)
+        public IActionResult Edit(AppUser appUser, IFormFile Logo)
         {
             var signedInUserId = HttpContext.Session.GetInt32("LoggedInUser");
             appUser.LastModifiedBy = signedInUserId;
             appUser.DateLastModified = DateTime.Now;
+            //upload user logo if any file is uploaded
+            if (Logo != null && !String.IsNullOrEmpty(Logo.FileName))
+            {
+                var fileInfo = new FileInfo(Logo.FileName);
+                var ext = fileInfo.Extension.ToLower();
+                var name = DateTime.Now.ToFileTime().ToString();
+                var fileName = name + ext;
+                var uploadedImage = _hostingEnv.WebRootPath + $@"\UploadedFiles\ProfilePicture\{fileName}";
+
+                using (var fs = System.IO.File.Create(uploadedImage))
+                {
+                    if (fs != null)
+                    {
+                        Logo.CopyTo(fs);
+                        fs.Flush();
+                        appUser.ProfilePicture = fileName;
+                    }
+                }
+            }
+
             _databaseConnection.Entry(appUser).State = EntityState.Modified;
             _databaseConnection.SaveChanges();
             TempData["display"] = "You have successfully modified the member!";

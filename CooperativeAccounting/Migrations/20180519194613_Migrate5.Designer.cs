@@ -11,9 +11,10 @@ using System;
 namespace CooperativeAccounting.Migrations
 {
     [DbContext(typeof(CooperativeAccountingDataContext))]
-    partial class CooperativeAccountingDataContextModelSnapshot : ModelSnapshot
+    [Migration("20180519194613_Migrate5")]
+    partial class Migrate5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -290,8 +291,6 @@ namespace CooperativeAccounting.Migrations
 
                     b.Property<long>("AppUserId");
 
-                    b.Property<long>("BankId");
-
                     b.Property<long?>("CreatedBy");
 
                     b.Property<DateTime>("DateCreated");
@@ -313,8 +312,6 @@ namespace CooperativeAccounting.Migrations
                     b.HasKey("TransactionId");
 
                     b.HasIndex("AppUserId");
-
-                    b.HasIndex("BankId");
 
                     b.HasIndex("TransactionTypeId");
 
@@ -365,7 +362,7 @@ namespace CooperativeAccounting.Migrations
 
                     b.Property<double>("Amount");
 
-                    b.Property<long?>("AppUserId");
+                    b.Property<long>("AppUserId");
 
                     b.Property<long?>("CreatedBy");
 
@@ -441,11 +438,6 @@ namespace CooperativeAccounting.Migrations
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("CooperativeAccounting.Models.Entities.Bank", "Bank")
-                        .WithMany()
-                        .HasForeignKey("BankId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("CooperativeAccounting.Models.Entities.TransactionType", "TransactionType")
                         .WithMany()
                         .HasForeignKey("TransactionTypeId")
@@ -456,7 +448,8 @@ namespace CooperativeAccounting.Migrations
                 {
                     b.HasOne("CooperativeAccounting.Models.Entities.AppUser", "AppUser")
                         .WithMany()
-                        .HasForeignKey("AppUserId");
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

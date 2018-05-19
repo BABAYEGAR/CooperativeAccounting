@@ -20,8 +20,10 @@
                             <h5 class="text-muted vb">Current Balance</h5>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
-                            <h4 class="counter text-right m-t-15 text-success">&#8358
-                            @(string.Format("{0:n0}",Model?.CurrentBalance))</h4>
+                            <h4 class="counter text-right m-t-15 text-success">
+                                &#8358
+                                @(string.Format("{0:n0}", Model?.CurrentBalance))
+                            </h4>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12">
                         </div>
@@ -85,7 +87,7 @@
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <h4 class="counter text-right m-t-15 text-primary">
                                 &#8358
-                                @(string.Format("{0:n0}", @Model?.Transactions.Where(n => n.TransactionType.Cash && n.TransactionType.Debit).ToList().Sum(n => n.Amount)))
+                                @(string.Format("{0:n0}", Model?.Transactions.Where(n => n.TransactionType.Cash && n.TransactionType.Debit).ToList().Sum(n => n.Amount)))
                             </h4>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12">

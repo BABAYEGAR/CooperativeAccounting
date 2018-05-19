@@ -52,19 +52,19 @@
                     <tbody>
                     @if (Model != null)
                     {
-                        foreach (var item in Model.Where(n=>n.RoleId == 2))
+                        foreach (var item in Model.Where(n => n.RoleId == 2))
                         {
-                            var totalSavings = transactions.Where(n => n.TransactionTypeId == 1).Sum(n => n.Amount);
+                            var welfare = transactions.Where(n => n.TransactionTypeId == 1).Sum(n => n.Amount);
                             var currentLoan = loans.Where(n => n.TerminalDate > DateTime.Now).ToList();
                             var repayment = currentLoan.Sum(n => n.Amount) / currentLoan.Sum(n => n.Duration);
                             <tr>
-                                    <td></td>
-                                    <td ></td>
-                                    <td >@item.Name</td>
-                                    <td >@totalSavings</td>
-                                    <td >@item.MonthlyContribution</td>
-                                    <td >@repayment</td>
-                                    <td>@(item.MonthlyContribution - repayment)</td>
+                                <td></td>
+                                <td ></td>
+                                <td >@item.Name</td>
+                                <td>@item.MonthlyContribution</td>
+                                <td ></td>
+                                <td >@repayment</td>
+                                <td>@(string.Format("{0:n0}", item.MonthlyContribution + welfare - repayment))</td>
                             </tr>
                         }
                     }

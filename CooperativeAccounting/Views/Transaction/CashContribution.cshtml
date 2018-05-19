@@ -4,16 +4,17 @@
     int year = ViewBag.Year;
     int month = ViewBag.Month;
     Layout = "_Layout";
-
 }
+
 @section Css{
-    <link href="~/Dashboard/plugins/bower_components/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
-    <link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Dashboard/plugins/bower_components/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css"/>
     <!-- Custom CSS -->
     <link href="~/Dashboard/css/style.css" rel="stylesheet">
     <!-- color CSS -->
     <link href="~/Dashboard/css/colors/blue.css" id="theme" rel="stylesheet">
 }
+
 <div class="row bg-title">
     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
         <h4 class="page-title">Manage Cash Contribution(s) from @CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month), @year</h4>
@@ -21,15 +22,15 @@
     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
         <ol class="breadcrumb">
             <li>
-                <a href="@Url.Action("Index","Transaction")">Transactions</a>
+                <a href="@Url.Action("Index", "Transaction")">Transactions</a>
             </li>
             <li>
-                <a href="@Url.Action("CashContribution","Transaction")">Cash Contributions</a>
+                <a href="@Url.Action("CashContribution", "Transaction")">Cash Contributions</a>
             </li>
         </ol>
     </div>
 </div>
-<br />
+<br/>
 <div class="row">
     <div class="col-sm-12">
         <div class="white-box">
@@ -49,30 +50,31 @@
                     </tr>
                     </thead>
                     <tbody>
-                        @if (Model != null)
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model.OrderByDescending(n => n.DateCreated).ToList())
                         {
-                            foreach (var item in Model)
-                            {
-                                <tr>
-                                    @if (item.TransactionType.Credit)
-                                    {
-                                        <td></td>
-                                        <td style="color: green">Credit</td>
-                                        <td style="color: green">@item.TransactionDate</td>
-                                        <td style="color: green">@item.TransactionName</td>
-                                        <td style="color: green">@item.AppUser.Name</td>
-                                        <td style="color: green">@item.Amount</td>
-                                        <td style="color: green">@item.VoucherNumber</td>
-                                    }
-                                </tr>
-                            }
+                            <tr>
+                                @if (item.TransactionType.Credit)
+                                {
+                                    <td></td>
+                                    <td style="color: green">Credit</td>
+                                    <td style="color: green">@item.TransactionDate</td>
+                                    <td style="color: green">@item.TransactionName</td>
+                                    <td style="color: green">@item.AppUser.Name</td>
+                                    <td style="color: green">@(string.Format("{0:n0}", item.Amount))</td>
+                                    <td style="color: green">@item.VoucherNumber</td>
+                                }
+                            </tr>
                         }
+                    }
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
+
 @section Scripts {
     <script src="~/Dashboard/plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
     <!-- start - This is for export functionality only -->
@@ -87,8 +89,8 @@
 
 @section Functions {
     <script>
-        $(document).ready(function () {
-            $(".loadModal3").click(function () { // Click to only happen on announce links
+        $(document).ready(function() {
+            $(".loadModal3").click(function() { // Click to only happen on announce links
                 $("#id").val($(this).data('id'));
                 $('#myModal1').modal('show');
             });
@@ -103,4 +105,3 @@
         });
     </script>
 }
-

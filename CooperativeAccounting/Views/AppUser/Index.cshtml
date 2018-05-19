@@ -3,16 +3,17 @@
 @{
     Layout = "_Layout";
     List<Transaction> transactions = ViewBag.Transactions;
-
 }
-@section Css{ 
-    <link href="~/Dashboard/plugins/bower_components/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
-    <link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+
+@section Css{
+    <link href="~/Dashboard/plugins/bower_components/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css"/>
     <!-- Custom CSS -->
     <link href="~/Dashboard/css/style.css" rel="stylesheet">
     <!-- color CSS -->
     <link href="~/Dashboard/css/colors/blue.css" id="theme" rel="stylesheet">
 }
+
 <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -21,9 +22,10 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" id="myModalLabel1">Delete Member</h4>
-            </div>@using (Html.BeginForm("Delete", "AppUser"))
+            </div>
+            @using (Html.BeginForm("Delete", "AppUser"))
             {
-                <input type="hidden" id="id" name="id" />
+                <input type="hidden" id="id" name="id"/>
                 <div class="modal-body">
 
                     @Html.AntiForgeryToken()
@@ -33,8 +35,8 @@
 
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" value="Delete" class="btn btn-danger pull-right fa fa-trash" />
-                    <input type="button" data-dismiss="modal" value="Cancel" class="btn btn-default pull-left" />
+                    <input type="submit" value="Delete" class="btn btn-danger pull-right fa fa-trash"/>
+                    <input type="button" data-dismiss="modal" value="Cancel" class="btn btn-default pull-left"/>
                 </div>
             }
         </div>
@@ -48,7 +50,9 @@
     </div>
     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
         <ol class="breadcrumb">
-            <li><a href="#">Members</a></li>
+            <li>
+                <a href="#">Members</a>
+            </li>
         </ol>
     </div>
     <!-- /.col-lg-12 -->
@@ -63,7 +67,7 @@
         </div>
     </div>
 </div>
-<br />
+<br/>
 <div class="row">
     <div class="col-sm-12">
         <div class="white-box">
@@ -86,46 +90,46 @@
                     @if (Model != null)
                     {
                         foreach (var item in Model)
-                         {
-                             <tr>
-                                 <td></td>
-                                 <td>@item.DateCreated.ToString("D")</td>
-                                 <td>@item.Name</td>
-                                 <td>@item.Email</td>
-                                 <td>@item.Mobile</td>
-                                 @*<td>
+                        {
+                            <tr>
+                                <td></td>
+                                <td>@item.DateCreated.ToString("D")</td>
+                                <td>@item.Name</td>
+                                <td>@item.Email</td>
+                                <td>@item.Mobile</td>
+                                @*<td>
                                      @if (transactions != null)
                                      {
                                          @(transactions.Where(n => n.AppUserId == item.AppUserId && n.TransactionType.Credit).Sum(n => n.Amount) - transactions.Where(n => n.AppUserId == item.AppUserId && n.TransactionType.Debit).Sum(n => n.Amount))
                                      }
                                  </td>*@
-                                 <td class="text-center">
-                                     <div class="btn-group">
-                                         <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                                             Actions
-                                             <i class="fa fa-angle-down"></i>
-                                         </button>
-                                         <ul class="dropdown-menu pull-right" role="menu">
-                                             <li>
-                                                 <a href="@Url.Action("Edit", "AppUser", new {id = item.AppUserId})" data-toggle="tooltip" title="View Deatils & Edit the Account Type">
-                                                     <i class="icon-docs"></i>View Details & Edit Member
-                                                 </a>
-                                             </li>
-                                             <li>
-                                                 <a href="@Url.Action("PersonalLedger", "Transaction", new {id = item.AppUserId})" data-toggle="tooltip" title="View Personal Ledger">
-                                                     <i class="icon-docs"></i>View Personal Ledger
-                                                 </a>
-                                             </li>
-                                             <li>
-                                                 <a href="#" data-toggle="tooltip" title="Delete the Account Type" data-id="@item.AppUserId" data-toggle="modal" class="loadModal3">
-                                                     <i class="icon-tag"></i>Delete Member
-                                                 </a>
-                                             </li>
-                                         </ul>
-                                     </div>
-                                 </td>
-                             </tr>
-                         }
+                                <td class="text-center">
+                                    <div class="btn-group">
+                                        <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                            Actions
+                                            <i class="fa fa-angle-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right" role="menu">
+                                            <li>
+                                                <a href="@Url.Action("Edit", "AppUser", new {id = item.AppUserId})" data-toggle="tooltip" title="View Deatils & Edit the Account Type">
+                                                    <i class="icon-docs"></i>View Details & Edit Member
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("PersonalLedger", "Transaction", new {id = item.AppUserId})" data-toggle="tooltip" title="View Personal Ledger">
+                                                    <i class="icon-docs"></i>View Personal Ledger
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" data-toggle="tooltip" title="Delete the Account Type" data-id="@item.AppUserId" data-toggle="modal" class="loadModal3">
+                                                    <i class="icon-tag"></i>Delete Member
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
                     }
                     </tbody>
                 </table>
@@ -133,6 +137,7 @@
         </div>
     </div>
 </div>
+
 @section Scripts {
     <script src="~/Dashboard/plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
     <!-- start - This is for export functionality only -->
@@ -147,8 +152,8 @@
 
 @section Functions {
     <script>
-        $(document).ready(function () {
-            $(".loadModal3").click(function () { // Click to only happen on announce links
+        $(document).ready(function() {
+            $(".loadModal3").click(function() { // Click to only happen on announce links
                 $("#id").val($(this).data('id'));
                 $('#myModal1').modal('show');
             });

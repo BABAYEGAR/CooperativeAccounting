@@ -27,6 +27,7 @@ namespace CooperativeAccounting.Models.DataBaseConnections
         public virtual DbSet<Minute> Minutes { get; set; }
         public virtual DbSet<Bank> Banks { get; set; }
         public virtual DbSet<Loan> Loans { get; set; }
+        public virtual DbSet<Welfare> Welfares { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=.;Database=CooperativeAccounting;Trusted_Connection=True;");

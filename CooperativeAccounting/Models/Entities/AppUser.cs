@@ -29,7 +29,8 @@ namespace CooperativeAccounting.Models.Entities
 
         public string MobileExtension { get; set; }
         public string Address { get; set; }
-
+        [Display(Name = "File No")]
+        public string FileNumber { get; set; }
         [Required] public string Password { get; set; }
 
         [Required]

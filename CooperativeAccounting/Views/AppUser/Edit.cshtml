@@ -9,18 +9,43 @@
     </div>
     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
         <ol class="breadcrumb">
-            <li><a href="#">Members</a></li>
-            <li><a href="#">Edit Member</a></li>
+            <li>
+                <a href="#">Members</a>
+            </li>
+            <li>
+                <a href="#">Edit Member</a>
+            </li>
         </ol>
     </div>
     <!-- /.col-lg-12 -->
 </div>
 <div class="row">
-    <div class="col-sm-12">
+    <div class="col-md-4 col-xs-12">
+        <div class="white-box">
+            <div class="user-bg">
+                <img width="100%" alt="user" src="~/Dashboard/plugins/images/large/img1.jpg">
+                <div class="overlay-box">
+                    <div class="user-content">
+                        @if (String.IsNullOrEmpty(Model.ProfilePicture))
+                        {
+                            <a><img src="~/UploadedFiles/ProfilePicture/Avatar.jpg" class="thumb-lg img-circle" alt="img"></a>
+                        }
+                        else
+                        {
+                            <a><img src="~/UploadedFiles/ProfilePicture/@Model.ProfilePicture" class="thumb-lg img-circle" alt="img"></a>
+                        }
+                        <h4 class="text-white">@Model.Name</h4>
+                        <h5 class="text-white">@Model.Email</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8 col-xs-12">
         <div class="white-box">
             <h3 class="box-title m-b-0">Edit @Model.Name</h3>
             <p class="text-muted m-b-30 font-13">Edit Member information</p>
-            @using (Html.BeginForm("Edit", "AppUser", FormMethod.Post, new { enctype = "multipart/form-data", role = "form" }))
+            @using (Html.BeginForm("Edit", "AppUser", FormMethod.Post, new {enctype = "multipart/form-data", role = "form"}))
             {
                 @Html.HiddenFor(m => m.AppUserId)
                 @Html.HiddenFor(m => m.DateCreated)
@@ -33,104 +58,110 @@
                 @Html.HiddenFor(m => m.RoleId)
                 @Html.HiddenFor(m => m.Status)
                 @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.ValidationSummary(true, "", new {@class = "text-danger"})
                 <div class="form-group col-md-6">
-                    @Html.LabelFor(model => model.Name, new { @class = "col-2 col-form-label" })
+                    @Html.LabelFor(model => model.Name, new {@class = "col-2 col-form-label"})
                     <div class="col-10">
-                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Please enter the Member Name" } })
-                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control", placeholder = "Please enter the Member Name"}})
+                        @Html.ValidationMessageFor(model => model.Name, "", new {@class = "text-danger"})
                     </div>
                 </div>
                 <div class="form-group col-md-6">
-                    @Html.LabelFor(model => model.Surname, new { @class = "col-2 col-form-label" })
+                    @Html.LabelFor(model => model.Surname, new {@class = "col-2 col-form-label"})
                     <div class="col-10">
-                        @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control", placeholder = "Please enter the Surname" } })
-                        @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.Surname, new {htmlAttributes = new {@class = "form-control", placeholder = "Please enter the Surname"}})
+                        @Html.ValidationMessageFor(model => model.Surname, "", new {@class = "text-danger"})
                     </div>
                 </div>
                 <div class="form-group col-md-6">
-                    @Html.LabelFor(model => model.Gender, new { @class = "col-2 col-form-label" })
+                    @Html.LabelFor(model => model.Gender, new {@class = "col-2 col-form-label"})
                     <div class="col-10">
-                        @Html.DropDownListFor(model => model.Gender, Html.GetEnumSelectList(typeof(Gender)), "Select Gender", new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                        @Html.DropDownListFor(model => model.Gender, Html.GetEnumSelectList(typeof(Gender)), "Select Gender", new {@class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.Gender, "", new {@class = "text-danger"})
                     </div>
                 </div>
                 <div class="form-group col-md-6">
-                    @Html.LabelFor(model => model.Nationality, new { @class = "col-2 col-form-label" })
+                    @Html.LabelFor(model => model.Nationality, new {@class = "col-2 col-form-label"})
                     <div class="col-10">
-                        @Html.DropDownListFor(model => model.Nationality, Html.GetEnumSelectList(typeof(Country)), "Select Nationality", new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Nationality, "", new { @class = "text-danger" })
+                        @Html.DropDownListFor(model => model.Nationality, Html.GetEnumSelectList(typeof(Country)), "Select Nationality", new {@class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.Nationality, "", new {@class = "text-danger"})
                     </div>
                 </div>
                 <div class="form-group col-md-6">
-                    @Html.LabelFor(m => m.State, new { @class = "col-2 col-form-label" })
+                    @Html.LabelFor(m => m.State, new {@class = "col-2 col-form-label"})
                     <div class="col-10">
-                        @Html.DropDownListFor(m => m.StateId, (SelectList)ViewBag.State, "--Please select your state--", new { @class = "form-control", id = "state" })
+                        @Html.DropDownListFor(m => m.StateId, (SelectList) ViewBag.State, "--Please select your state--", new {@class = "form-control", id = "state"})
                     </div>
                 </div>
                 <div class="form-group col-md-6">
-                    @Html.LabelFor(m => m.Lga, new { @class = "col-2 col-form-label" })
+                    @Html.LabelFor(m => m.Lga, new {@class = "col-2 col-form-label"})
                     <div class="col-10">
 
-                        @Html.DropDownListFor(m => m.LgaId, new SelectList(string.Empty, "Value", "Text"), "--Please select your local government area--", new { @class = "form-control", id = "lga" })
+                        @Html.DropDownListFor(m => m.LgaId, new SelectList(string.Empty, "Value", "Text"), "--Please select your local government area--", new {@class = "form-control", id = "lga"})
                     </div>
                 </div>
                 <div class="form-group row col-md-12">
-                    @Html.LabelFor(model => model.Address, new { @class = "col-2 col-form-label" })
+                    @Html.LabelFor(model => model.Address, new {@class = "col-2 col-form-label"})
                     <div class="col-11">
-                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", placeholder = "Please enter the Member Address" } })
-                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.Address, new {htmlAttributes = new {@class = "form-control", placeholder = "Please enter the Member Address"}})
+                        @Html.ValidationMessageFor(model => model.Address, "", new {@class = "text-danger"})
                     </div>
                 </div>
                 <div class="form-group col-md-6">
-                    @Html.LabelFor(model => model.Mobile, new { @class = "col-2 col-form-label" })
+                    @Html.LabelFor(model => model.Mobile, new {@class = "col-2 col-form-label"})
                     <div class="col-10">
-                        @Html.EditorFor(model => model.Mobile, new { htmlAttributes = new { @class = "form-control", placeholder = "Please enter the Member Name" } })
-                        @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.Mobile, new {htmlAttributes = new {@class = "form-control", placeholder = "Please enter the Member Name"}})
+                        @Html.ValidationMessageFor(model => model.Mobile, "", new {@class = "text-danger"})
                     </div>
                 </div>
                 <div class="form-group col-md-6">
-                    @Html.LabelFor(model => model.Email, new { @class = "col-2 col-form-label" })
+                    @Html.LabelFor(model => model.Email, new {@class = "col-2 col-form-label"})
                     <div class="col-10">
-                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Please enter the Member Email Address" } })
-                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.Email, new {htmlAttributes = new {@class = "form-control", placeholder = "Please enter the Member Email Address"}})
+                        @Html.ValidationMessageFor(model => model.Email, "", new {@class = "text-danger"})
                     </div>
                 </div>
                 <div class="form-group col-md-6">
-                    @Html.LabelFor(model => model.MaritalStatus, new { @class = "col-2 col-form-label" })
+                    @Html.LabelFor(model => model.MaritalStatus, new {@class = "col-2 col-form-label"})
                     <div class="col-10">
-                        @Html.DropDownListFor(model => model.MaritalStatus, Html.GetEnumSelectList(typeof(MaritalStatus)), "Select Marital Status", new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.MaritalStatus, "", new { @class = "text-danger" })
+                        @Html.DropDownListFor(model => model.MaritalStatus, Html.GetEnumSelectList(typeof(MaritalStatus)), "Select Marital Status", new {@class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.MaritalStatus, "", new {@class = "text-danger"})
                     </div>
                 </div>
                 <div class="form-group col-md-6">
-                    @Html.LabelFor(model => model.Spouce, new { @class = "col-2 col-form-label" })
+                    @Html.LabelFor(model => model.Spouce, new {@class = "col-2 col-form-label"})
                     <div class="col-10">
-                        @Html.EditorFor(model => model.Spouce, new { htmlAttributes = new { @class = "form-control", placeholder = "Please enter the name of your spouce" } })
-                        @Html.ValidationMessageFor(model => model.Spouce, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.Spouce, new {htmlAttributes = new {@class = "form-control", placeholder = "Please enter the name of your spouce"}})
+                        @Html.ValidationMessageFor(model => model.Spouce, "", new {@class = "text-danger"})
                     </div>
                 </div>
                 <div class="clearfix"></div>
                 <div class="form-group col-md-6">
-                    @Html.LabelFor(model => model.NextOfKin, new { @class = "col-2 col-form-label" })
+                    @Html.LabelFor(model => model.NextOfKin, new {@class = "col-2 col-form-label"})
                     <div class="col-10">
-                        @Html.EditorFor(model => model.NextOfKin, new { htmlAttributes = new { @class = "form-control", placeholder = "Please enter the next of kin" } })
-                        @Html.ValidationMessageFor(model => model.NextOfKin, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.NextOfKin, new {htmlAttributes = new {@class = "form-control", placeholder = "Please enter the next of kin"}})
+                        @Html.ValidationMessageFor(model => model.NextOfKin, "", new {@class = "text-danger"})
                     </div>
                 </div>
                 <div class="form-group col-md-6">
-                    @Html.LabelFor(model => model.NextOfKinAddress, new { @class = "col-2 col-form-label" })
+                    @Html.LabelFor(model => model.NextOfKinAddress, new {@class = "col-2 col-form-label"})
                     <div class="col-10">
-                        @Html.EditorFor(model => model.NextOfKinAddress, new { htmlAttributes = new { @class = "form-control", placeholder = "Please enter the next of kin address" } })
-                        @Html.ValidationMessageFor(model => model.NextOfKinAddress, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.NextOfKinAddress, new {htmlAttributes = new {@class = "form-control", placeholder = "Please enter the next of kin address"}})
+                        @Html.ValidationMessageFor(model => model.NextOfKinAddress, "", new {@class = "text-danger"})
                     </div>
                 </div>
                 <div class="form-group col-md-6">
-                    @Html.LabelFor(model => model.MonthlyContribution, new { @class = "col-2 col-form-label" })
+                    @Html.LabelFor(model => model.MonthlyContribution, new {@class = "col-2 col-form-label"})
                     <div class="col-10">
-                        @Html.EditorFor(model => model.MonthlyContribution, new { htmlAttributes = new { @class = "form-control", placeholder = "Please enter the monthly contribution" } })
-                        @Html.ValidationMessageFor(model => model.MonthlyContribution, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.MonthlyContribution, new {htmlAttributes = new {@class = "form-control", placeholder = "Please enter the monthly contribution"}})
+                        @Html.ValidationMessageFor(model => model.MonthlyContribution, "", new {@class = "text-danger"})
                     </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <div class="white-box">
+                        <h3 class="box-title">Profile Picture Upload</h3>
+                        <label for="input-file-now-custom-1">You can add a default value</label>
+                        <input type="file" name="Logo" id="input-file-now-custom-1" class="dropify" data-default-file="../UploadedFiles/ProfilePicture/Avatar.jpg" /> </div>
                 </div>
                 <div class="clearfix"></div>
                 <div class="form-group row">
@@ -141,8 +172,9 @@
         </div>
     </div>
 </div>
+
 @section Scripts
-    {
+{
     <script>
         $(document)
             .ready(function() {
@@ -183,5 +215,40 @@
 
 
     </script>
-
+    <script>
+        $(document).ready(function() {
+            // Basic
+            $('.dropify').dropify();
+            // Translated
+            $('.dropify-fr').dropify({
+                messages: {
+                    default: 'Glissez-déposez un fichier ici ou cliquez',
+                    replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+                    remove: 'Supprimer',
+                    error: 'Désolé, le fichier trop volumineux'
+                }
+            });
+            // Used events
+            var drEvent = $('#input-file-events').dropify();
+            drEvent.on('dropify.beforeClear', function(event, element) {
+                return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+            });
+            drEvent.on('dropify.afterClear', function(event, element) {
+                alert('File deleted');
+            });
+            drEvent.on('dropify.errors', function(event, element) {
+                console.log('Has Errors');
+            });
+            var drDestroy = $('#input-file-to-destroy').dropify();
+            drDestroy = drDestroy.data('dropify')
+            $('#toggleDropify').on('click', function(e) {
+                e.preventDefault();
+                if (drDestroy.isDropified()) {
+                    drDestroy.destroy();
+                } else {
+                    drDestroy.init();
+                }
+            })
+        });
+    </script>
 }
