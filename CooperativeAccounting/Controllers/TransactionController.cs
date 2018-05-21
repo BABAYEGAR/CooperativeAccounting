@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using CooperativeAccounting.Models.DataBaseConnections;
 using CooperativeAccounting.Models.Encryption;
 using CooperativeAccounting.Models.Entities;
@@ -10,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace CooperativeAccounting.Controllers
 {
@@ -31,21 +31,25 @@ namespace CooperativeAccounting.Controllers
             return View(_databaseConnection.Transactions.Include(n => n.AppUser).Include(n => n.TransactionType).ToList());
         }
         [SessionExpireFilter]
-        public IActionResult Years()
+        public IActionResult Years(string page)
         {
+            ViewBag.Page = page;
             return View();
         }
         [SessionExpireFilter]
-        public IActionResult Months(int? id)
+        public IActionResult Months(int? id, string page)
         {
             ViewBag.Year = id;
+            ViewBag.Page = page;
             return View();
         }
         [SessionExpireFilter]
-        public IActionResult SalaryDeduction()
+        public IActionResult SalaryDeduction(int year, int month)
         {
-            ViewBag.Transactions = _databaseConnection.Transactions.Include(n => n.AppUser).Include(n => n.TransactionType).ToList();
-            ViewBag.Loans= _databaseConnection.Loans.Include(n => n.AppUser).Include(n => n.TransactionType).ToList();
+            ViewBag.Year = year;
+            ViewBag.Month = month;
+            ViewBag.Loans= _databaseConnection.Loans.Include(n => n.AppUser).ToList();
+            ViewBag.Welfares = _databaseConnection.Welfares.Include(n => n.AppUser).ToList();
             return View(_databaseConnection.AppUsers.ToList());
         }
         [SessionExpireFilter]
@@ -56,6 +60,73 @@ namespace CooperativeAccounting.Controllers
             return View(_databaseConnection.Transactions.Include(n => n.AppUser).Include(n => n.TransactionType)
                 .ToList().Where(n => n.TransactionType.Cash).ToList().Where(n=>n.DateCreated.Year == year && n.DateCreated.Month == month).ToList());
         }
+        public IActionResult PayCashContribution(int year, int month)
+        {
+            ViewBag.Year = year;
+            ViewBag.Month = month;
+            return View(_databaseConnection.AppUsers.ToList());
+        }
+
+        /// <summary>
+        ///     Search for photographer
+        /// </summary>
+        /// <param name="table_records"></param>
+        /// <param name="collection"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PayCashContribution(int[] table_records)
+        {
+            try
+            {
+                List<Transaction>usersTransactions = new List<Transaction>();
+                if (table_records != null && table_records.Length > 0)
+                {
+                    var length = table_records.Length;
+                    for (var i = 0; i < length; i++)
+                    {
+                        long userId = Convert.ToInt64(table_records[i]);
+                        var user = _databaseConnection.AppUsers.Find(userId);
+                        var transaction = new Transaction
+                        {
+                            DateCreated = DateTime.Now,
+                            TransactionDate = DateTime.Now,
+                            TransactionName = "Monthly Contribution",
+                            CreatedBy = userId,
+                            LastModifiedBy = userId,
+                            AppUserId = userId,
+                            Action = TransactionAction.Credit.ToString(),
+                            Amount = user.MonthlyContribution,
+                            TransactionTypeId = 1,
+                            BankId = 1,
+                            DateLastModified = DateTime.Now,
+                            VoucherNumber = "NIL"
+                        };
+
+                        usersTransactions.Add(transaction);
+
+                    }
+                    _databaseConnection.Transactions.AddRange(usersTransactions);
+                    _databaseConnection.SaveChanges();
+                    TempData["display"] = "You have successfully paid the member(s) monthly contribution!";
+                    TempData["notificationtype"] = NotificationType.Success.ToString();
+                    return RedirectToAction("PayCashContribution");
+                }
+
+                TempData["display"] = "You did not select any member!";
+                TempData["notificationtype"] = NotificationType.Error.ToString();
+                return RedirectToAction("PayCashContribution");
+
+
+            }
+            catch (Exception ex)
+            {
+                TempData["display"] = ex.ToString();
+                TempData["notificationtype"] = NotificationType.Error.ToString();
+                return RedirectToAction("PayCashContribution");
+            }
+        }
+
         [SessionExpireFilter]
         public IActionResult PersonalLedger(long id)
         {
@@ -82,7 +153,7 @@ namespace CooperativeAccounting.Controllers
         [SessionExpireFilter]
         public IActionResult Create()
         {
-            ViewBag.BankId = new SelectList(_databaseConnection.AppUsers.ToList(), "BankId",
+            ViewBag.BankId = new SelectList(_databaseConnection.Banks.ToList(), "BankId",
                 "Name");
             ViewBag.AppUserId = new SelectList(_databaseConnection.AppUsers.Where(n=>n.RoleId > 1).ToList(), "AppUserId",
                 "Name");
@@ -133,7 +204,7 @@ namespace CooperativeAccounting.Controllers
                 "Name",transaction.AppUserId);
             ViewBag.TransactionTypeId = new SelectList(_databaseConnection.TransactionTypes.Where(n => n.TransactionTypeId != 2).ToList(), "TransactionTypeId",
                 "Name",transaction.TransactionTypeId);
-            ViewBag.BankId = new SelectList(_databaseConnection.AppUsers.ToList(), "BankId",
+            ViewBag.BankId = new SelectList(_databaseConnection.Banks.ToList(), "BankId",
                 "Name",transaction.BankId);
             return View(transaction);
         }

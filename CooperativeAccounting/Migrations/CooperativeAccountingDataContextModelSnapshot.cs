@@ -3,9 +3,6 @@ using CooperativeAccounting.Models.DataBaseConnections;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
 namespace CooperativeAccounting.Migrations
@@ -290,7 +287,7 @@ namespace CooperativeAccounting.Migrations
 
                     b.Property<long>("AppUserId");
 
-                    b.Property<long>("BankId");
+                    b.Property<long?>("BankId");
 
                     b.Property<long?>("CreatedBy");
 
@@ -443,8 +440,7 @@ namespace CooperativeAccounting.Migrations
 
                     b.HasOne("CooperativeAccounting.Models.Entities.Bank", "Bank")
                         .WithMany()
-                        .HasForeignKey("BankId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("BankId");
 
                     b.HasOne("CooperativeAccounting.Models.Entities.TransactionType", "TransactionType")
                         .WithMany()

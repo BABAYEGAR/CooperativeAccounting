@@ -11,8 +11,8 @@ using System;
 namespace CooperativeAccounting.Migrations
 {
     [DbContext(typeof(CooperativeAccountingDataContext))]
-    [Migration("20180511005650_Migrate3")]
-    partial class Migrate3
+    [Migration("20180519211727_Migrate1")]
+    partial class Migrate1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,6 +42,8 @@ namespace CooperativeAccounting.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(100);
+
+                    b.Property<string>("FileNumber");
 
                     b.Property<string>("Gender")
                         .IsRequired();
@@ -164,6 +166,8 @@ namespace CooperativeAccounting.Migrations
                         .IsRequired()
                         .HasMaxLength(100);
 
+                    b.Property<double>("InterestRate");
+
                     b.Property<long?>("LastModifiedBy");
 
                     b.Property<string>("Purpose");
@@ -175,6 +179,9 @@ namespace CooperativeAccounting.Migrations
                     b.Property<string>("SecondGuarantorName")
                         .IsRequired()
                         .HasMaxLength(100);
+
+                    b.Property<DateTime?>("TerminalDate")
+                        .IsRequired();
 
                     b.Property<DateTime?>("TransactionDate")
                         .IsRequired();
@@ -237,13 +244,21 @@ namespace CooperativeAccounting.Migrations
 
                     b.Property<bool>("ManageAllTransaction");
 
+                    b.Property<bool>("ManageCashTransaction");
+
+                    b.Property<bool>("ManageLoan");
+
                     b.Property<bool>("ManageMemberRoles");
 
                     b.Property<bool>("ManageMemberTransaction");
 
                     b.Property<bool>("ManageMembers");
 
+                    b.Property<bool>("ManageMinute");
+
                     b.Property<bool>("ManageTransactionType");
+
+                    b.Property<bool>("ManageWelfare");
 
                     b.Property<string>("Name")
                         .IsRequired();
@@ -276,6 +291,8 @@ namespace CooperativeAccounting.Migrations
 
                     b.Property<long>("AppUserId");
 
+                    b.Property<long?>("BankId");
+
                     b.Property<long?>("CreatedBy");
 
                     b.Property<DateTime>("DateCreated");
@@ -297,6 +314,8 @@ namespace CooperativeAccounting.Migrations
                     b.HasKey("TransactionId");
 
                     b.HasIndex("AppUserId");
+
+                    b.HasIndex("BankId");
 
                     b.HasIndex("TransactionTypeId");
 
@@ -338,6 +357,43 @@ namespace CooperativeAccounting.Migrations
                     b.HasKey("TransactionTypeId");
 
                     b.ToTable("TransactionTypes");
+                });
+
+            modelBuilder.Entity("CooperativeAccounting.Models.Entities.Welfare", b =>
+                {
+                    b.Property<long>("WelfareId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<double>("Amount");
+
+                    b.Property<long?>("AppUserId");
+
+                    b.Property<long?>("CreatedBy");
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<DateTime>("DateLastModified");
+
+                    b.Property<int>("Duration");
+
+                    b.Property<long?>("LastModifiedBy");
+
+                    b.Property<bool>("Member");
+
+                    b.Property<string>("Owner");
+
+                    b.Property<string>("Reason")
+                        .IsRequired();
+
+                    b.Property<DateTime>("StartDate");
+
+                    b.Property<DateTime>("TerminalDate");
+
+                    b.HasKey("WelfareId");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("Welfares");
                 });
 
             modelBuilder.Entity("CooperativeAccounting.Models.Entities.AppUser", b =>
@@ -386,10 +442,21 @@ namespace CooperativeAccounting.Migrations
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.HasOne("CooperativeAccounting.Models.Entities.Bank", "Bank")
+                        .WithMany()
+                        .HasForeignKey("BankId");
+
                     b.HasOne("CooperativeAccounting.Models.Entities.TransactionType", "TransactionType")
                         .WithMany()
                         .HasForeignKey("TransactionTypeId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("CooperativeAccounting.Models.Entities.Welfare", b =>
+                {
+                    b.HasOne("CooperativeAccounting.Models.Entities.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,5 +1,3 @@
-using System;
-
 namespace CooperativeAccounting.Models
 {
     public class ErrorViewModel

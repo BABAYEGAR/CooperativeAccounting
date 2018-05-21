@@ -89,7 +89,7 @@
                     <tbody>
                     @if (Model != null)
                     {
-                        foreach (var item in Model)
+                        foreach (var item in Model.Where(n=>n.RoleId > 1).ToList())
                         {
                             <tr>
                                 <td></td>

@@ -1,11 +1,7 @@
-﻿@using CooperativeAccounting.Models.Entities
-@model List<AppUser>
+﻿@using System.Globalization
+@model List<CooperativeAccounting.Models.Entities.AppUser>
 @{
     Layout = "_Layout";
-    List<Loan> loans = ViewBag.Loans;
-    List<Welfare> welfares = ViewBag.Welfares;
-    int year = ViewBag.Year;
-    int month = ViewBag.Month;
 }
 
 @section Css{
@@ -19,15 +15,15 @@
 
 <div class="row bg-title">
     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-        <h4 class="page-title">Manage Salary dedcution</h4>
+        <h4 class="page-title">Manage Cash Contribution(s) for @CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(DateTime.Now.Month), @DateTime.Now.Year</h4>
     </div>
     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
         <ol class="breadcrumb">
             <li>
-                <a href="@Url.Action("Create", "Transaction")">Add Transactions</a>
+                <a href="@Url.Action("Index", "Transaction")">Transactions</a>
             </li>
             <li>
-                <a href="@Url.Action("Index", "Transaction")">Cash Contributions</a>
+                <a href="@Url.Action("CashContribution", "Transaction")">Cash Contributions</a>
             </li>
         </ol>
     </div>
@@ -36,52 +32,40 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="white-box">
-            <h3 class="box-title m-b-0">Salary Deduction of all members</h3>
+            <h3 class="box-title m-b-0">Pay Cash Contribution Transactions for @CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(DateTime.Now.Month), @DateTime.Now.Year</h3>
             <p class="text-muted m-b-30">Export data to Copy, CSV, Excel, PDF & Print</p>
+        @using (Html.BeginForm("PayCashContribution", "Transaction", FormMethod.Post, new {enctype = "multipart/form-data", role = "form"}))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new {@class = "text-danger"})
             <div class="table-responsive">
+                <input type="submit" value="Collect Contribution" class="btn btn-primary pull-right"/>
                 <table id="example23" class="display nowrap" cellspacing="0" width="100%">
                     <thead>
                     <tr>
-                        <th >S/N</th>
-                        <th >File No</th>
-                        <th >Mmember</th>
-                        <th >Savings</th>
-                        <th >Welfare</th>
-                        <th >Loan Repayment</th>
-                        <th >Total</th>
+                        <th style="color: green"> <input type="checkbox" class="fxhdr" id="checkAll" /></th>
+                        <th style="color: green">Narration</th>
+                        <th style="color: green">Member</th>
+                        <th style="color: green">Amount</th>
                     </tr>
                     </thead>
                     <tbody>
                     @if (Model != null)
                     {
-                        foreach (var item in Model.Where(n => n.RoleId == 2))
+                        foreach (var item in Model.OrderByDescending(n => n.DateCreated).ToList())
                         {
-                            double repayment = 0;
-                            var welfare = welfares.Where(n => n.AppUserId ==item.AppUserId && n.StartDate.Month == month && n.StartDate.Year == year).Sum(n => n.Amount);
-                            var currentLoan = loans.Where(n => n.AppUserId ==item.AppUserId &&n.TerminalDate != null && n.TransactionDate != null && (n.TransactionDate.Value.Month == month && n.TransactionDate.Value.Year == year)).ToList();
-                            double repaymentBefore = currentLoan.Sum(n => n.Amount) / currentLoan.Sum(n => n.Duration);
-                            if (repaymentBefore > 0)
-                            {
-                                repayment = repaymentBefore;
-                            }
-                            else
-                            {
-                                repayment = 0;
-                            }
-                            <tr>
-                                <td></td>
-                                <td >@item.FileNumber</td>
-                                <td >@item.Name</td>
-                                <td>@item.MonthlyContribution</td>
-                                <td >@welfare</td>
-                                <td >@repayment</td>
-                                <td>@(string.Format("{0:n0}", item.MonthlyContribution + welfare - repayment))</td>
-                            </tr>
+                        <tr>
+                            <td> <input type="checkbox" class="checkbox" name="table_records" value="@item.AppUserId" /></td>
+                            <td style="color: green">Monthly Contribution</td>
+                            <td style="color: green">@item.Name</td>
+                            <td style="color: green">@(string.Format("{0:n0}", item.MonthlyContribution))</td>
+                        </tr>
                         }
                     }
                     </tbody>
                 </table>
             </div>
+        }
         </div>
     </div>
 </div>
@@ -114,5 +98,11 @@
                 'copy', 'csv', 'excel', 'pdf', 'print'
             ]
         });
+    </script>
+    <script>
+        $(".checkAll").on('change',
+            function() {
+                $(".checkbox").prop('checked', $(this).is(":checked"));
+            });
     </script>
 }

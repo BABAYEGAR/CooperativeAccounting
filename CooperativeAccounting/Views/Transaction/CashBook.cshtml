@@ -50,17 +50,17 @@
                     <tr>
                         <th style="color: red">DR</th>
                         <th style="color: red">Date</th>
-                        <th style="color: red">Item/Name</th>
+                        <th style="color: red">Narration</th>
                         <th style="color: red">Member</th>
                         <th style="color: red">Amount</th>
-                        <th style="color: red">V.No</th>
+                        @*<th style="color: red">V.No</th>*@
                         <th></th>
                         <th style="color: green">CR</th>
                         <th style="color: green">Date</th>
-                        <th style="color: green">Item/Name</th>
+                        <th style="color: green">Narration</th>
                         <th style="color: green">Member</th>
                         <th style="color: green">Amount</th>
-                        <th style="color: green">V.No</th>
+                        @*<th style="color: green">V.No</th>*@
                     </tr>
                     </thead>
                     <tbody>
@@ -76,14 +76,14 @@
                                     <td style="color: red">@item.TransactionName</td>
                                     <td style="color: red">@item.AppUser.Name</td>
                                     <td style="color: red">@(string.Format("{0:n0}", item.Amount))</td>
-                                    <td style="color: red">@item.VoucherNumber</td>
+                                    @*<td style="color: red">@item.VoucherNumber</td>*@
                                     <td></td>
                                     <td style="color: green">NIL</td>
                                     <td style="color: green">NIL</td>
                                     <td style="color: green">NIL</td>
                                     <td style="color: green">NIL</td>
                                     <td style="color: green">NIL</td>
-                                    <td style="color: green">NIL</td>
+                                    @*<td style="color: green">NIL</td>*@
                                 }
                                 @if (item.TransactionType.Credit)
                                 {
@@ -92,14 +92,14 @@
                                     <td style="color: red">NIL</td>
                                     <td style="color: red">NIL</td>
                                     <td style="color: red">NIL</td>
-                                    <td style="color: red">NIL</td>
+                                    @*<td style="color: red">NIL</td>*@
                                     <td></td>
                                     <td style="color: green">Credit</td>
                                     <td style="color: green">@item.TransactionDate</td>
                                     <td style="color: green">@item.TransactionName</td>
                                     <td style="color: green">@item.AppUser.Name</td>
                                     <td style="color: green">@(string.Format("{0:n0}", item.Amount))</td>
-                                    <td style="color: green">@item.VoucherNumber</td>
+                                    @*<td style="color: green">@item.VoucherNumber</td>*@
                                 }
                             </tr>
                         }

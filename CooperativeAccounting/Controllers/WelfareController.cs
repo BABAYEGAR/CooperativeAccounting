@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using CooperativeAccounting.Models.DataBaseConnections;
 using CooperativeAccounting.Models.Encryption;
 using CooperativeAccounting.Models.Entities;
@@ -29,7 +27,7 @@ namespace CooperativeAccounting.Controllers
         [SessionExpireFilter]
         public IActionResult Index()
         {
-            return View(_databaseConnection.Welfares.ToList());
+            return View(_databaseConnection.Welfares.Include(n=>n.AppUser).ToList());
         }
         [SessionExpireFilter]
         public IActionResult Create(string member)

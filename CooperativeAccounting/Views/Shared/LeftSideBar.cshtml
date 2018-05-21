@@ -90,7 +90,7 @@
                             <a href="@Url.Action("TrialBalance", "Transaction")">Trian Balance</a>
                         </li>
                         <li>
-                            <a href="@Url.Action("SalaryDeduction", "Transaction")">Salary Deductions</a>
+                            <a href="@Url.Action("Years", "Transaction",new{page = "SalaryDeduction"})">Salary Deductions</a>
                         </li>
                     </ul>
                 </li>
@@ -106,7 +106,10 @@
                             <a href="@Url.Action("CashBook", "Transaction")">Cash Book</a>
                         </li>
                         <li>
-                            <a href="@Url.Action("Years", "Transaction")">Cash Contributions</a>
+                            <a href="@Url.Action("Years", "Transaction",new{page = "CashContribution"})">Cash Contributions</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("PayCashContribution", "Transaction")">Pay Cash Contributions</a>
                         </li>
                     </ul>
                 </li>
@@ -138,10 +141,10 @@
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="@Url.Action("Create", "Minute",new{member = "no"})">Add General Welfare</a>
+                            <a href="@Url.Action("Create", "Welfare",new{member = "no"})">Add General Welfare</a>
                         </li>
                         <li>
-                            <a href="@Url.Action("Create", "Minute",new{member = "yes"})">Add Member Welfare</a>
+                            <a href="@Url.Action("Create", "Welfare",new{member = "yes"})">Add Member Welfare</a>
                         </li>
                         <li>
                             <a href="@Url.Action("Index", "Welfare")">Welfares</a>

@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace CooperativeAccounting.Models.Entities
+﻿namespace CooperativeAccounting.Models.Entities
 {
     public class Lga
     {

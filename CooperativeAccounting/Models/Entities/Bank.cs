@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace CooperativeAccounting.Models.Entities
+﻿namespace CooperativeAccounting.Models.Entities
 {
     public class Bank
     {

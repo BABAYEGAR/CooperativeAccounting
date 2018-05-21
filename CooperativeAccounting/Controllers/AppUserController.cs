@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using CooperativeAccounting.Models.DataBaseConnections;
 using CooperativeAccounting.Models.Encryption;
 using CooperativeAccounting.Models.Entities;
@@ -43,7 +41,7 @@ namespace CooperativeAccounting.Controllers
         /// Microsoft.CodeDom.Providers.DotNetCompilerPlatform
         public JsonResult GetLgaForState(int id)
         {
-            var lgas = _databaseConnection.Lgas.Where(n => n.StateId == id);
+            var lgas = _databaseConnection.Lgas.Where(n => n.StateId == id-1);
             return Json(lgas);
         }
         [SessionExpireFilter]

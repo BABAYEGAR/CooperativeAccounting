@@ -1,5 +1,4 @@
 ﻿using CooperativeAccounting.Models.Entities;
-using CooperativeAccounting.Models.Enum;
 using Microsoft.EntityFrameworkCore;
 
 namespace CooperativeAccounting.Models.DataBaseConnections

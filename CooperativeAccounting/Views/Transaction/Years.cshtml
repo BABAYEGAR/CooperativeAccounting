@@ -2,6 +2,7 @@
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Dashboard";
+    string page = ViewBag.Page;
 }
 <div class="row bg-title">
     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
@@ -25,7 +26,7 @@
             <div class="row row-in">
                 @for (var i = 2008; i <= DateTime.Now.Year; i++)
                 {
-                    <a href="@Url.Action("Months", "Transaction", new {id = i})" class="col-lg-4 col-sm-6 row-in-br">
+                    <a href="@Url.Action("Months", "Transaction", new {id = i,page = page})" class="col-lg-4 col-sm-6 row-in-br">
                         <div class="col-in row">
                             <div class="col-md-6 col-sm-6 col-xs-6">
                                 <i class="linea-icon linea-basic fa fa-calendar"></i>
